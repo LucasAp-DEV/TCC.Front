@@ -1,0 +1,105 @@
+body {
+  background-color: #3e28a3;
+}
+
+.register {
+  height: 100vh;
+}
+
+.inputContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  
+}
+
+.loginBox, .senhaBox, .nomeBox, .emailBox, .telefoneBox, .cidadeBox {
+  flex: 0 0 calc(33.333% - 10px);
+  margin-bottom: 20px;
+}
+
+
+.register h1{
+  display: inline-block;
+  align-content: start;
+  width: 100%;
+  width: 300px;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+
+.register input {
+  width: calc(100% - 20px);
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 3px solid #9f28a3;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.register p {
+  text-align: center;
+}
+
+.register button {
+  padding: 10px;
+  background-color: #9f28a3;
+  transition: transform 0.3s;
+}
+
+.register button:hover {
+  transform: scale(1.1);
+  background-color: #610e64;
+}
+
+
+.register input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #9f28a3;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.register input[type="checkbox"]:hover {
+  background-color: #1eff00;
+}
+
+.register input[type="checkbox"]:checked {
+  background-color: #1eff00;
+} 
+
+.register input::placeholder {
+  font-size: 15px;  
+  text-align: start;
+}
+
+.loginBox p, .senhaBox p, .nomeBox p, .emailBox p, .telefoneBox p, .cidadeBox p{
+  text-align: start;
+  margin-bottom: 5px;
+  width: 60px;
+  color: white;
+}
+
+.checkBox h3 {
+  color: white;
+}
+.checkBox p {
+  color: white;
+}
+
+.checkBox {
+  display: flex;
+  align-items: center;
+}
+ .checkBox input {
+  align-content: center;
+ }

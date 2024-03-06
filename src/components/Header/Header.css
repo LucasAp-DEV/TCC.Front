@@ -1,0 +1,25 @@
+.dashboard {
+    background-color: rgb(51, 51, 56);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding: 1rem 2rem;
+}
+
+.dashboard ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.dashboard button {
+    background-color: rgb(51, 51, 56);
+    color: #ffffff;
+}
+
+.dashboard button:hover {
+    background-color: rgb(51, 51, 56);
+}

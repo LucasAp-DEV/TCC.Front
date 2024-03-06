@@ -1,0 +1,11 @@
+
+.boxMenu {
+    background-color: #E7E8F0;
+    margin: 30px 30px 30px 30px;
+    border-radius: 50px;
+}
+
+.boxMenu p {
+    color: black;
+    text-align: start;
+}
