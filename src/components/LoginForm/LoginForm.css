@@ -30,6 +30,7 @@
   text-decoration: none;
   padding: 10px;
   width: 95%;
+  height: 55px;
   background-color: rgb(38, 38, 43);
 }
 
@@ -38,6 +39,7 @@
     font-family: Arial, sans-serif;
     text-decoration: none;
     color: rgb(72, 72, 77);
+    padding-left: 65%;
 }
 
 .formContainer1:hover button {

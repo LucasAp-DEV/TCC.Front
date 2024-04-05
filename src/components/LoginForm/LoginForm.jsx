@@ -22,11 +22,6 @@ const LoginForm = ({ login, password, onChangeLogin, onChangePassword, onSubmit,
         value={password}
         onChange={onChangePassword}
       />
-      <div style={{ marginTop:'8px'}}>
-          <a href="/register" className="forgotPassword">
-            Cadastrar-se
-          </a>
-      </div>
       <p>
       <Button
             onClick={onSubmit} 
@@ -34,6 +29,12 @@ const LoginForm = ({ login, password, onChangeLogin, onChangePassword, onSubmit,
             disabled={loading}
           />
       </p>
+      <div style={{ marginTop:'8px'}}>
+          <a href="/register" className="forgotPassword">
+            Cadastrar-se
+          </a>
+      </div>
+      
       </div>
     </div>
   );

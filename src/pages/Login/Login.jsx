@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import axios from 'axios';
-import Loading from '../../components/Loading/Loading';
 
 const Login = () => {
 
@@ -25,7 +24,7 @@ const Login = () => {
 
   const onSubmit = async () => {
     let errorText = "";
-  
+
     if (!login || !password) {
       errorText = "Ambos os campos são necessários.";
       Swal.fire({
@@ -34,8 +33,8 @@ const Login = () => {
         text: errorText
       });
       return;
-    } 
-  
+    }
+
     try {
       setRemoveLoading(true)
       const response = await axios.post('http://localhost:8080/auth/login', {
@@ -59,11 +58,10 @@ const Login = () => {
         text: errorText
       });
       console.error('Erro de rede:', error);
-    }finally {
+    } finally {
       setRemoveLoading(false);
     }
   }
-  
 
   return (
     <div className='container'>
@@ -77,7 +75,6 @@ const Login = () => {
           loading={loading}
         />
       </div>
-      
     </div>
   );
 
