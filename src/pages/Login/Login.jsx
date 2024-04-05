@@ -36,7 +36,6 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
       });
-
       if (response.status === 200) {
         const authToken = response.data.token;
         localStorage.setItem("token", authToken);
@@ -46,7 +45,6 @@ const Login = () => {
       setErrorLogin('Credenciais Invalidas');
       console.error('Erro de rede:', error);
     }
-
     console.log(login, password);
   }
 

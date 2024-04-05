@@ -23,7 +23,7 @@ const Usuarios = () => {
 
     const renderApiData = () => {
         if (loading || !apiData?.length) {
-            return (<h1>Carregando</h1>)
+            return (<h1>Carregando2</h1>)
         } 
         return (
             <div className="api-data-container">

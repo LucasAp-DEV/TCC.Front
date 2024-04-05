@@ -1,5 +1,5 @@
 .container {
-  background-color: #6f10bd;
+  background-color: #c1b8c9;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -13,7 +13,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 05%;
+  border-radius: 03%;
   align-items: center;
   justify-content: center;
   display: flex;

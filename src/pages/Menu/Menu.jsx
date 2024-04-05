@@ -18,7 +18,7 @@ const Menu = () => {
             <BoxItem
             nome='Leonardo Eventos'
             endereco={'Rua São Paulo - Jardim Primavera'}
-            valor={'890,00'}
+            valor={'890,30'}
             ddd={'44'}
             contato={'9 91334455'}
             />

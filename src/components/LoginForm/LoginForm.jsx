@@ -6,6 +6,7 @@ import Button from '../../components/Button/Button';
 const LoginForm = ({ login, password, onChangeLogin, onChangePassword, onSubmit }) => {
   return (
     <div className='formContainer1'>
+      <div>
       <Input
         placeholder='Login:'
         type='text'
@@ -30,6 +31,7 @@ const LoginForm = ({ login, password, onChangeLogin, onChangePassword, onSubmit 
         onClick={onSubmit} 
         text='Entrar' />
       </p>
+      </div>
     </div>
   );
 }
