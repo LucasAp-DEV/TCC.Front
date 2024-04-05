@@ -2,8 +2,9 @@ import React from 'react';
 import './LoginForm.css'
 import Input from '../../components/Button/Input';
 import Button from '../../components/Button/Button';
+import Loading from '../Loading/Loading';
 
-const LoginForm = ({ login, password, onChangeLogin, onChangePassword, onSubmit }) => {
+const LoginForm = ({ login, password, onChangeLogin, onChangePassword, onSubmit, loading }) => {
   return (
     <div className='formContainer1'>
       <div>
@@ -27,9 +28,11 @@ const LoginForm = ({ login, password, onChangeLogin, onChangePassword, onSubmit 
           </a>
       </div>
       <p>
-        <Button
-        onClick={onSubmit} 
-        text='Entrar' />
+      <Button
+            onClick={onSubmit} 
+            text={loading ? <Loading /> : 'Entrar'}
+            disabled={loading}
+          />
       </p>
       </div>
     </div>

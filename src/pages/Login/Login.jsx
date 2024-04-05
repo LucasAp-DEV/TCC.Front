@@ -3,12 +3,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import axios from 'axios';
+import Loading from '../../components/Loading/Loading';
 
 const Login = () => {
 
+  const Swal = require('sweetalert2')
+
   const [login, setLogin] = useState()
   const [password, setPassword] = useState()
-  const [errorLogin, setErrorLogin] = useState();
+  const [loading, setRemoveLoading] = useState(false)
 
   const navigate = useNavigate()
 
@@ -21,13 +24,20 @@ const Login = () => {
   }
 
   const onSubmit = async () => {
-
+    let errorText = "";
+  
     if (!login || !password) {
-      setErrorLogin("Favor insira as credenciais");
+      errorText = "Ambos os campos são necessários.";
+      Swal.fire({
+        icon: "error",
+        title: "Erro no Login",
+        text: errorText
+      });
       return;
     } 
-
+  
     try {
+      setRemoveLoading(true)
       const response = await axios.post('http://localhost:8080/auth/login', {
         login,
         password,
@@ -42,11 +52,18 @@ const Login = () => {
         navigate('/menu');
       }
     } catch (error) {
-      setErrorLogin('Credenciais Invalidas');
+      errorText = "Credenciais Inválidas";
+      Swal.fire({
+        icon: "error",
+        title: "Erro no Login",
+        text: errorText
+      });
       console.error('Erro de rede:', error);
+    }finally {
+      setRemoveLoading(false);
     }
-    console.log(login, password);
   }
+  
 
   return (
     <div className='container'>
@@ -57,13 +74,11 @@ const Login = () => {
           onChangeLogin={onChangeLogin}
           onChangePassword={onChangePassword}
           onSubmit={onSubmit}
+          loading={loading}
         />
       </div>
-      <div>
-        {errorLogin && <p className="error">{errorLogin}</p>}
-      </div>
+      
     </div>
-
   );
 
 }

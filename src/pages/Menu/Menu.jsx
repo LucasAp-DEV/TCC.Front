@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import './Menu.css'
-import Button from '../../components/Button/Button'
+// import Button from '../../components/Button/Button'
 import BoxItem from '../../components/BoxItem/BoxItem' 
 
 const Menu = () => {
