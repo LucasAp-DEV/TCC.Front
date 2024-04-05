@@ -7,34 +7,35 @@ import Loading from '../Loading/Loading';
 const LoginForm = ({ login, password, onChangeLogin, onChangePassword, onSubmit, loading }) => {
   return (
     <div className='formContainer1'>
+      <div style={{ marginTop: '50px' }}>
+        <Input
+          placeholder='Login:'
+          type='text'
+          name='LoginInput'
+          value={login}
+          onChange={onChangeLogin}
+        />
+        <Input
+          placeholder='Senha:'
+          type='password'
+          name='passwordInput'
+          value={password}
+          onChange={onChangePassword}
+        />
+      </div>
       <div>
-      <Input
-        placeholder='Login:'
-        type='text'
-        name='LoginInput'
-        value={login}
-        onChange={onChangeLogin}
-      />
-      <Input
-        placeholder='Senha:'
-        type='password'
-        name='passwordInput'
-        value={password}
-        onChange={onChangePassword}
-      />
-      <p>
-      <Button
-            onClick={onSubmit} 
+        <p>
+          <Button
+            onClick={onSubmit}
             text={loading ? <Loading /> : 'Entrar'}
             disabled={loading}
           />
-      </p>
-      <div style={{ marginTop:'8px'}}>
-          <a href="/register" className="forgotPassword">
-            Cadastrar-se
-          </a>
+        </p>
       </div>
-      
+      <div style={{ marginTop: '80px' }}>
+        <a href="/register" className="forgotPassword">
+          Cadastrar-se
+        </a>
       </div>
     </div>
   );

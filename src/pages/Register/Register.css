@@ -1,16 +1,19 @@
-.register-container {
-  width: 600px;
-  margin: 180px auto;
+.container {
+    background-color: #ffffff;
+    height: 100vh;
+    width: 100vw;
 }
 
-.error {
-  padding: 10px 50px;
-  font-size: 21px;
-  background-color: #2e2b2be7;
-  color: #ffffff;
-  border-radius: 10px;
+.form {
+  height: 700px;
+  width: 100%;
+  background-color: #eeebeb;
   position: absolute;
-  top: 80%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  box-shadow: 1px 3px 50px 1px rgb(148, 150, 150);
 }

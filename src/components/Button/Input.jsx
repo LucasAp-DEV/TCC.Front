@@ -1,5 +1,3 @@
-import './Input.css'
-
 const Input = ({label, inputName, value, onChange, type = "text", placeholder}) => {
     return (
             <div>

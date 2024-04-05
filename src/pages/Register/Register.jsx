@@ -7,6 +7,9 @@ const Register = () => {
 
   const [login, setLogin] = useState();
   const [password, setPassword] = useState();
+  const [name, setName] = useState();
+  const [email, setemail] = useState();
+  const [telefone, setTelefone] = useState();
   const [role, setRole] = useState('USER');
   const [errorRegister, setErrorRegister] = useState();
 
@@ -19,6 +22,18 @@ const Register = () => {
 
   const onChangePassword = (event) => {
     setPassword(event.target.value)
+  }
+
+  const onChangeName = (event) => {
+    setName(event.target.value)
+  }
+
+  const onChangeEmail = (event) => {
+    setemail(event.target.value)
+  }
+
+  const onChangeTelefone = (event) => {
+    setTelefone(event.target.value)
   }
 
   const onChangeRole = () => {
@@ -69,23 +84,25 @@ const Register = () => {
   console.log(password, login, role);
 
   return (
-    <div>
-      <div className="register-container">
-        <RegisterForm
-          login={login}
-          password={password}
-          role={role}
-          onChangeLogin={onChangeLogin}
-          onChangePassword={onChangePassword}
-          onchangeRole={onChangeRole}
-          onSubmit={onSubmit}
-        />
-        <div>
-          {errorRegister && <p className="error">{errorRegister}</p>}
+      <div className='container'>
+        <div className='form'>
+          <RegisterForm
+            login={login}
+            password={password}
+            name={name}
+            email={email}
+            telefone={telefone}
+            role={role}
+            onChangeName={onChangeName}
+            onChangeEmail={onChangeEmail}
+            onChangeTelefone={onChangeTelefone}
+            onChangeLogin={onChangeLogin}
+            onChangePassword={onChangePassword}
+            onchangeRole={onChangeRole}
+            onSubmit={onSubmit}
+          />
         </div>
       </div>
-    </div>
-
   )
 }
 

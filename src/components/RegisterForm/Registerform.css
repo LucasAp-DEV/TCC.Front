@@ -1,105 +1,78 @@
-body {
-  background-color: #a6a6b1;
-}
-
 .register {
-  height: 100vh;
+  width: 100%;
+  width: 100%;
+  text-align: center;
 }
 
 .inputContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-bottom: 20px;
-  
+  padding: 5px;
+  width: 70%;
+  margin-left: 15%;
 }
 
 .loginBox, .senhaBox, .nomeBox, .emailBox, .telefoneBox, .cidadeBox {
   flex: 0 0 calc(33.333% - 10px);
-  margin-bottom: 20px;
-}
-
-
-.register h1{
-  display: inline-block;
-  align-content: start;
-  width: 100%;
-  width: 300px;
-  color: rgb(12, 12, 12);
-  border-radius: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
 }
 
 
 .register input {
-  width: calc(100% - 20px);
+  width: 100%;
   margin-bottom: 10px;
   padding: 10px;
-  border: 3px solid #1b1a1b;
+  border: 3px solid #534e53;
   border-radius: 5px;
-  box-sizing: border-box;
+  font-size: 16px;
 }
-
-.register p {
-  text-align: center;
-}
-
 .register button {
   padding: 10px;
-  background-color: #9f28a3;
   transition: transform 0.3s;
+  font-size: 30px;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  text-decoration: none;
+  margin-top: 9px;
+  width: 250px;
+  height: 55px;
+  background-color: rgb(38, 38, 43);
 }
 
 .register button:hover {
   transform: scale(1.1);
-  background-color: #610e64;
+  background-color: #1a1919;
 }
 
 
 .register input[type="checkbox"] {
   appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   width: 20px;
-  height: 20px;
-  border: 2px solid #9f28a3;
+  border: 2px solid #181618;
   border-radius: 5px;
-  outline: none;
   cursor: pointer;
   transition: transform 0.3s;
-}
-
-.register input[type="checkbox"]:hover {
-  background-color: #1eff00;
+  background-color: aliceblue;
 }
 
 .register input[type="checkbox"]:checked {
-  background-color: #1eff00;
+  background-color: #2e312e;
 } 
 
 .register input::placeholder {
-  font-size: 15px;  
+  font-size: 18px;  
   text-align: start;
 }
 
 .loginBox p, .senhaBox p, .nomeBox p, .emailBox p, .telefoneBox p, .cidadeBox p{
+  font-family: Arial, sans-serif;
   text-align: start;
   margin-bottom: 5px;
-  width: 60px;
   color: rgb(5, 5, 5);
 }
-
-.checkBox h3 {
-  color: rgb(12, 11, 11);
-}
-.checkBox p {
-  color: rgb(10, 10, 10);
-}
-
-.checkBox {
-  display: flex;
-  align-items: center;
-}
- .checkBox input {
-  align-content: center;
- }

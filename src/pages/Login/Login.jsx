@@ -2,7 +2,7 @@ import './Login.css'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../../components/LoginForm/LoginForm';
-import axios from 'axios';
+import { api } from '../../api';
 
 const Login = () => {
 
@@ -37,7 +37,7 @@ const Login = () => {
 
     try {
       setRemoveLoading(true)
-      const response = await axios.post('http://localhost:8080/auth/login', {
+      const response = await api.post('/user/login', {
         login,
         password,
       }, {
