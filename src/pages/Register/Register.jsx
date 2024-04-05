@@ -5,13 +5,15 @@ import { api } from '../../api';
 
 const Register = () => {
 
+  const Swal = require('sweetalert2')
+
   const [login, setLogin] = useState();
   const [password, setPassword] = useState();
   const [name, setName] = useState();
   const [email, setemail] = useState();
   const [telefone, setTelefone] = useState();
   const [role, setRole] = useState('USER');
-  const [errorRegister, setErrorRegister] = useState();
+  const [loading, setRemoveLoading] = useState();
 
   const token = localStorage.getItem('token');
 
@@ -41,14 +43,21 @@ const Register = () => {
   }
 
   const onSubmit = async () => {
+    let errorText = "";
 
     if (!login || !password) {
-      setErrorRegister("Por favor insira as credenciais.");
+      errorText = "Ambos os campos são necessários.";
+      Swal.fire({
+        icon: "error",
+        title: "Erro ao Cadastrar",
+        text: errorText
+      });
       return;
     }
 
 
     try {
+      setRemoveLoading(true)
       const response = await api.post('/auth/register', {
         login,
         password,
@@ -63,20 +72,28 @@ const Register = () => {
 
       if (response.status === 200) {
         console.log('Cadastro bem-sucedido:', response.data);
-        setErrorRegister('Registrado com Sucesso');
-
+        errorText = "Erro ao Cadastrar";
+        Swal.fire({
+        icon: "success",
+        title: "Cadastro Realizado",
+        text: errorText
+      });
         setLogin("");
         setPassword("");
 
       } else {
-        const data = await response.json();
-        setErrorRegister(data.error || 'Erro ao Registrar usuario');
         console.log("Erro ao reristrar usuario");
       }
-
     } catch (error) {
-      setErrorRegister('Você não possui permissão');
+      errorText = "Erro ao Cadastrar";
+      Swal.fire({
+        icon: "error",
+        title: "Erro ao Cadastrar",
+        text: errorText
+      });
       console.error('Erro no cadastro:', error);
+    }finally {
+      setRemoveLoading(false);
     }
 
   }
@@ -100,6 +117,7 @@ const Register = () => {
             onChangePassword={onChangePassword}
             onchangeRole={onChangeRole}
             onSubmit={onSubmit}
+            loading={loading}
           />
         </div>
       </div>
