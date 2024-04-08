@@ -73,7 +73,7 @@ const Register = () => {
       return;
     }
 
-    if(password != passwordValid) {
+    if (password != passwordValid) {
       showErrorAlert("As Senhas nao conferem");
       return;
     }
@@ -82,7 +82,6 @@ const Register = () => {
       showErrorAlert("Digite corretamente o numero de telefone");
       return;
     }
-    
 
     try {
       setRemoveLoading(true);
@@ -91,7 +90,7 @@ const Register = () => {
         password,
         role,
         nome,
-        email, 
+        email,
         telephone
       });
       console.log('Cadastro bem-sucedido:', response.data);
@@ -107,32 +106,32 @@ const Register = () => {
     } finally {
       setRemoveLoading(false);
     }
-}
+  }
 
-return (
-  <div className='container'>
-    <div className='form'>
-      <RegisterForm
-        login={login}
-        password={password}
-        nome={nome}
-        email={email}
-        telephone={telephone}
-        role={role}
-        passwordValid={passwordValid}
-        onChangeName={onChangeName}
-        onChangeEmail={onChangeEmail}
-        onChangeTelefone={onChangeTelefone}
-        onChangeLogin={onChangeLogin}
-        onChangePassword={onChangePassword}
-        onchangeRole={onChangeRole}
-        onChangePasswordValid={onChangePasswordValid}
-        onSubmit={onSubmit}
-        loading={loading}
-      />
+  return (
+    <div className='container'>
+      <div className='form'>
+        <RegisterForm
+          login={login}
+          password={password}
+          nome={nome}
+          email={email}
+          telephone={telephone}
+          role={role}
+          passwordValid={passwordValid}
+          onChangeName={onChangeName}
+          onChangeEmail={onChangeEmail}
+          onChangeTelefone={onChangeTelefone}
+          onChangeLogin={onChangeLogin}
+          onChangePassword={onChangePassword}
+          onchangeRole={onChangeRole}
+          onChangePasswordValid={onChangePasswordValid}
+          onSubmit={onSubmit}
+          loading={loading}
+        />
+      </div>
     </div>
-  </div>
-)
+  )
 }
 
 export default Register

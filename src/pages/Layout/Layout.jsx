@@ -4,11 +4,12 @@ import Header from '../../components/Header/Header';
 
 const Layout = () => {
 
-
     return (
-        <div>
+        <div style={{width: '100vw', height: '100vh'}}>
             <Header />
-            <Outlet />
+            <div style={{backgroundColor: 'white'}}>
+                <Outlet />
+            </div>
         </div>
     );
 }

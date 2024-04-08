@@ -3,23 +3,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
-    padding: 1rem 2rem;
-}
-
-.dashboard ul {
-    padding: 0;
-    margin: 0;
-    display: flex;
-    gap: 2rem;
-    list-style: none;
+    padding: 1rem 3rem;
 }
 
 .dashboard button {
     background-color: rgb(51, 51, 56);
     color: #ffffff;
+    height: 35px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    text-decoration: none;
+    border: none;
+    font-size: 30px;
+    transition: transform 0.3s, background-color 0.3s;
 }
 
 .dashboard button:hover {
-    background-color: rgb(51, 51, 56);
+    transform: scale(1.2);
 }

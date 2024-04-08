@@ -3,7 +3,7 @@ import './Registerform.css'
 import Loading from '../Loading/Loading';
 
 const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, onChangeName,
-    email, onChangeEmail, telephone, onChangeTelefone, passwordValid,onChangePasswordValid,
+    email, onChangeEmail, telephone, onChangeTelefone, passwordValid, onChangePasswordValid,
     role, onchangeRole, onSubmit, loading }) => {
 
     return (
@@ -79,7 +79,7 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                 </div>
             </div>
 
-                <h3 style={{ fontFamily: 'Arial, sans-serif' }}>Você é um proprietário?</h3>
+            <h3 style={{ fontFamily: 'Arial, sans-serif' }}>Você é um proprietário?</h3>
 
             <div className='checkBox'>
                 <input

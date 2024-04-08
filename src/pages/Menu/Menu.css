@@ -1,11 +1,26 @@
-
-.boxMenu {
-    background-color: #E7E8F0;
-    margin: 30px 30px 30px 30px;
-    border-radius: 50px;
+.menu-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 9%;
 }
 
-.boxMenu p {
-    color: black;
-    text-align: start;
+.menu-container button {
+    font-size: 45px;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    text-decoration: none;
+    width: 300px;
+    height: 190px;
+    background-color: rgb(50, 50, 53);
+    margin: 50px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.menu-container button:hover {
+    transform: scale(1.2);
+    background-color: #1a1919;
 }

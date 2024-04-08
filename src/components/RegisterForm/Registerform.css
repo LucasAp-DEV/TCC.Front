@@ -11,7 +11,12 @@
   margin-left: 15%;
 }
 
-.loginBox, .senhaBox, .nomeBox, .emailBox, .telefoneBox, .cidadeBox {
+.loginBox,
+.senhaBox,
+.nomeBox,
+.emailBox,
+.telefoneBox,
+.cidadeBox {
   flex: 0 0 calc(33.333% - 10px);
   margin-bottom: 30px;
   font-family: Arial, sans-serif;
@@ -26,6 +31,7 @@
   border-radius: 5px;
   font-size: 16px;
 }
+
 .register button {
   padding: 10px;
   transition: transform 0.3s;
@@ -60,14 +66,19 @@
 
 .register input[type="checkbox"]:checked {
   background-color: #2e312e;
-} 
+}
 
 .register input::placeholder {
-  font-size: 16px;  
+  font-size: 16px;
   text-align: start;
 }
 
-.loginBox p, .senhaBox p, .nomeBox p, .emailBox p, .telefoneBox p, .cidadeBox p{
+.loginBox p,
+.senhaBox p,
+.nomeBox p,
+.emailBox p,
+.telefoneBox p,
+.cidadeBox p {
   font-family: Arial;
   text-align: start;
   margin-bottom: 1px;
