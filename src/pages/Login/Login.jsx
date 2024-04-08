@@ -37,7 +37,7 @@ const Login = () => {
 
     try {
       setRemoveLoading(true)
-      const response = await api.post('/user/login', {
+      const response = await api.post('http://localhost:8080/user/login', {
         login,
         password,
       }, {

@@ -1,6 +1,5 @@
 .register {
   width: 100%;
-  width: 100%;
   text-align: center;
 }
 
@@ -8,7 +7,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 5px;
   width: 70%;
   margin-left: 15%;
 }
@@ -17,14 +15,13 @@
   flex: 0 0 calc(33.333% - 10px);
   margin-bottom: 30px;
   font-family: Arial, sans-serif;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 
 .register input {
   width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
+  padding: 5px;
   border: 3px solid #534e53;
   border-radius: 5px;
   font-size: 16px;
@@ -66,13 +63,20 @@
 } 
 
 .register input::placeholder {
-  font-size: 18px;  
+  font-size: 16px;  
   text-align: start;
 }
 
 .loginBox p, .senhaBox p, .nomeBox p, .emailBox p, .telefoneBox p, .cidadeBox p{
-  font-family: Arial, sans-serif;
+  font-family: Arial;
   text-align: start;
-  margin-bottom: 5px;
+  margin-bottom: 1px;
   color: rgb(5, 5, 5);
+}
+
+.exitPassword {
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  text-decoration: none;
+  color: rgb(22, 22, 22);
 }

@@ -9,13 +9,12 @@ const Register = () => {
 
   const [login, setLogin] = useState();
   const [password, setPassword] = useState();
-  const [name, setName] = useState();
+  const [nome, setName] = useState();
   const [email, setemail] = useState();
-  const [telefone, setTelefone] = useState();
+  const [telephone, setTelefone] = useState();
   const [role, setRole] = useState('USER');
   const [loading, setRemoveLoading] = useState();
-
-  const token = localStorage.getItem('token');
+  const [passwordValid, setPasswordValid] = useState();
 
 
   const onChangeLogin = (event) => {
@@ -38,90 +37,102 @@ const Register = () => {
     setTelefone(event.target.value)
   }
 
+  const onChangePasswordValid = (event) => {
+    setPasswordValid(event.target.value)
+  }
+
   const onChangeRole = () => {
     setRole((currentRole) => (currentRole === 'USER' ? 'ADMIN' : 'USER')); //ALTERAR ROLE ENTRE ADMIN E USER
   }
 
-  const onSubmit = async () => {
-    let errorText = "";
+  function showErrorAlert(message) {
+    Swal.fire({
+      icon: "error",
+      title: "Erro ao Cadastrar",
+      text: message
+    });
+  }
 
-    if (!login || !password) {
-      errorText = "Ambos os campos são necessários.";
-      Swal.fire({
-        icon: "error",
-        title: "Erro ao Cadastrar",
-        text: errorText
-      });
+  function showSucessAlert(message) {
+    Swal.fire({
+      icon: "success",
+      title: "Cadastro Realizado",
+      text: message
+    });
+  }
+
+  function isPhoneNumberValid(phoneNumber) {
+    return /^\d{2}\d{8,9}$/.test(phoneNumber);
+  }
+
+  const onSubmit = async () => {
+    const formData = { login, password, nome, email, telephone, passwordValid };
+
+    if (!Object.values(formData).every(field => field)) {
+      showErrorAlert("Todos os campos são necessários.");
       return;
     }
 
-
-    try {
-      setRemoveLoading(true)
-      const response = await api.post('/auth/register', {
-        login,
-        password,
-        role
-      },
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        }
-      );
-
-      if (response.status === 200) {
-        console.log('Cadastro bem-sucedido:', response.data);
-        errorText = "Erro ao Cadastrar";
-        Swal.fire({
-        icon: "success",
-        title: "Cadastro Realizado",
-        text: errorText
-      });
-        setLogin("");
-        setPassword("");
-
-      } else {
-        console.log("Erro ao reristrar usuario");
-      }
-    } catch (error) {
-      errorText = "Erro ao Cadastrar";
-      Swal.fire({
-        icon: "error",
-        title: "Erro ao Cadastrar",
-        text: errorText
-      });
-      console.error('Erro no cadastro:', error);
-    }finally {
-      setRemoveLoading(false);
+    if(password != passwordValid) {
+      showErrorAlert("As Senhas nao conferem");
+      return;
     }
 
-  }
+    if (!isPhoneNumberValid(formData.telephone)) {
+      showErrorAlert("Digite corretamente o numero de telefone");
+      return;
+    }
+    
 
-  console.log(password, login, role);
+    try {
+      setRemoveLoading(true);
+      const response = await api.post('/user/register', {
+        login,
+        password,
+        role,
+        nome,
+        email, 
+        telephone
+      });
+      console.log('Cadastro bem-sucedido:', response.data);
+      showSucessAlert("Cadastro realizado");
+      setLogin("");
+      setPassword("");
+      setName("");
+      setemail("");
+      setPasswordValid("");
+      setTelefone("");
+    } catch (error) {
+      showErrorAlert("Erro ao Registrar");
+    } finally {
+      setRemoveLoading(false);
+    }
+}
 
-  return (
-      <div className='container'>
-        <div className='form'>
-          <RegisterForm
-            login={login}
-            password={password}
-            name={name}
-            email={email}
-            telefone={telefone}
-            role={role}
-            onChangeName={onChangeName}
-            onChangeEmail={onChangeEmail}
-            onChangeTelefone={onChangeTelefone}
-            onChangeLogin={onChangeLogin}
-            onChangePassword={onChangePassword}
-            onchangeRole={onChangeRole}
-            onSubmit={onSubmit}
-            loading={loading}
-          />
-        </div>
-      </div>
-  )
+return (
+  <div className='container'>
+    <div className='form'>
+      <RegisterForm
+        login={login}
+        password={password}
+        nome={nome}
+        email={email}
+        telephone={telephone}
+        role={role}
+        passwordValid={passwordValid}
+        onChangeName={onChangeName}
+        onChangeEmail={onChangeEmail}
+        onChangeTelefone={onChangeTelefone}
+        onChangeLogin={onChangeLogin}
+        onChangePassword={onChangePassword}
+        onchangeRole={onChangeRole}
+        onChangePasswordValid={onChangePasswordValid}
+        onSubmit={onSubmit}
+        loading={loading}
+      />
+    </div>
+  </div>
+)
 }
 
 export default Register
