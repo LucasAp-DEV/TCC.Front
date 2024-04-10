@@ -11,13 +11,8 @@ const Header = () => {
     return (
 
         <div className='dashboard'>
-            <Button onClick={() => { navigate('/menu') }}
-                text="Menu"
-            />
-            <Button onClick={() => { navigate('/login'); localStorage.removeItem('token') }}
-                text='Sair' alt='Sair' title='Sair'
-            />
-
+            <a href="/menu" className="header-link">Menu</a>
+            <a href="/login" className="header-link" onClick={() => { localStorage.removeItem('token') }}>Sair</a>
         </div>
     )
 }

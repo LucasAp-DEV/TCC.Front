@@ -1,0 +1,14 @@
+body {
+    overflow-y: scroll;
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+}
+
+.content {
+    margin-top: 50px;
+    padding: 20px; 
+}
+

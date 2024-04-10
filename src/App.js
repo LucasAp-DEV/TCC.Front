@@ -2,6 +2,7 @@ import {Routes, Route, useNavigate} from "react-router-dom";
 import Layout from './pages/Layout/Layout';
 import Menu from './pages/Menu/Menu';
 import Login from './pages/Login/Login';
+import Locais from './pages/Locais/Locais';
 // import { isAuthentication } from "./auth";
 // import { useEffect } from "react";
 import Usuarios from "./pages/Usuarios/Usuarios";
@@ -26,6 +27,7 @@ function App() {
               <Route path="/" element={<Layout />}>
                 <Route path="menu" element={<Menu />} />
                 <Route path="usuarios" element={<Usuarios />} />
+                <Route path="locais" element={<Locais />} />
               </Route>
         </Routes>
     );

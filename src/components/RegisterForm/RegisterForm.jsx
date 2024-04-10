@@ -35,7 +35,7 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                 </div>
 
                 <div className='cidadeBox'>
-                    <p>Confirme sua Senha</p>
+                    <p>Confirme sua Senha:</p>
                     <input
                         placeholder={"Digite sua cidade"}
                         type='password'

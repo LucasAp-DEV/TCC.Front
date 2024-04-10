@@ -15,7 +15,7 @@
     text-decoration: none;
     width: 250px;
     height: 150px;
-    background-color: rgb(50, 50, 53);
+    background-color: rgb(74, 74, 85);
     margin: 30px;
     transition: transform 0.3s, background-color 0.3s;
 }

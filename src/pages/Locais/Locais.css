@@ -1,0 +1,19 @@
+.api-data {
+    width: 870px;
+    margin-left: 17%;
+    margin-top: 20px;
+}
+
+.api-info1 {
+    background-color: #e71616;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.api-info1 h3 {
+    margin: 10px;
+    margin-left: 40px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
