@@ -2,32 +2,39 @@ import './Locais.css'
 import { useCallback, useEffect, useState } from 'react';
 import { api } from '../../api';
 import Button from '../../components/Button/Button';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import LoadingTela from '../../components/Loading/LoadingTela';
 
 const Locais = () => {
 
     const navigate = useNavigate()
 
-    const [apiData, setApiData] = useState()
-    const [loading, setLoading] = useState()
+    const [apiData, setApiData] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         fetchApiData()
-        setLoading(0)
     }, [])
 
     const fetchApiData = useCallback(async () => {
+        setLoading(true);
         try {
             const { data } = await api.get('/local/list')
-            setApiData(data)
+            setTimeout(() => {
+                setApiData(data);
+                setLoading(false);
+            }, 2000);
+            setLoading(false);
         } catch (error) {
             console.error(error)
+        } finally {
+            setLoading(false);
         }
     }, [])
 
     const renderApiData = () => {
         if (loading || !apiData?.length) {
-            return (<h1>Carregando2</h1>)
+            return <LoadingTela />;
         }
         return (
             <div className="api-data">
@@ -37,22 +44,22 @@ const Locais = () => {
                             <img src={`data:image/jpeg;base64, ${api.images[0]}`} alt="Imagem do Local" />
                         }
                         <div className="info-column">
-                            <h3>Descrição: {renderDescription(api.descricao)}</h3>
+                            <h5>Descrição: {renderDescription(api.descricao)}</h5>
                         </div>
                         <div className="info-column">
-                            <h3>Preço: R$ {api.price}</h3>
-                            <h3>Proprietario: {api.userName}</h3>
-                            <h3>Endereço: {truncateEdereco(api.endereco)}</h3>
+                            <h5>Preço: R$ {api.price}</h5>
+                            <h5>Proprietario: {api.userName}</h5>
+                            <h5>Endereço: {truncateEdereco(api.endereco)}</h5>
+                            <h5>Cidade: {api.cidade}</h5>
                         </div>
                         <div className='button-container'>
-                            <Button onClick={() => { navigate('/menu') }}
+                            <Button onClick={() => { navigate('/loading') }}
                                 text='Contratar' alt='Contratar' title='Contrara'
                             />
                         </div>
                     </div>
                 ))}
             </div>
-
         )
     }
 
@@ -86,8 +93,8 @@ const Locais = () => {
     );
 }
 
-
 export default Locais;
+
 
 
 // Locais por ID

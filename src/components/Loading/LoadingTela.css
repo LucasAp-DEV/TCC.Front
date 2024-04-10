@@ -1,0 +1,14 @@
+.loaderTela_container {
+    position: fixed; /* Posicionamento fixo para permanecer no meio da tela independentemente do scroll */
+    top: 10;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loaderTela {
+    width: 130px;
+}

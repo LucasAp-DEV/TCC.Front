@@ -1,12 +1,8 @@
 import React from 'react'
-import Button from '../Button/Button'
-import { useNavigate } from 'react-router-dom'
 import './Header.css'
 
 const Header = () => {
 
-
-    const navigate = useNavigate()
 
     return (
 
