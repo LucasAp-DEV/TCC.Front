@@ -73,7 +73,7 @@ const Register = () => {
       return;
     }
 
-    if (password != passwordValid) {
+    if (password !== passwordValid) { //testar
       showErrorAlert("As Senhas nao conferem");
       return;
     }
