@@ -7,7 +7,7 @@ import Locais from './pages/Locais/Locais';
 // import { useEffect } from "react";
 import Usuarios from "./pages/Usuarios/Usuarios";
 import Register from "./pages/Register/Register";
-import Loading from "./components/Loading/Loading";
+import Contrato from "./pages/Contrato/Contrato";
 
 function App() {
 
@@ -29,7 +29,7 @@ function App() {
         <Route path="menu" element={<Menu />} />
         <Route path="usuarios" element={<Usuarios />} />
         <Route path="locais" element={<Locais />} />
-        <Route path="loading" element={<Loading />} />
+        <Route path="contrato" element={<Contrato />} />
       </Route>
     </Routes>
   );

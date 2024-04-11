@@ -1,36 +1,41 @@
-import './Locais.css'
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { api } from '../../api';
-import Button from '../../components/Button/Button';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LoadingTela from '../../components/Loading/LoadingTela';
+import { useLocal } from '../../LocalContext';
+import './Locais.css'
 
 const Locais = () => {
 
-    const navigate = useNavigate()
+    const { setLocalData } = useLocal();
 
-    const [apiData, setApiData] = useState([])
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        fetchApiData()
-    }, [])
+    const [apiData, setApiData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const fetchApiData = useCallback(async () => {
         setLoading(true);
         try {
-            const { data } = await api.get('/local/list')
+            const { data } = await api.get('/local/list');
             setTimeout(() => {
                 setApiData(data);
+                setLocalData(data);
                 setLoading(false);
             }, 2000);
             setLoading(false);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         } finally {
             setLoading(false);
         }
-    }, [])
+    }, [setLocalData]);
+
+    useEffect(() => {
+        fetchApiData();
+    }, [fetchApiData]);
+
+    const handleSelectLocal = (local) => {
+        setLocalData(local);
+    };
 
     const renderApiData = () => {
         if (loading || !apiData?.length) {
@@ -53,9 +58,11 @@ const Locais = () => {
                             <h5>Cidade: {api.cidade}</h5>
                         </div>
                         <div className='button-container'>
-                            <Button onClick={() => { navigate('/loading') }}
-                                text='Contratar' alt='Contratar' title='Contrara'
-                            />
+                            <Link to={{ pathname: '/contrato' }}>
+                                <button onClick={() => handleSelectLocal(api)}>
+                                    Contratar
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 ))}
@@ -94,34 +101,3 @@ const Locais = () => {
 }
 
 export default Locais;
-
-
-
-// Locais por ID
-// const fetchApiData = useCallback(async () => {
-//     try {
-//         const { data } = await api.get('/local/list/1');
-//         setApiData(data);
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }, []);
-
-// const renderApiData = () => {
-//     if (loading || !apiData) {
-//         return (<h1>Carregando</h1>);
-//     }
-//     return (
-//         <div className="api-data">
-//             <div className="api-info1" key={apiData.local}>
-//                 <h3>Descrição: {apiData.descricao}</h3>
-//                 <h3>Endereço: {apiData.endereco}</h3>
-//                 <h3>Preço: {apiData.price}</h3>
-//                 <h3>Proprietario: {apiData.userName}</h3>
-//                 {apiData.images &&
-//                     <img src={`data:image/jpeg;base64, ${apiData.images}`} alt="Imagem do Local"/>
-//                 }
-//             </div>
-//         </div>
-//     );
-// };
