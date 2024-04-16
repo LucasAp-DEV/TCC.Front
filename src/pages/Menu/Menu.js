@@ -9,7 +9,7 @@ const Menu = () => {
     return (
         <div className="menu-container">
             <Button onClick={() => { navigate('/usuarios') }}
-                text='Usuarios' alt='Usuarios' title='Usuarios'
+                text='Usuario' alt='Usuario' title='Usuario'
             />
 
             <Button onClick={() => { navigate('/locais') }}
