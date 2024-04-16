@@ -23,7 +23,7 @@ const Contrato = () => {
             const token = localStorage.getItem('token');
             const decodedToken = jwtDecode(token);
             setIdLocador(decodedToken.Id);
-            setLocatario(localData.userId);
+            setLocatario(localData.locatarioId);
             setLocalid(localData.id)
         }
     }, [localData]);
@@ -107,7 +107,7 @@ const Contrato = () => {
 
     const token = localStorage.getItem('token');
     const decodedToken = jwtDecode(token);
-    const nomeLocatario = decodedToken.Name;
+    const nomeLocador = decodedToken.Name;
 
     return (
         <div className='containerContrato'>
@@ -115,7 +115,7 @@ const Contrato = () => {
                 <div className="content">
                     <DetalhesContrato
                         localData={localData}
-                        nomeLocatario={nomeLocatario}
+                        nomeLocador={nomeLocador}
                         dataAluguel={dataAluguel}
                         handleDataAluguelChange={handleDataAluguelChange}
                     />
