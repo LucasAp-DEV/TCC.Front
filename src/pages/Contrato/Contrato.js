@@ -1,44 +1,135 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { useLocal } from '../../LocalContext';
+import Swal from 'sweetalert2';
 import './Contrato.css';
+import { useNavigate } from 'react-router-dom';
+import DetalhesContrato from '../../components/Contrato/DetalhesContrato';
+import { api } from '../../api';
+import Loading from '../../components/Loading/Loading';
 
 const Contrato = () => {
+    const navigate = useNavigate()
     const { localData } = useLocal();
+    const [dataAluguel, setDataAluguel] = useState();
+    const [IdLocador, setIdLocador] = useState();
+    const [IdLocatario, setLocatario] = useState();
+    const [localId, setLocalid] = useState();
+    const [status, setStatus] = useState("ABERTO");
+    const [saving, setSaving] = useState(false);
+
+    useEffect(() => {
+        if (localData) {
+            const token = localStorage.getItem('token');
+            const decodedToken = jwtDecode(token);
+            setIdLocador(decodedToken.Id);
+            setLocatario(localData.userId);
+            setLocalid(localData.id)
+        }
+    }, [localData]);
+
+    const handleDataAluguelChange = (event) => {
+        const newData = event.target.value;
+        setDataAluguel(newData);
+        const dataAtual = new Date();
+        const dataSelecionada = new Date(newData);
+        if (dataSelecionada <= dataAtual) {
+            showError("A data precisa ser maior que a data atual.");
+            setDataAluguel('');
+        }
+    };
+
+    const showError = (errorText) => {
+        Swal.fire({
+            icon: "error",
+            title: "Erro no Cadastro",
+            text: errorText
+        });
+    };
+
+    const saveData = async () => {
+        try {
+            setSaving(true);
+    
+            if (!dataAluguel) {
+                const errorText = "É necessario inserir uma data";
+                Swal.fire({
+                    icon: "error",
+                    title: "Erro ao salvar contrato",
+                    text: errorText
+                });
+                setSaving(false);
+                return;
+            }
+    
+            setTimeout(async () => {
+                const contratoData = {
+                    descricao: localData.descricao,
+                    data: dataAluguel,
+                    locatario: {
+                        id: IdLocatario
+                    },
+                    local: {
+                        id: localId
+                    },
+                    locador: {
+                        id: IdLocador
+                    },
+                    status: status
+                };
+    
+                const response = await api.post('/contrato/register', contratoData, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                console.log('Dados do contrato salvos com sucesso:', response.data);
+                setSaving(false);
+                navigate('/locais');
+            }, 2000); 
+    
+        } catch (error) {
+            console.error('Erro ao salvar os dados do contrato:', error);
+            const errorText = "Ocorreu um erro ao salvar os dados do contrato.";
+            Swal.fire({
+                icon: "error",
+                title: "Erro ao salvar contrato",
+                text: errorText
+            });
+            setSaving(false);
+        }
+    };
+    
 
     if (!localData) {
-        return <div>Nenhum local foi selecionado.</div>;
+        return navigate('/locais');
     }
 
     const token = localStorage.getItem('token');
     const decodedToken = jwtDecode(token);
     const nomeLocatario = decodedToken.Name;
 
-    const dataAtual = new Date();
-    const dia = dataAtual.getDate();
-    const mes = dataAtual.getMonth() + 1;
-    const ano = dataAtual.getFullYear();
-    const dataFormatada = `${dia}/${mes}/${ano}`;
-
     return (
-        <div className="contrato">
-            <div className="content">
-                <p>Por este instrumento particular, <strong>{localData.userName}</strong>, doravante denominado LOCADOR, e <strong>{nomeLocatario}</strong>, doravante denominado LOCATÁRIO, firmam o presente contrato de locação do local descrito abaixo:</p>
-                <div className="info-section">
-                    <h2>Detalhes do Local:</h2>
-                    <p><strong>ID do Local:</strong> {localData.id}</p>
-                    <p><strong>Descrição:</strong> {localData.descricao}</p>
-                    <p><strong>Endereço:</strong> {localData.endereco}, {localData.cidade}</p>
-                    <p><strong>Preço:</strong> R$ {localData.price}</p>
-                    <p><strong>Telefone:</strong> {localData.userTell}</p>
+        <div className='containerContrato'>
+            <div className="contrato">
+                <div className="content">
+                    <DetalhesContrato
+                        localData={localData}
+                        nomeLocatario={nomeLocatario}
+                        dataAluguel={dataAluguel}
+                        handleDataAluguelChange={handleDataAluguelChange}
+                    />
                 </div>
-                <p>O LOCATÁRIO declara estar ciente e de acordo com os termos deste contrato e se compromete a respeitá-los integralmente.</p>
-                <div>
-                    <p>Locatario:<strong>{nomeLocatario}</strong> Data: <strong>{dataFormatada}</strong></p>
-                </div>
+            </div>
+            <button onClick={saveData} disabled={saving}>
+                {saving ? <Loading /> : 'Salvar'}
+            </button>
+            <div style={{ marginTop: '20px' }}>
+                <a href="/login" className='exitPassword'>Voltar aos Locais</a>
             </div>
         </div>
     );
+    
 }
 
 export default Contrato;
