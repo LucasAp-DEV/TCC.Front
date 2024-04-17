@@ -6,7 +6,7 @@ const DetalhesContrato = ({ localData, nomeLocador, dataAluguel, handleDataAlugu
             <p>Por este instrumento particular, <strong>{localData.locatarioName}</strong>, doravante denominado LOCADOR, e <strong>{nomeLocador}</strong>, doravante denominado LOCATÁRIO, firmam o presente contrato de locação do local descrito abaixo:</p>
             <div className="info-section">
                 <h2>Detalhes do Local:</h2>
-                <p><strong>ID do Local:</strong> {localData.id}</p>{nomeLocador}
+                <p><strong>ID do Local:</strong> {localData.id}</p>
                 <p><strong>Descrição:</strong> {localData.descricao}</p>
                 <p><strong>Endereço:</strong> {localData.endereco}, {localData.cidade}</p>
                 <p><strong>Preço:</strong> R$ {localData.price}</p>

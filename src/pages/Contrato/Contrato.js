@@ -125,7 +125,7 @@ const Contrato = () => {
                 {saving ? <Loading /> : 'Salvar'}
             </button>
             <div style={{ marginTop: '20px' }}>
-                <a href="/login" className='exitPassword'>Voltar aos Locais</a>
+                <a href="/locais" className='exitPassword'>Voltar aos Locais</a>
             </div>
         </div>
     );
