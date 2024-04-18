@@ -1,4 +1,3 @@
-import Button from '../Button/Button';
 import './Registerform.css'
 import Loading from '../Loading/Loading';
 
@@ -7,7 +6,7 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
     role, onchangeRole, onSubmit, loading }) => {
 
     return (
-        <div className='register'>
+        <form className='register' onSubmit={onSubmit}>
             <h1 style={{ fontFamily: 'Arial, sans-serif' }}>Faça seu registro</h1>
 
             <div className='inputContainer'>
@@ -20,6 +19,7 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                         name='LoginInput'
                         value={login}
                         onChange={onChangeLogin}
+                        required
                     />
                 </div>
 
@@ -31,6 +31,7 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                         name='passwordInput'
                         value={password}
                         onChange={onChangePassword}
+                        required
                     />
                 </div>
 
@@ -42,6 +43,7 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                         name='passwordValid'
                         value={passwordValid}
                         onChange={onChangePasswordValid}
+                        required
                     />
                 </div>
 
@@ -53,6 +55,7 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                         nome='nameInput'
                         value={nome}
                         onChange={onChangeName}
+                        required
                     />
                 </div>
 
@@ -64,6 +67,7 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                         name='emailInput'
                         value={email}
                         onChange={onChangeEmail}
+                        required
                     />
                 </div>
 
@@ -75,6 +79,7 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                         name='telefoneInput'
                         value={telephone}
                         onChange={onChangeTelefone}
+                        required
                     />
                 </div>
             </div>
@@ -88,19 +93,16 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                     value={role}
                     onChange={onchangeRole}
                 />
-
             </div>
             <div>
-                <Button
-                    onClick={onSubmit}
-                    text={loading ? <Loading /> : 'Registrar'}
-                    disabled={loading}
-                />
+                <button type='submit' disabled={loading}>
+                    {loading ? <Loading /> : 'Registrar'}
+                </button>
             </div>
             <div style={{ marginTop: '20px' }}>
                 <a href="/login" className='exitPassword'>Voltar ao Login</a>
             </div>
-        </div>
+        </form>
     );
 }
 

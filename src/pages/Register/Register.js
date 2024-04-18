@@ -65,15 +65,16 @@ const Register = () => {
     return /^\d{2}\d{8,9}$/.test(phoneNumber);
   }
 
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault()
     const formData = { login, password, nome, email, telephone, passwordValid };
 
-    if (!Object.values(formData).every(field => field)) {
-      showErrorAlert("Todos os campos são necessários.");
-      return;
-    }
+    // if (!Object.values(formData).every(field => field)) {
+    //   showErrorAlert("Todos os campos são necessários.");
+    //   return;
+    // }
 
-    if (password !== passwordValid) { //testar
+    if (password !== passwordValid) {
       showErrorAlert("As Senhas nao conferem");
       return;
     }

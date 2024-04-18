@@ -22,19 +22,9 @@ const Login = () => {
     setPassword(event.target.value)
   }
 
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault()
     let errorText = "";
-
-    if (!login || !password) {
-      errorText = "Ambos os campos são necessários.";
-      Swal.fire({
-        icon: "error",
-        title: "Erro no Login",
-        text: errorText
-      });
-      return;
-    }
-
     try {
       setRemoveLoading(true)
       const response = await api.post('http://localhost:8080/user/login', {

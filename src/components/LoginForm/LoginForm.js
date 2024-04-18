@@ -1,35 +1,34 @@
 import React from 'react';
 import './LoginForm.css'
-import Button from '../Button/Button';
 import Loading from '../Loading/Loading';
 import Input from '../Input/Input';
 
 const LoginForm = ({ login, password, onChangeLogin, onChangePassword, onSubmit, loading }) => {
   return (
-    <div className='formContainer1'>
+    <form className='formContainer1' onSubmit={onSubmit}>
       <div style={{ marginTop: '50px' }}>
-        <Input
+        <input
           placeholder='Login:'
           type='text'
           name='LoginInput'
           value={login}
           onChange={onChangeLogin}
+          required
         />
-        <Input
+        <input
           placeholder='Senha:'
           type='password'
           name='passwordInput'
           value={password}
           onChange={onChangePassword}
+          required
         />
       </div>
       <div>
         <p>
-          <Button
-            onClick={onSubmit}
-            text={loading ? <Loading /> : 'Entrar'}
-            disabled={loading}
-          />
+          <button type='submit' disabled={loading}>
+            {loading ? <Loading /> : 'Entrar'}
+          </button>
         </p>
       </div>
       <div style={{ marginTop: '80px' }}>
@@ -37,7 +36,7 @@ const LoginForm = ({ login, password, onChangeLogin, onChangePassword, onSubmit,
           Cadastrar-se
         </a>
       </div>
-    </div>
+    </form>
   );
 }
 
