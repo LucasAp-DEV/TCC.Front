@@ -50,7 +50,7 @@ const Contrato = () => {
     const saveData = async () => {
         try {
             setSaving(true);
-    
+
             if (!dataAluguel) {
                 const errorText = "É necessario inserir uma data";
                 Swal.fire({
@@ -61,7 +61,7 @@ const Contrato = () => {
                 setSaving(false);
                 return;
             }
-    
+
             setTimeout(async () => {
                 const contratoData = {
                     descricao: localData.descricao,
@@ -77,19 +77,19 @@ const Contrato = () => {
                     },
                     status: status
                 };
-    
+
                 const response = await api.post('/contrato/register', contratoData, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
                 });
-                console.log('Dados do contrato salvos com sucesso:', response.data);
+                console.log(response.data);
                 setSaving(false);
                 navigate('/locais');
-            }, 2000); 
-    
+            }, 2000);
+
         } catch (error) {
-            console.error('Erro ao salvar os dados do contrato:', error);
+            console.error(error);
             const errorText = "Ocorreu um erro ao salvar os dados do contrato.";
             Swal.fire({
                 icon: "error",
@@ -99,7 +99,7 @@ const Contrato = () => {
             setSaving(false);
         }
     };
-    
+
 
     if (!localData) {
         return navigate('/locais');
@@ -129,7 +129,7 @@ const Contrato = () => {
             </div>
         </div>
     );
-    
+
 }
 
 export default Contrato;

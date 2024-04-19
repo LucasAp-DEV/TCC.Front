@@ -69,11 +69,6 @@ const Register = () => {
     e.preventDefault()
     const formData = { login, password, nome, email, telephone, passwordValid };
 
-    // if (!Object.values(formData).every(field => field)) {
-    //   showErrorAlert("Todos os campos são necessários.");
-    //   return;
-    // }
-
     if (password !== passwordValid) {
       showErrorAlert("As Senhas nao conferem");
       return;
@@ -86,15 +81,13 @@ const Register = () => {
 
     try {
       setRemoveLoading(true);
-      const response = await api.post('/user/register', {
-        login,
-        password,
-        role,
-        nome,
-        email,
-        telephone
-      });
-      console.log('Cadastro bem-sucedido:', response.data);
+      const response = await api.post('/user/register', formData, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    
+      console.log(response.data);
       showSucessAlert("Cadastro realizado");
       setLogin("");
       setPassword("");

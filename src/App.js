@@ -8,6 +8,7 @@ import Locais from './pages/Locais/Locais';
 import Usuarios from "./pages/Usuarios/Usuarios";
 import Register from "./pages/Register/Register";
 import Contrato from "./pages/Contrato/Contrato";
+import RegisterLocais from './pages/RegisterLocais/RegisterLocais';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="usuarios" element={<Usuarios />} />
         <Route path="locais" element={<Locais />} />
         <Route path="contrato" element={<Contrato />} />
+        <Route path="registerlocais" element={<RegisterLocais />} />
       </Route>
     </Routes>
   );

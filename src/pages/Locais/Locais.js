@@ -45,9 +45,10 @@ const Locais = () => {
             <div className="api-data">
                 {apiData.map(api => (
                     <div className="api-info1" key={api.id}>
-                        {api.images && api.images.length > 0 &&
-                            <img src={`data:image/jpeg;base64, ${api.images[0]}`} alt="Imagem do Local" />
-                        }
+                        {api.images.length > 0 &&
+                         <img src={`data:image/png;base64,${api.images[0]}`} alt="Imagem do Local" />
+                        } 
+                        {/* Converter o recebimento da imagens */}
                         <div className="info-column">
                             <h5>Descrição: {renderDescription(api.descricao)}</h5>
                         </div>
@@ -91,6 +92,7 @@ const Locais = () => {
         return description;
     }
 
+    console.log(apiData);
     console.log(apiData);
 
     return (

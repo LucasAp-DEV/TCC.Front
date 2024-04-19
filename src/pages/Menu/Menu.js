@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import './Menu.css'
-import Button from '../../components/Button/Button'
+import Button from './../../components/Button/Button';
 
 const Menu = () => {
 
@@ -19,6 +19,10 @@ const Menu = () => {
             <Button onClick={() => { navigate('/contratos') }}
                 text='Contratos' alt='Contratos' title='Contratos'
             />
+
+            <div style={{ marginTop: '20px' }}>
+                <a href="/registerlocais">registro locais</a>
+            </div>
         </div>
     );
 }
