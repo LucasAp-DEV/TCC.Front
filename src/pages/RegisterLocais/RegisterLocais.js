@@ -5,7 +5,7 @@ import RegisterLocaisForm from './../../components/RegisterFromLocais/RegisterLo
 const RegisterLocais = () => {
   const [images, setImages] = useState([]);
   const [base64Images, setBase64Images] = useState([]);
-  const [localId, setLocalId] = useState(1);
+  const [localId, setLocalId] = useState(10);
 
   const onChangeImage = (event) => {
     console.log('onChangeImage foi chamado');

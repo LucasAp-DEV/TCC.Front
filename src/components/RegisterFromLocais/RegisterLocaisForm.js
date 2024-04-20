@@ -14,7 +14,7 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
                         name='EndereçoInput'
                         value={endereco}
                         onChange={onChangeEndereco}
-                        required
+                        // required
                     />
                 </div>
 
@@ -26,7 +26,7 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
                         name='DescriçãodInput'
                         value={descricao}
                         onChange={onChangeDescricao}
-                        required
+                        // required
                     />
                 </div>
 
@@ -38,7 +38,7 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
                         name='ValorInput'
                         value={valor}
                         onChange={onChangeValor}
-                        required
+                        // required
                     />
                 </div>
 
@@ -50,7 +50,7 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
                         nome='CidadeInput'
                         value={cidade}
                         onChange={onChangeCidade}
-                        required
+                        // required
                     />
                 </div>
 
