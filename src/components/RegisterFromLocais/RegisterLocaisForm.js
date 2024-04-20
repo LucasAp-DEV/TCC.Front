@@ -62,9 +62,7 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
                         multiple
                         name='ImagenInput'
                         value={image}
-                        onChange={(e)=> {
-                            console.log(e)
-                        }}
+                        onChange={onChangeImage}
                         required
                     />
                 </div>
