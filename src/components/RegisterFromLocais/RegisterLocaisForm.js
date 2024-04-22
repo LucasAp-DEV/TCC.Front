@@ -1,14 +1,14 @@
+import React from 'react';
 import Loading from '../Loading/Loading';
 
 const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDescricao, cidade, onChangeCidade,
-    image, onChangeImage, valor, onChangeValor, onSubmit, loading }) => {
+    image, onChangeImage, valor, onChangeValor, onSubmit, loading, cidadesOptions, searchTerm, onChangeSearchTerm }) => {
 
     return (
         <form onSubmit={onSubmit}>
-            <div >
-                <div >
-                    <p></p>
-                    <a>Endereço:</a>
+            <div>
+                <div>
+                    <p>Endereço:</p>
                     <input
                         type='text'
                         name='EndereçoInput'
@@ -19,49 +19,46 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
                 </div>
 
                 <div>
-                    <p></p>
-                    <a>Descrição:</a>
+                    <p>Descrição:</p>
                     <input
                         type='text'
-                        name='DescriçãodInput'
+                        name='DescriçãoInput'
                         value={descricao}
                         onChange={onChangeDescricao}
-                        // required
                     />
                 </div>
 
                 <div>
-                    <p></p>
-                    <a>Valor:</a>
+                    <p>Valor:</p>
                     <input
                         type='number'
                         name='ValorInput'
                         value={valor}
                         onChange={onChangeValor}
-                        // required
                     />
                 </div>
 
                 <div>
-                    <p></p>
-                    <a>Cidade</a>
+                    <p>Cidade:</p>
                     <input
                         type='text'
-                        nome='CidadeInput'
+                        name='CidadeInput'
                         value={cidade}
                         onChange={onChangeCidade}
-                        // required
                     />
+                    <select value={cidade} onChange={onChangeCidade}>
+                        {cidadesOptions.map((cidadeOption) => (
+                            <option key={cidadeOption.value} value={cidadeOption.value}>{cidadeOption.label}</option>
+                        ))}
+                    </select>
                 </div>
 
-                <div >
-                    <p></p>
-                    <a>Imagens</a>
+                <div>
+                    <p>Imagens:</p>
                     <input
                         type='file'
                         multiple
-                        name='ImagenInput'
-                        value={image}
+                        name='ImagensInput'
                         onChange={onChangeImage}
                         required
                     />
@@ -81,4 +78,4 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
     );
 }
 
-export default RegisterLocaisForm
+export default RegisterLocaisForm;

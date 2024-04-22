@@ -16,11 +16,10 @@ const Locais = () => {
         setLoading(true);
         try {
             const { data } = await api.get('/local/list');
-            setTimeout(() => {
                 setApiData(data);
                 setLocalData(data);
                 setLoading(false);
-            }, 2000);
+                console.log(apiData);
             setLoading(false);
         } catch (error) {
             console.error(error);
@@ -48,7 +47,6 @@ const Locais = () => {
                         {api.images.length > 0 &&
                          <img src={`data:image/png;base64,${api.images[0]}`} alt="Imagem do Local" />
                         } 
-                        {/* Converter o recebimento da imagens */}
                         <div className="info-column">
                             <h5>Descrição: {renderDescription(api.descricao)}</h5>
                         </div>
