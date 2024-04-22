@@ -81,11 +81,20 @@ const RegisterLocais = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const localData = { endereco, descricao, valor, cidade };
-    const imageData = { images: base64Images[0], localId };
 
+
+    const localData = { endereco, descricao, valor, cidade };
     try {
-      const response2 = await api.post('/locais/register', localData, {
+      const response = await api.post('/locais/register', localData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      setLocalId(response.data.id);
+
+
+      const imageData = { images: base64Images, localId: response.data.id };
+      const response2 = await api.post('/images/register', imageData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -93,12 +102,6 @@ const RegisterLocais = () => {
       console.log(response2.data);
 
 
-      const response = await api.post('/images/register', imageData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      console.log(response.data);
     } catch (error) {
       console.error('Erro ao enviar imagens:', error);
     }

@@ -1,78 +1,90 @@
 import React from 'react';
+import Select from 'react-select';
 import Loading from '../Loading/Loading';
+import './RegisterLocaisForm.css';
 
 const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDescricao, cidade, onChangeCidade,
-    image, onChangeImage, valor, onChangeValor, onSubmit, loading, cidadesOptions, searchTerm, onChangeSearchTerm }) => {
+    onChangeImage, valor, onChangeValor, onSubmit, loading, cidadesOptions }) => {
+
+    const handleCityChange = (selectedOption) => {
+        onChangeCidade(selectedOption.value);
+    };
+
+    const renderCityOptions = () => {
+        return cidadesOptions.map((option) => ({
+            value: option.value,
+            label: option.label
+        }));
+    };
 
     return (
-        <form onSubmit={onSubmit}>
-            <div>
+        <form onSubmit={onSubmit} className="form-container">
+            <div className="form-group">
                 <div>
-                    <p>Endereço:</p>
+                    <label>Endereço:</label>
                     <input
                         type='text'
-                        name='EndereçoInput'
+                        id="endereco"
+                        className="form-input"
                         value={endereco}
                         onChange={onChangeEndereco}
-                        // required
                     />
                 </div>
 
                 <div>
-                    <p>Descrição:</p>
+                    <label>Descrição:</label>
                     <input
                         type='text'
-                        name='DescriçãoInput'
+                        id="descricao"
+                        className="form-input"
                         value={descricao}
                         onChange={onChangeDescricao}
                     />
                 </div>
 
                 <div>
-                    <p>Valor:</p>
+                    <label>Valor:</label>
                     <input
                         type='number'
-                        name='ValorInput'
+                        id="valor"
+                        className="form-input"
                         value={valor}
                         onChange={onChangeValor}
                     />
                 </div>
 
                 <div>
-                    <p>Cidade:</p>
-                    <input
-                        type='text'
-                        name='CidadeInput'
+                    <label>Cidade:</label>
+                    <Select
                         value={cidade}
-                        onChange={onChangeCidade}
+                        onChange={handleCityChange}
+                        options={renderCityOptions()}
+                        placeholder="Selecione a cidade..."
+                        maxMenuHeight={100}
+                        className="form-select"
                     />
-                    <select value={cidade} onChange={onChangeCidade}>
-                        {cidadesOptions.map((cidadeOption) => (
-                            <option key={cidadeOption.value} value={cidadeOption.value}>{cidadeOption.label}</option>
-                        ))}
-                    </select>
                 </div>
 
                 <div>
-                    <p>Imagens:</p>
+                    <label htmlFor="imagens">Imagens:</label>
                     <input
                         type='file'
+                        id="imagens"
+                        className="form-input"
                         multiple
                         name='ImagensInput'
                         onChange={onChangeImage}
                         required
                     />
                 </div>
-
-            </div>
-            <div>
-                <p></p>
-                <button type='submit' disabled={loading}>
-                    {loading ? <Loading /> : 'Registrar'}
-                </button>
-            </div>
-            <div style={{ marginTop: '20px' }}>
-                <a href="/menu">Voltar aos Locais</a>
+                <div>
+                    <button type='submit' className="form-submit" disabled={loading}>
+                        {loading ? <Loading /> : 'Registrar'}
+                    </button>
+                    <div className="form-link">
+                        <a href="/menu">Voltar aos Locais</a>
+                    </div>
+                </div>
             </div>
         </form>
     );
