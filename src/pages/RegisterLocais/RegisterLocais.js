@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../../api';
 import RegisterLocaisForm from './../../components/RegisterFromLocais/RegisterLocaisForm';
+import { jwtDecode } from 'jwt-decode';
+
 
 const RegisterLocais = () => {
   const [localId, setLocalId] = useState();
@@ -11,25 +13,34 @@ const RegisterLocais = () => {
   const [images, setImages] = useState([]);
   const [base64Images, setBase64Images] = useState([]);
   const [cidadesOptions, setCidadesOptions] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [locatario, setLocatario] = useState();
 
   useEffect(() => {
     fetchCidadesOptions();
+    fetchStorage()
   }, []);
+
+  const fetchStorage = () => {
+    const token = localStorage.getItem('token');
+    const decodedToken = jwtDecode(token);
+    setLocatario(decodedToken.Id);
+  }
 
   const fetchCidadesOptions = async () => {
     try {
       const response = await api.get('/cidade/list');
       const cidadesData = response.data;
       const options = cidadesData.map((cidade) => ({
-        value: cidade.id,
-        label: cidade.name,
+        id: cidade.id,
+        name: cidade.name,
       }));
       setCidadesOptions(options);
     } catch (error) {
       console.error('Erro ao buscar cidades:', error);
     }
   };
+
+  console.log("locatario",locatario);
 
   const onChangeEndereco = (event) => {
     setEndereco(event.target.value);
@@ -43,17 +54,9 @@ const RegisterLocais = () => {
     setValor(event.target.value);
   };
 
-  const onChangeCidade = (event) => {
-    setCidade(event.target.value);
+  const onChangeCidade = (selectedOption) => {
+    setCidade(selectedOption);
   };
-
-  const onChangeSearchTerm = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const filteredCidadesOptions = cidadesOptions.filter((cidade) =>
-    cidade.label.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   const onChangeImage = (event) => {
     console.log('onChangeImage foi chamado');
@@ -82,7 +85,20 @@ const RegisterLocais = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const localData = { endereco, descricao, valor, cidade };
+    const localData = {
+      descricao: descricao,
+      price: valor,
+      endereco: endereco,
+      cidade: {
+        id: cidade
+      },
+      locatario: {
+        id: locatario
+      }
+    };
+
+    console.log(localData)
+
     try {
       const response = await api.post('/locais/register', localData, {
         headers: {
@@ -113,16 +129,13 @@ const RegisterLocais = () => {
         endereco={endereco}
         descricao={descricao}
         valor={valor}
-        cidade={cidade}
         images={images}
-        searchTerm={searchTerm}
         onChangeEndereco={onChangeEndereco}
         onChangeDescricao={onChangeDescricao}
         onChangeValor={onChangeValor}
         onChangeCidade={onChangeCidade}
         onChangeImage={onChangeImage}
-        onChangeSearchTerm={onChangeSearchTerm}
-        cidadesOptions={filteredCidadesOptions}
+        cidadesOptions={cidadesOptions}
       />
     </div>
   );

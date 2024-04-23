@@ -6,15 +6,15 @@ import './RegisterLocaisForm.css';
 const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDescricao, cidade, onChangeCidade,
     onChangeImage, valor, onChangeValor, onSubmit, loading, cidadesOptions }) => {
 
-    const handleCityChange = (selectedOption) => {
-        onChangeCidade(selectedOption.value);
+    const renderCityOptions = () => {
+        return cidadesOptions.map((cidade) => ({
+            value: cidade.id,
+            label: cidade.name
+        }));
     };
 
-    const renderCityOptions = () => {
-        return cidadesOptions.map((option) => ({
-            value: option.value,
-            label: option.label
-        }));
+    const handleCityChange = (selectedOption) => {
+        onChangeCidade(selectedOption.value);
     };
 
     return (
@@ -59,10 +59,11 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
                         value={cidade}
                         onChange={handleCityChange}
                         options={renderCityOptions()}
-                        placeholder="Selecione a cidade..."
+                        placeholder="Selecione a cidade.."
                         maxMenuHeight={100}
                         className="form-select"
                     />
+
                 </div>
 
                 <div>
@@ -74,7 +75,6 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
                         multiple
                         name='ImagensInput'
                         onChange={onChangeImage}
-                        required
                     />
                 </div>
                 <div>
