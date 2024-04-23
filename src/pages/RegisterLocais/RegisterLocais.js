@@ -82,7 +82,6 @@ const RegisterLocais = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-
     const localData = { endereco, descricao, valor, cidade };
     try {
       const response = await api.post('/locais/register', localData, {
@@ -93,7 +92,7 @@ const RegisterLocais = () => {
       setLocalId(response.data.id);
 
 
-      const imageData = { images: base64Images, localId: response.data.id };
+      const imageData = { images: base64Images, localId: localId };
       const response2 = await api.post('/images/register', imageData, {
         headers: {
           'Content-Type': 'application/json',
