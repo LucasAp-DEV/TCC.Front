@@ -37,6 +37,7 @@ const RegisterLocais = () => {
       setCidadesOptions(options);
     } catch (error) {
       console.error('Erro ao buscar cidades:', error);
+      console.log(cidadesOptions);
     }
   };
 
@@ -100,21 +101,22 @@ const RegisterLocais = () => {
     console.log(localData)
 
     try {
-      const response = await api.post('/locais/register', localData, {
+      const response = await api.post('/local/register', localData, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      setLocalId(response.data.id);
+      setLocalId(response.data);
+      console.log('local',response.data)
 
 
-      const imageData = { images: base64Images, localId: localId };
-      const response2 = await api.post('/images/register', imageData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      console.log(response2.data);
+      // const imageData = { images: base64Images, localId: localId };
+      // const response2 = await api.post('/images/register', imageData, {
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      // });
+      // console.log(response2.data);
 
 
     } catch (error) {
