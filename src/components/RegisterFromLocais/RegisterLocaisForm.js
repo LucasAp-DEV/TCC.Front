@@ -19,71 +19,75 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
 
     return (
         <form onSubmit={onSubmit} className="form-container">
-            <div className="form-group">
-                <div>
-                    <label>Endereço:</label>
-                    <input
-                        type='text'
-                        id="endereco"
-                        className="form-input"
-                        value={endereco}
-                        onChange={onChangeEndereco}
-                    />
-                </div>
 
-                <div>
-                    <label>Descrição:</label>
-                    <input
-                        type='text'
-                        id="descricao"
-                        className="form-input"
-                        value={descricao}
-                        onChange={onChangeDescricao}
-                    />
-                </div>
+            <div>
+                <label>Descrição:</label>
+                <textarea
+                    style={{resize: 'none',
+                    fontFamily: 'Arial, sans-serif'}}
+                    rows={9}
+                    type='text'
+                    id="descricao"
+                    className="form-input"
+                    value={descricao}
+                    onChange={onChangeDescricao}
+                />
+            </div>
+            <div>
+                <label>Endereço:</label>
+                <textarea
+                    style={{resize: 'none',
+                    fontFamily: 'Arial, sans-serif'}}
+                    type='text'
+                    rows={1}
+                    id="endereco"
+                    className="form-input"
+                    value={endereco}
+                    onChange={onChangeEndereco}
+                />
+            </div>
 
-                <div>
-                    <label>Valor:</label>
-                    <input
-                        type='number'
-                        id="valor"
-                        className="form-input"
-                        value={valor}
-                        onChange={onChangeValor}
-                    />
-                </div>
+            <div>
+                <label>Valor:</label>
+                <input
+                    type='number'
+                    id="valor"
+                    className="form-input"
+                    value={valor}
+                    onChange={onChangeValor}
+                />
+            </div>
 
-                <div>
-                    <label>Cidade:</label>
-                    <Select
-                        value={cidade}
-                        onChange={handleCityChange}
-                        options={renderCityOptions()}
-                        placeholder="Selecione a cidade.."
-                        maxMenuHeight={100}
-                        className="form-select"
-                    />
+            <div>
+                <label>Cidade:</label>
+                <Select
+                    value={cidade}
+                    onChange={handleCityChange}
+                    options={renderCityOptions()}
+                    placeholder="Selecione a cidade.."
+                    maxMenuHeight={100}
+                    className="form-select"
+                />
 
-                </div>
+            </div>
 
-                <div>
-                    <label htmlFor="imagens">Imagens:</label>
-                    <input
-                        type='file'
-                        id="imagens"
-                        className="form-input"
-                        multiple
-                        name='ImagensInput'
-                        onChange={onChangeImage}
-                    />
-                </div>
-                <div>
-                    <button type='submit' className="form-submit" disabled={loading}>
-                        {loading ? <Loading /> : 'Registrar'}
-                    </button>
-                    <div className="form-link">
-                        <a href="/menu">Voltar aos Locais</a>
-                    </div>
+            <div>
+                <label htmlFor="imagens">Imagens:</label>
+                <input
+                    type='file'
+                    id="imagens"
+                    className="form-input"
+                    multiple
+                    name='ImagensInput'
+                    onChange={onChangeImage}
+                />
+            </div>
+            <div>
+                <button type='submit' className="form-submit" disabled={loading}>
+                    {loading ? <Loading /> : 'Registrar'}
+                </button>
+                <div className="form-link">
+                    <a href="/menu">Voltar aos Locais</a>
                 </div>
             </div>
         </form>

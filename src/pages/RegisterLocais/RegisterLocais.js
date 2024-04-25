@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { api } from '../../api';
 import RegisterLocaisForm from './../../components/RegisterFromLocais/RegisterLocaisForm';
 import { jwtDecode } from 'jwt-decode';
+import './RegisterLocais.css'
 
 
 const RegisterLocais = () => {
-  const [localId, setLocalId] = useState();
+  const [localId, setLocalId] = useState(10);
   const [endereco, setEndereco] = useState();
   const [descricao, setDescricao] = useState();
   const [valor, setValor] = useState();
@@ -37,11 +38,8 @@ const RegisterLocais = () => {
       setCidadesOptions(options);
     } catch (error) {
       console.error('Erro ao buscar cidades:', error);
-      console.log(cidadesOptions);
     }
   };
-
-  console.log("locatario",locatario);
 
   const onChangeEndereco = (event) => {
     setEndereco(event.target.value);
@@ -60,7 +58,6 @@ const RegisterLocais = () => {
   };
 
   const onChangeImage = (event) => {
-    console.log('onChangeImage foi chamado');
     const files = event.target.files;
     const imagesArray = Array.from(files);
 
@@ -78,7 +75,6 @@ const RegisterLocais = () => {
         });
       })
     ).then((base64Array) => {
-      console.log('Base64 array:', base64Array);
       setBase64Images(base64Array);
     });
   };
@@ -98,8 +94,6 @@ const RegisterLocais = () => {
       }
     };
 
-    console.log(localData)
-
     try {
       const response = await api.post('/local/register', localData, {
         headers: {
@@ -107,17 +101,14 @@ const RegisterLocais = () => {
         },
       });
       setLocalId(response.data);
-      console.log('local',response.data)
 
-
-      // const imageData = { images: base64Images, localId: localId };
-      // const response2 = await api.post('/images/register', imageData, {
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      // });
-      // console.log(response2.data);
-
+      const imageData = { images: base64Images, localId: localId };
+      const response2 = await api.post('/images/register', imageData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('Imagen Salva', response2);
 
     } catch (error) {
       console.error('Erro ao enviar imagens:', error);
@@ -125,20 +116,22 @@ const RegisterLocais = () => {
   };
 
   return (
-    <div>
-      <RegisterLocaisForm
-        onSubmit={onSubmit}
-        endereco={endereco}
-        descricao={descricao}
-        valor={valor}
-        images={images}
-        onChangeEndereco={onChangeEndereco}
-        onChangeDescricao={onChangeDescricao}
-        onChangeValor={onChangeValor}
-        onChangeCidade={onChangeCidade}
-        onChangeImage={onChangeImage}
-        cidadesOptions={cidadesOptions}
-      />
+    <div className='registerLocal'>
+      <div className='registerForm'>
+        <RegisterLocaisForm
+          onSubmit={onSubmit}
+          endereco={endereco}
+          descricao={descricao}
+          valor={valor}
+          images={images}
+          onChangeEndereco={onChangeEndereco}
+          onChangeDescricao={onChangeDescricao}
+          onChangeValor={onChangeValor}
+          onChangeCidade={onChangeCidade}
+          onChangeImage={onChangeImage}
+          cidadesOptions={cidadesOptions}
+        />
+      </div>
     </div>
   );
 };

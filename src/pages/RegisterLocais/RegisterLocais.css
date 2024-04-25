@@ -1,0 +1,11 @@
+.registerLocal {
+    display: flex;
+    justify-content: center;
+}
+
+.registerForm {
+  width: 60%;
+  margin-top: 25px;
+  border-radius: 4px;
+  background-color: rgb(190, 190, 190);
+}
