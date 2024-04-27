@@ -19,10 +19,6 @@ const Menu = () => {
             <Button onClick={() => { navigate('/contratos') }}
                 text='Contratos' alt='Contratos' title='Contratos'
             />
-
-            <div style={{ marginTop: '20px' }}>
-                <a href="/registerlocais">registro locais</a>
-            </div>
         </div>
     );
 }

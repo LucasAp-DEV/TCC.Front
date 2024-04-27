@@ -4,11 +4,11 @@ import './Layout.css';
 
 const Layout = () => {
     return (
-        <div>
+        <div className="content">
             <div className="header">
                 <Header />
             </div>
-            <div className="content">
+            <div >
                 <Outlet />
             </div>
         </div>

@@ -6,8 +6,12 @@ import { jwtDecode } from 'jwt-decode';
 import Swal from 'sweetalert2';
 import userIcons from '../../components/Icons e Imgs/user1.png'
 import editIcon from '../../components/Icons e Imgs/pencil.png'
+import UserProfile from '../../components/UserProfile/UserProfile';
+import { useNavigate } from 'react-router-dom';
 
 const Usuarios = () => {
+
+    const navigate = useNavigate()
 
     const [apiData, setApiData] = useState();
     const [apiData2, setApiData2] = useState();
@@ -18,18 +22,17 @@ const Usuarios = () => {
     const token = localStorage.getItem('token');
     const decodedToken = jwtDecode(token);
     const idUser = decodedToken.Id;
+    const typeUser = decodedToken.Role;
 
     useEffect(() => {
         const fetchUserData = async () => {
             setLoading(true);
             try {
-                setTimeout(async () => {
-                    const { data } = await api.get(`/user/${idUser}`);
-                    setApiData(data);
-                    setApiData2(data)
-                    setEditData(data)
-                    setLoading(false);
-                }, 1000);
+                const { data } = await api.get(`/user/${idUser}`);
+                setApiData(data);
+                setApiData2(data)
+                setEditData(data)
+                setLoading(false);
             } catch (error) {
                 console.error(error);
                 setLoading(false);
@@ -68,7 +71,7 @@ const Usuarios = () => {
             ADMIN: 'ADMIN',
             USER: 'USER'
         };
-        
+
         const { value: selectedRole } = await Swal.fire({
             title: 'Editar Role',
             input: 'select',
@@ -85,19 +88,61 @@ const Usuarios = () => {
                 });
             }
         });
-        
+
         if (selectedRole) {
             const newEditData = { ...editData, role: selectedRole };
             setEditData(newEditData);
             setApiData2(newEditData);
         }
     };
-    
+
+    const handleSaveLocais = async () => {
+        try {
+            if (typeUser === 0) { 
+                navigate("/registerLocais");
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    text: 'Você precisa ser um locatario para acessar esta funcionalidade.'
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao salvar alterações!',
+                text: 'Ocorreu um erro ao tentar realizar esta ação.'
+            });
+        }
+    };
+
 
     const handleSaveChanges = async () => {
         try {
-            const newEditData = { ...apiData, ...editData };
-            await api.put(`/user/update/${idUser}`, newEditData);
+            const { value: password } = await Swal.fire({
+                title: 'Confirme sua senha',
+                input: 'password',
+                inputPlaceholder: 'Digite sua senha',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                    autocorrect: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                showLoaderOnConfirm: true,
+                allowOutsideClick: () => !Swal.isLoading(),
+                preConfirm: async (enteredPassword) => {
+                    try {
+                        return enteredPassword;
+                    } catch (error) {
+                        throw new Error(error.message);
+                    }
+                }
+            });
+            const newEditData = { ...apiData, ...editData, password };
+            const response = await api.put(`/user/update/${idUser}`, newEditData);
             Swal.fire({
                 icon: 'success',
                 title: 'Alterações salvas com sucesso!',
@@ -105,15 +150,20 @@ const Usuarios = () => {
             });
             setUserUpdated(prevState => !prevState);
             setEditData({});
+            if (response.status === 200) {
+                const authToken = response.data.token;
+                localStorage.setItem("token", authToken);
+              }
         } catch (error) {
             console.error(error);
             Swal.fire({
                 icon: 'error',
                 title: 'Erro ao salvar alterações!',
-                text: 'Ocorreu um erro ao tentar atualizar o cadastro do usuário. Por favor, tente novamente mais tarde.'
+                text: 'Ocorreu um erro ao tentar atualizar o cadastro do usuário.'
             });
         }
     };
+    
 
 
     const renderApiData = () => {
@@ -122,44 +172,16 @@ const Usuarios = () => {
         }
         return (
             <div className="api-data-container">
-                <div>
-                    <div>
-                        <img src={userIcons} alt="Ícone" className="img-small" />
-                    </div>
-                    <div className="api-infoNome">
-                        <h1>{apiData2.nome}</h1>
-                        <button className="edit-button" onClick={() => handleEdit('Nome', apiData.nome)}>
-                            Editar nome
-                        </button>
-                    </div>
-                    <div className="api-info">
-                        <h3>Login: {apiData2.login}</h3>
-                        <button className="edit-button" onClick={() => handleEdit('Login', apiData.login)}>
-                            <img src={editIcon} alt="Editar" className="icon-edit" />
-                        </button>
-                    </div>
-                    <div className="api-info">
-                        <h3>Email: {apiData2.email}</h3>
-                        <button className="edit-button" onClick={() => handleEdit('Email', apiData.email)}>
-                            <img src={editIcon} alt="Editar" className="icon-edit" />
-                        </button>
-                    </div>
-                    <div className="api-info">
-                        <h3>Telefone: {apiData2.telephone}</h3>
-                        <button className="edit-button" onClick={() => handleEdit('Telephone', apiData.telephone)}>
-                            <img src={editIcon} alt="Editar" className="icon-edit" />
-                        </button>
-                    </div>
-                    <div className="api-info">
-                        <h3>Role: {apiData2.role}</h3>
-                        <button className="edit-button" onClick={() => handleEditRole('Role', apiData.role)}>
-                            <img src={editIcon} alt="Editar" className="icon-edit" />
-                        </button>
-                    </div>
-                    <div className='info2'>
-                        <button onClick={handleSaveChanges}>Salvar Alterações</button>
-                    </div>
-                </div>
+                <UserProfile
+                    apiData={apiData}
+                    apiData2={apiData2}
+                    userIcons={userIcons}
+                    editIcon={editIcon}
+                    handleEdit={handleEdit}
+                    handleEditRole={handleEditRole}
+                    handleSaveChanges={handleSaveChanges}
+                    handleSaveLocais={handleSaveLocais}
+                />
             </div>
         )
     }
