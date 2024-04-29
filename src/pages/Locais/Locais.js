@@ -19,8 +19,6 @@ const Locais = () => {
                 setApiData(data);
                 setLocalData(data);
                 setLoading(false);
-                console.log(apiData);
-            setLoading(false);
         } catch (error) {
             console.error(error);
         } finally {
@@ -89,9 +87,6 @@ const Locais = () => {
         }
         return description;
     }
-
-    console.log(apiData);
-    console.log(apiData);
 
     return (
         <div>
