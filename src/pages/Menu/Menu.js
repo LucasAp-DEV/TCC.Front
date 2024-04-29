@@ -16,7 +16,7 @@ const Menu = () => {
                 text='Locais' alt='Locais' title='Locais'
             />
 
-            <Button onClick={() => { navigate('/contratos') }}
+            <Button onClick={() => { navigate('/contratoList') }}
                 text='Contratos' alt='Contratos' title='Contratos'
             />
         </div>

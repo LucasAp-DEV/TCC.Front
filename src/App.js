@@ -9,6 +9,7 @@ import Usuarios from "./pages/Usuarios/Usuarios";
 import Register from "./pages/Register/Register";
 import Contrato from "./pages/Contrato/Contrato";
 import RegisterLocais from './pages/RegisterLocais/RegisterLocais';
+import ContratoList from "./pages/ContratoList/ContratoList";
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="locais" element={<Locais />} />
         <Route path="contrato" element={<Contrato />} />
         <Route path="registerlocais" element={<RegisterLocais />} />
+        <Route path="contratoList" element={<ContratoList />} />
       </Route>
     </Routes>
   );
