@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react'
+import DetalhesContrato from './../../components/Contrato/DetalhesContrato';
 import { jwtDecode } from 'jwt-decode';
-import { useLocal } from '../../LocalContext';
-import Swal from 'sweetalert2';
-import './Contrato.css';
-import { useNavigate } from 'react-router-dom';
-import DetalhesContrato from '../../components/Contrato/DetalhesContrato';
 import { api } from '../../api';
+import Swal from 'sweetalert2';
+import { useLocal } from '../../LocalContext';
+import { useNavigate } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 
-const Contrato = () => {
-    const navigate = useNavigate()
+export default function ContratoDetalhes() {
+  const navigate = useNavigate()
     const { localData } = useLocal();
     const [dataAluguel, setDataAluguel] = useState();
     const [IdLocador, setIdLocador] = useState();
@@ -127,7 +126,7 @@ const Contrato = () => {
             </div>
         </div>
     );
-
 }
 
-export default Contrato;
+
+

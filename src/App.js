@@ -10,6 +10,7 @@ import Register from "./pages/Register/Register";
 import Contrato from "./pages/Contrato/Contrato";
 import RegisterLocais from './pages/RegisterLocais/RegisterLocais';
 import ContratoList from "./pages/ContratoList/ContratoList";
+import ContratoDetalhes from "./pages/ContratoDetail/ContratoDetalhes";
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="contrato" element={<Contrato />} />
         <Route path="registerlocais" element={<RegisterLocais />} />
         <Route path="contratoList" element={<ContratoList />} />
+        <Route path="contratoDetalhes" element={<ContratoDetalhes />} />
       </Route>
     </Routes>
   );

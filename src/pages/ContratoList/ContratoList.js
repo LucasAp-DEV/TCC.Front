@@ -4,12 +4,9 @@ import { api } from '../../api';
 import { jwtDecode } from 'jwt-decode';
 import Loading from '../../components/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
-import { useLocal } from '../../LocalContext';
 import './ContratoList.css'
 
 function ContratoList() {
-
-    const { setLocalData } = useLocal();
 
     const navigate = useNavigate()
     const [apiData, setApiData] = useState([]);
@@ -29,7 +26,6 @@ function ContratoList() {
         try {
             const { data } = await api.get(`/contrato/user/${idUser}`);
             setApiData(data);
-            setLocalData(data);
             setLoading(false);
         } catch (error) {
             console.error(error);
@@ -39,7 +35,7 @@ function ContratoList() {
     }, []);
 
     const saveData = () => {
-        navigate("/MENU")
+        navigate("/ContratoDetalhes")
     }
 
     const renderApiData = () => {
@@ -48,29 +44,35 @@ function ContratoList() {
         }
         return (
             <div className="api-item1">
-                {apiData.map(api => (
-                    <div className="api-item2" key={api.id}>
-
+                {apiData.map(api => {
+                    let statusColorClass = '';
+                    if (api.status === 'ABERTO') {
+                        statusColorClass = 'orange-background';
+                    } else if (api.status === 'ENCERRADO') {
+                        statusColorClass = 'green-background';
+                    }
+                    return (
+                        <div className="api-item2" key={api.id}>
                             <div className="api-item3">
-                                <p>ID: {api.id}</p>
-                                <p>Data: {api.data}</p>
-                                <p>Valor: {api.price}</p>
+                                <p>DATA: {api.data}</p>
+                                <p>VALOR: R$ {api.price},00</p>
                             </div>
-
-                            <div className="api-item3">
-                                <p>Locatário: {api.locatario}</p>
-                                <p>Status: {api.status}</p>
+                            <div className={"api-item3"}>
+                                <p>LOCATARIO: {api.locatario}</p>
+                                <div className={`api-item3 ${statusColorClass}`}>
+                                    <p>STATUS: {api.status}</p>
+                                </div>
                             </div>
-
-                        <div className="api-data-button">
-                            <button onClick={saveData} disabled={saving}>
-                                {saving ? <Loading /> : 'Detalhes'}
-                            </button>
+                            <div className="api-item-button">
+                                <button onClick={saveData} disabled={saving}>
+                                    {saving ? <Loading /> : 'Detalhes'}
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
-        )
+        );
     }
 
     return (

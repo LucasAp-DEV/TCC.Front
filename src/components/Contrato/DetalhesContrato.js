@@ -3,7 +3,8 @@ import React from 'react';
 const DetalhesContrato = ({ localData, nomeLocador, dataAluguel, handleDataAluguelChange }) => {
     return (
         <div>
-            <p>Por este instrumento particular, <strong>{localData.locatarioName}</strong>, doravante denominado LOCADOR, e <strong>{nomeLocador}</strong>, doravante denominado LOCATÁRIO, firmam o presente contrato de locação do local descrito abaixo:</p>
+            <p>Por este instrumento particular, <strong>{localData.locatarioName}</strong>, doravante denominado LOCADOR, e <strong>{nomeLocador}</strong>, doravante denominado</p>
+            <p> LOCATÁRIO, firmam o presente contrato de locação do local descrito abaixo:</p>
             <div className="info-section">
                 <h2>Detalhes do Local:</h2>
                 <p><strong>ID do Local:</strong> {localData.id}</p>
