@@ -3,10 +3,13 @@ import LoadingTela from '../../components/Loading/LoadingTela';
 import { api } from '../../api';
 import { jwtDecode } from 'jwt-decode';
 import Loading from '../../components/Loading/Loading';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './ContratoList.css'
+import { useLocal } from '../../LocalContext';
 
 function ContratoList() {
+
+    const { setLocalData } = useLocal();
 
     const navigate = useNavigate()
     const [apiData, setApiData] = useState([]);
@@ -27,16 +30,18 @@ function ContratoList() {
             const { data } = await api.get(`/contrato/user/${idUser}`);
             setApiData(data);
             setLoading(false);
+            setLocalData(data);
         } catch (error) {
             console.error(error);
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [setLocalData]);
 
-    const saveData = () => {
-        navigate("/ContratoDetalhes")
-    }
+
+    const handleSelectLocal = (local) => {
+        setLocalData(local);
+    };
 
     const renderApiData = () => {
         if (loading || !apiData?.length) {
@@ -64,9 +69,11 @@ function ContratoList() {
                                 </div>
                             </div>
                             <div className="api-item-button">
-                                <button onClick={saveData} disabled={saving}>
-                                    {saving ? <Loading /> : 'Detalhes'}
-                                </button>
+                                <Link to={{ pathname: '/contratoDetalhes' }}>
+                                    <button onClick={() => handleSelectLocal(api)}>
+                                        Contratar
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     );
