@@ -32,10 +32,10 @@ function App() {
         <Route path="menu" element={<Menu />} />
         <Route path="usuarios" element={<Usuarios />} />
         <Route path="locais" element={<Locais />} />
-        <Route path="contrato" element={<Contrato />} />
+        <Route path="contrato/:idLocal" element={<Contrato />} />
         <Route path="registerlocais" element={<RegisterLocais />} />
-        <Route path="contratoList" element={<ContratoList />} />
-        <Route path="contratoDetalhes" element={<ContratoDetalhes />} />
+        <Route path="contratolist" element={<ContratoList />} />
+        <Route path="contratoDetalhes/:idContrato" element={<ContratoDetalhes />} />
       </Route>
     </Routes>
   );

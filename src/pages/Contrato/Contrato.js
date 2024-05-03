@@ -1,32 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { useLocal } from '../../LocalContext';
 import Swal from 'sweetalert2';
 import './Contrato.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import DetalhesContrato from '../../components/Contrato/DetalhesContrato';
 import { api } from '../../api';
 import Loading from '../../components/Loading/Loading';
 
 const Contrato = () => {
-    const navigate = useNavigate()
-    const { localData } = useLocal();
+    const navigate = useNavigate();
+    const { idLocal } = useParams();
+    const [localData, setLocalData] = useState();
     const [dataAluguel, setDataAluguel] = useState();
     const [IdLocador, setIdLocador] = useState();
     const [IdLocatario, setLocatario] = useState();
     const [localId, setLocalid] = useState();
-    const [status, setStatus] = useState("ABERTO");
-    const [saving, setSaving] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [nomeLocador, setNomeLocador] = useState("")
 
     useEffect(() => {
-        if (localData) {
-            const token = localStorage.getItem('token');
-            const decodedToken = jwtDecode(token);
-            setIdLocador(decodedToken.Id);
-            setLocatario(localData.locatarioId);
-            setLocalid(localData.id)
+        fetchContrato();
+        fetchStorage()
+    }, []);
+
+    const fetchStorage = () => {
+        const token = localStorage.getItem('token');
+        const decodedToken = jwtDecode(token);
+        setIdLocador(decodedToken.Id);
+        setNomeLocador(decodedToken.Name);
+    }
+
+    const fetchContrato = async () => {
+        setLoading(true);
+        try {
+            const { data } = await api.get(`/local/${idLocal}`);
+            setLocatario(data.locatarioId)
+            setLocalid(data.id)
+            setLocalData(data)
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
         }
-    }, [localData]);
+    }
+
 
     const handleDataAluguelChange = (event) => {
         const newData = event.target.value;
@@ -49,7 +66,7 @@ const Contrato = () => {
 
     const saveData = async () => {
         try {
-            setSaving(true);
+            setLoading(true);
 
             if (!dataAluguel) {
                 const errorText = "É necessario inserir uma data";
@@ -58,7 +75,6 @@ const Contrato = () => {
                     title: "Erro ao salvar contrato",
                     text: errorText
                 });
-                setSaving(false);
                 return;
             }
 
@@ -74,7 +90,7 @@ const Contrato = () => {
                 locador: {
                     id: IdLocador
                 },
-                status: status
+                status: "ABERTO"
             };
 
             const response = await api.post('/contrato/register', contratoData, {
@@ -83,8 +99,7 @@ const Contrato = () => {
                 },
             });
             console.log(response.data);
-            setSaving(false);
-            navigate('/locais');
+            navigate('/contratolist');
 
         } catch (error) {
             console.error(error);
@@ -94,18 +109,10 @@ const Contrato = () => {
                 title: "Erro ao salvar contrato",
                 text: errorText
             });
-            setSaving(false);
+        } finally {
+            setLoading(false);
         }
     };
-
-
-    if (!localData) {
-        return navigate('/locais');
-    }
-
-    const token = localStorage.getItem('token');
-    const decodedToken = jwtDecode(token);
-    const nomeLocador = decodedToken.Name;
 
     return (
         <div className='containerContrato'>
@@ -119,8 +126,8 @@ const Contrato = () => {
                     />
                 </div>
             </div>
-            <button onClick={saveData} disabled={saving}>
-                {saving ? <Loading /> : 'Salvar'}
+            <button onClick={saveData} disabled={loading}>
+                {loading ? <Loading /> : 'Salvar'}
             </button>
             <div style={{ marginTop: '20px' }}>
                 <a href="/locais" className='exitPassword'>Voltar aos Locais</a>

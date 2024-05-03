@@ -38,11 +38,6 @@ function ContratoList() {
         }
     }, [setLocalData]);
 
-
-    const handleSelectLocal = (local) => {
-        setLocalData(local);
-    };
-
     const renderApiData = () => {
         if (loading || !apiData?.length) {
             return <LoadingTela />;
@@ -69,8 +64,8 @@ function ContratoList() {
                                 </div>
                             </div>
                             <div className="api-item-button">
-                                <Link to={{ pathname: '/contratoDetalhes' }}>
-                                    <button onClick={() => handleSelectLocal(api)}>
+                                <Link to={{ pathname: `/contratoDetalhes/${api.id}`}}>
+                                    <button >
                                         Contratar
                                     </button>
                                 </Link>

@@ -2,12 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { api } from '../../api';
 import { Link } from 'react-router-dom';
 import LoadingTela from '../../components/Loading/LoadingTela';
-import { useLocal } from '../../LocalContext';
 import './Locais.css'
 
 const Locais = () => {
-
-    const { setLocalData } = useLocal();
 
     const [apiData, setApiData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -17,22 +14,18 @@ const Locais = () => {
         try {
             const { data } = await api.get('/local/list');
                 setApiData(data);
-                setLocalData(data);
                 setLoading(false);
         } catch (error) {
             console.error(error);
         } finally {
             setLoading(false);
         }
-    }, [setLocalData]);
+    }, []);
 
     useEffect(() => {
         fetchApiData();
     }, [fetchApiData]);
 
-    const handleSelectLocal = (local) => {
-        setLocalData(local);
-    };
 
     const renderApiData = () => {
         if (loading || !apiData?.length) {
@@ -55,8 +48,8 @@ const Locais = () => {
                             <h5>Cidade: {api.cidade}</h5>
                         </div>
                         <div className='button-container'>
-                            <Link to={{ pathname: '/contrato' }}>
-                                <button onClick={() => handleSelectLocal(api)}>
+                            <Link to={{ pathname: `/contrato/${api.id}`}}>
+                                <button >
                                     Contratar
                                 </button>
                             </Link>

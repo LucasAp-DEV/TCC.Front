@@ -2,16 +2,16 @@ import React from 'react';
 
 const DetalhesContrato = ({ localData, nomeLocador, dataAluguel, handleDataAluguelChange }) => {
     return (
-        <div>
-            <p>Por este instrumento particular, <strong>{localData.locatarioName}</strong>, doravante denominado LOCADOR, e <strong>{nomeLocador}</strong>, doravante denominado</p>
+        <div style={{marginTop: "10px"}}>
+            <p>Por este instrumento particular, <strong>{localData?.locatarioName}</strong>, doravante denominado LOCADOR, e <strong>{nomeLocador}</strong>, doravante denominado</p>
             <p> LOCATÁRIO, firmam o presente contrato de locação do local descrito abaixo:</p>
             <div className="info-section">
                 <h2>Detalhes do Local:</h2>
-                <p><strong>ID do Local:</strong> {localData.id}</p>
-                <p><strong>Descrição:</strong> {localData.descricao}</p>
-                <p><strong>Endereço:</strong> {localData.endereco}, {localData.cidade}</p>
-                <p><strong>Preço:</strong> R$ {localData.price}</p>
-                <p><strong>Telefone:</strong> {localData.locatarioTell}</p>
+                <p><strong>ID do Local:</strong> {localData?.id}</p>
+                <p><strong>Descrição:</strong> {localData?.descricao}</p>
+                <p><strong>Endereço:</strong> {localData?.endereco}, {localData?.cidade}</p>
+                <p><strong>Preço:</strong> R$ {localData?.price}</p>
+                <p><strong>Telefone:</strong> {localData?.locatarioTell}</p>
             </div>
             <p>O LOCATÁRIO declara estar ciente e de acordo com os termos deste contrato e se compromete a respeitá-los integralmente.</p>
             <div>
