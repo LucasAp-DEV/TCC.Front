@@ -66,7 +66,7 @@ function ContratoList() {
                             <div className="api-item-button">
                                 <Link to={{ pathname: `/contratoDetalhes/${api.id}`}}>
                                     <button >
-                                        Contratar
+                                        Detalhes
                                     </button>
                                 </Link>
                             </div>

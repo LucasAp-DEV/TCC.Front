@@ -1,8 +1,19 @@
 import React from 'react';
 
 const DetalhesLocal2 = ({ localData }) => {
+
+    const getStatusLabel = (status) => {
+        if (status === 'ABERTO') {
+            return 'ABERTO';
+        } else if (status === 'ENCERRADO') {
+            return 'ENCERRADO';
+        } else {
+            return 'INDEFINIDO';
+        }
+    };
+
     return (
-        <div style={{marginTop: "10px"}}>
+        <div>
             <p>Por este instrumento particular, <strong>{localData?.locatario}</strong>, doravante denominado LOCADOR, e <strong>{localData?.locador}</strong>, doravante denominado</p>
             <p>LOCATÁRIO, firmam o presente contrato de locação do local descrito abaixo:</p>
             <div>
@@ -11,7 +22,7 @@ const DetalhesLocal2 = ({ localData }) => {
                 <p><strong>Cidade:</strong> {localData?.cidade}</p>
                 <p><strong>Preço:</strong> R$ {localData?.price},00</p>
                 <p><strong>Telefone:</strong> (44) {localData?.telephone}</p>
-                <p><strong>Status:</strong> {localData?.status}</p>
+                <p><strong>Status:</strong> {getStatusLabel(localData?.status)}</p>
             </div>
             <p>O LOCATÁRIO declara estar ciente e de acordo com os termos deste contrato e se compromete a respeitá-los integralmente.</p>
             <div>
