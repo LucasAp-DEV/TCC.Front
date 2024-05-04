@@ -63,7 +63,7 @@ const ContratoDetalhes = () => {
             setLoading(true);
             const id = localData.id;
             const statusData = { status: localData.status }
-            await api.post(`/contrato/update/${id}`, statusData, {
+            await api.put(`/contrato/update/${id}`, statusData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
