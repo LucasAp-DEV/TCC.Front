@@ -9,7 +9,9 @@ import Loading from '../../components/Loading/Loading';
 
 const Contrato = () => {
     const navigate = useNavigate();
+
     const { idLocal } = useParams();
+    
     const [localData, setLocalData] = useState();
     const [dataAluguel, setDataAluguel] = useState();
     const [IdLocador, setIdLocador] = useState();

@@ -3,10 +3,14 @@ import { api } from '../../api';
 import RegisterLocaisForm from './../../components/RegisterFromLocais/RegisterLocaisForm';
 import { jwtDecode } from 'jwt-decode';
 import './RegisterLocais.css'
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 
 const RegisterLocais = () => {
-  const [localId, setLocalId] = useState(10);
+
+  const navigate = useNavigate()
+
   const [endereco, setEndereco] = useState();
   const [descricao, setDescricao] = useState();
   const [valor, setValor] = useState();
@@ -15,6 +19,7 @@ const RegisterLocais = () => {
   const [base64Images, setBase64Images] = useState([]);
   const [cidadesOptions, setCidadesOptions] = useState([]);
   const [locatario, setLocatario] = useState();
+  const [loading, setRemoveLoading] = useState(false);
 
   useEffect(() => {
     fetchCidadesOptions();
@@ -57,6 +62,22 @@ const RegisterLocais = () => {
     setCidade(selectedOption);
   };
 
+  function showErrorAlert(message) {
+    Swal.fire({
+      icon: "error",
+      title: "Erro ao Cadastrar",
+      text: message
+    });
+  }
+
+  function showSucessAlert(message) {
+    Swal.fire({
+      icon: "success",
+      title: "Cadastro Realizado",
+      text: message
+    });
+  }
+
   const onChangeImage = (event) => {
     const files = event.target.files;
     const imagesArray = Array.from(files);
@@ -95,23 +116,28 @@ const RegisterLocais = () => {
     };
 
     try {
+      setRemoveLoading(true)
       const response = await api.post('/local/register', localData, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      setLocalId(response.data);
+      const localId = response.data;
 
       const imageData = { images: base64Images, localId: localId };
       const response2 = await api.post('/images/register', imageData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      console.log('Imagen Salva', response2);
-
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        console.log(response2);
+        showSucessAlert("Cadastro realizado");
+        navigate("/usuario")
     } catch (error) {
-      console.error('Erro ao enviar imagens:', error);
+      console.error(error);
+      showErrorAlert("Erro ao Registrar");
+    }finally {
+      setRemoveLoading(false);
     }
   };
 
@@ -130,6 +156,7 @@ const RegisterLocais = () => {
           onChangeCidade={onChangeCidade}
           onChangeImage={onChangeImage}
           cidadesOptions={cidadesOptions}
+          loading={loading}
         />
       </div>
     </div>

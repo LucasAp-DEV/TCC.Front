@@ -11,10 +11,8 @@ function ContratoList() {
 
     const { setLocalData } = useLocal();
 
-    const navigate = useNavigate()
     const [apiData, setApiData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
 
     useEffect(() => {
         fetchApiData();

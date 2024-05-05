@@ -27,8 +27,8 @@ function UserProfile({ apiData2, apiData, userIcons, editIcon, handleEdit, handl
                 </button>
             </div>
             <div className="api-info">
-                <h3>Telefone: {apiData2.telephone}</h3>
-                <button className="edit-button" onClick={() => handleEdit('Telefone', apiData.telephone)}>
+                <h3>Telefone: {apiData2.telefone}</h3>
+                <button className="edit-button" onClick={() => handleEdit('Telefone', apiData.telefone)}>
                     <img src={editIcon} alt="Editar" className="icon-edit" />
                 </button>
             </div>

@@ -2,16 +2,19 @@ import RegisterForm from '../../components/RegisterForm/RegisterForm'
 import './Register.css'
 import { useState } from 'react';
 import { api } from '../../api';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
   const Swal = require('sweetalert2')
 
+  const navigate = useNavigate();
+
   const [login, setLogin] = useState();
   const [password, setPassword] = useState();
   const [nome, setName] = useState();
   const [email, setemail] = useState();
-  const [telephone, setTelefone] = useState();
+  const [telefone, setTelefone] = useState();
   const [role, setRole] = useState('USER');
   const [loading, setRemoveLoading] = useState();
   const [passwordValid, setPasswordValid] = useState();
@@ -42,7 +45,7 @@ const Register = () => {
   }
 
   const onChangeRole = () => {
-    setRole((currentRole) => (currentRole === 'USER' ? 'ADMIN' : 'USER')); //ALTERAR ROLE ENTRE ADMIN E USER
+    setRole((currentRole) => (currentRole === 'USER' ? 'ADMIN' : 'USER'))
   }
 
   function showErrorAlert(message) {
@@ -67,14 +70,14 @@ const Register = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    const formData = { login, password, nome, email, telephone, passwordValid };
+    const formData = { login, password, nome, email, telefone, passwordValid, role };
 
     if (password !== passwordValid) {
       showErrorAlert("As Senhas nao conferem");
       return;
     }
 
-    if (!isPhoneNumberValid(formData.telephone)) {
+    if (!isPhoneNumberValid(formData.telefone)) {
       showErrorAlert("Digite corretamente o numero de telefone");
       return;
     }
@@ -86,15 +89,9 @@ const Register = () => {
             'Content-Type': 'application/json',
         },
     });
-    
       console.log(response.data);
       showSucessAlert("Cadastro realizado");
-      setLogin("");
-      setPassword("");
-      setName("");
-      setemail("");
-      setPasswordValid("");
-      setTelefone("");
+      navigate("/login")
     } catch (error) {
       showErrorAlert("Erro ao Registrar");
     } finally {
@@ -110,7 +107,7 @@ const Register = () => {
           password={password}
           nome={nome}
           email={email}
-          telephone={telephone}
+          telephone={telefone}
           role={role}
           passwordValid={passwordValid}
           onChangeName={onChangeName}

@@ -33,6 +33,7 @@ const Usuarios = () => {
                 setApiData2(data)
                 setEditData(data)
                 setLoading(false);
+                console.log(data)
             } catch (error) {
                 console.error(error);
                 setLoading(false);
@@ -56,6 +57,7 @@ const Usuarios = () => {
                 const newEditData = { ...editData, [field.toLowerCase()]: newValue };
                 setEditData(newEditData);
                 setApiData2(newEditData)
+                console.log(newEditData)
             },
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {

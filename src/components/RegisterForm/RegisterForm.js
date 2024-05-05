@@ -2,7 +2,7 @@ import './Registerform.css'
 import Loading from '../Loading/Loading';
 
 const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, onChangeName,
-    email, onChangeEmail, telephone, onChangeTelefone, passwordValid, onChangePasswordValid,
+    email, onChangeEmail, telefone, onChangeTelefone, passwordValid, onChangePasswordValid,
     role, onchangeRole, onSubmit, loading }) => {
 
     return (
@@ -77,7 +77,7 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                         placeholder={"Digite seu telefone"}
                         type='phone'
                         name='telefoneInput'
-                        value={telephone}
+                        value={telefone}
                         onChange={onChangeTelefone}
                         required
                     />
