@@ -1,54 +1,58 @@
-.containerContrato {
+.container1 {
   display: flex;
   flex-direction: column;
-  align-items: center;
   height: 100%;
   width: 100%;
 }
-.contrato {
-    width: 70%;
-    margin-top: 90px;
-    padding: 10px;
-    border: 2px solid #000;
-    border-radius: 10px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .content {
-    padding: 2px;
-    margin-bottom: -30%;
-  }
-  
-  .info-section {
-    margin-bottom: 40px;
-  }
-  
-  .info-section p {
-    font-size: 16px;
-  }
 
-  .containerContrato button {
-    font-size: 30px;
-    background-color: rgb(74, 74, 85);
-    color: #ffffff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-family: Arial, sans-serif;
-    text-decoration: none;
-    margin-top: 10px;
-    width: 15%;
-    height: 55px;
-    transition: transform 0.3s, background-color 0.3s;
-  }
+.container2 {
+  width: 70%;
+  margin-top: 90px;
+  padding: 10px;
+  border: 2px solid #000;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  margin-left: 15%;
+}
 
-  .containerContrato button:hover {
-    background-color: #1a1919;
-  }
+.container3 {
+  padding: 2px;
+}
 
-  .exitPassword {
-    margin-top: 30px;
-    text-decoration: none;
-    color: rgb(8, 8, 8);
-  }
-  
+.info-section {
+  margin-bottom: 40px;
+}
+
+.info-section p {
+  font-size: 16px;
+}
+
+.container4 {
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-left: 15%;
+}
+
+.buttonVoltar,
+.buttonSalvar {
+  padding: 2px;
+  font-size: 16px;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  text-decoration: none;
+  width: 10%;
+  height: 40px;
+  background-color: rgb(219, 30, 30);
+}
+
+.buttonSalvar {
+  margin-left: 1%;
+}
+
+.buttonVoltar:hover,
+.buttonSalvar:hover {
+  background-color: #1a1919;
+}

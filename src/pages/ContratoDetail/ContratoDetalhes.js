@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { api } from './../../api';
 import Swal from 'sweetalert2';
 import './ContratoDetalhes.css';
+import { jwtDecode } from 'jwt-decode';
 
 const ContratoDetalhes = () => {
 
@@ -12,6 +13,10 @@ const ContratoDetalhes = () => {
 
     const [loading, setLoading] = useState(false);
     const [localData, setLocalData] = useState();
+
+    const token = localStorage.getItem('token');
+    const decodedToken = jwtDecode(token);
+    const idUser = decodedToken.Id;
 
     useEffect(() => {
         fetchContrato();
@@ -58,6 +63,20 @@ const ContratoDetalhes = () => {
         }
     };
 
+    const handleEditstatus = async () => {
+        const typeUser = localData.locatarioId;
+            if (typeUser === idUser) { 
+                handleEditStatus();
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    text: 'Você precisa ser o locatario do local para acessar esta funcionalidade.'
+                });
+            }
+    };
+    
+
     const saveData = async () => {
         try {
             setLoading(true);
@@ -100,7 +119,7 @@ const ContratoDetalhes = () => {
             </div>
             <div>
                 <div className='container4'>
-                    <button onClick={handleEditStatus} className='buttonAlterar'>Editar Status</button>
+                    <button onClick={handleEditstatus} className='buttonVoltar'>Editar Status</button>
                     <button onClick={saveData} disabled={loading} className='buttonSalvar'>
                         {loading ? <Loading /> : 'Salvar'}
                     </button>

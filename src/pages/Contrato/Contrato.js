@@ -11,7 +11,7 @@ const Contrato = () => {
     const navigate = useNavigate();
 
     const { idLocal } = useParams();
-    
+
     const [localData, setLocalData] = useState();
     const [dataAluguel, setDataAluguel] = useState();
     const [IdLocador, setIdLocador] = useState();
@@ -117,22 +117,26 @@ const Contrato = () => {
     };
 
     return (
-        <div className='containerContrato'>
-            <div className="contrato">
-                <div className="content">
-                    <DetalhesContrato
-                        localData={localData}
-                        nomeLocador={nomeLocador}
-                        dataAluguel={dataAluguel}
-                        handleDataAluguelChange={handleDataAluguelChange}
-                    />
+        <div>
+            <div className='container1'>
+                <div className='container2'>
+                    <div className='container3'>
+                        <DetalhesContrato
+                            localData={localData}
+                            nomeLocador={nomeLocador}
+                            dataAluguel={dataAluguel}
+                            handleDataAluguelChange={handleDataAluguelChange}
+                        />
+                    </div>
                 </div>
             </div>
-            <button onClick={saveData} disabled={loading}>
-                {loading ? <Loading /> : 'Salvar'}
-            </button>
-            <div style={{ marginTop: '20px' }}>
-                <a href="/locais" className='exitPassword'>Voltar aos Locais</a>
+            <div>
+                <div className='container4'>
+                    <button onClick={() => {navigate("/locais")}} className='buttonAlterar'>Voltar</button>
+                    <button onClick={saveData} disabled={loading} className='buttonSalvar'>
+                        {loading ? <Loading /> : 'Salvar'}
+                    </button>
+                </div>
             </div>
         </div>
     );
