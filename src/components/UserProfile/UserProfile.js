@@ -3,7 +3,7 @@ import './UserProfile.css'
 
 function UserProfile({ apiData2, apiData, userIcons, editIcon, handleEdit, handleEditRole, handleSaveChanges, handleSaveLocais }) {
 
-    return (
+      return (
         <div>
             <div>
                 <img src={userIcons} alt="Ícone" className="img-small" />

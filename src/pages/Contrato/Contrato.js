@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import DetalhesContrato from '../../components/Contrato/DetalhesContrato';
 import { api } from '../../api';
 import Loading from '../../components/Loading/Loading';
+import LoadingTela from '../../components/Loading/LoadingTela';
 
 const Contrato = () => {
     const navigate = useNavigate();
@@ -69,7 +70,6 @@ const Contrato = () => {
     const saveData = async () => {
         try {
             setLoading(true);
-
             if (!dataAluguel) {
                 const errorText = "É necessario inserir uma data";
                 Swal.fire({
@@ -116,7 +116,10 @@ const Contrato = () => {
         }
     };
 
-    return (
+    const renderApi = () => {
+        if (loading === true) {
+            return <LoadingTela />;
+        }return (
         <div>
             <div className='container1'>
                 <div className='container2'>
@@ -133,11 +136,16 @@ const Contrato = () => {
             <div>
                 <div className='container4'>
                     <button onClick={() => {navigate("/locais")}} className='buttonAlterar'>Voltar</button>
-                    <button onClick={saveData} disabled={loading} className='buttonSalvar'>
-                        {loading ? <Loading /> : 'Salvar'}
-                    </button>
+                    <button onClick={saveData} className='buttonSalvar'> Contratar </button>
                 </div>
             </div>
+        </div>
+    );
+    }
+
+    return (
+        <div>
+            {renderApi()}
         </div>
     );
 

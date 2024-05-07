@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 import LoadingTela from '../../components/Loading/LoadingTela';
 import { api } from '../../api';
 import { jwtDecode } from 'jwt-decode';
-import Loading from '../../components/Loading/Loading';
 import { Link, useNavigate } from 'react-router-dom';
 import './ContratoList.css'
 import { useLocal } from '../../LocalContext';

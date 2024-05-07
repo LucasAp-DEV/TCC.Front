@@ -6,9 +6,7 @@ import './Locais.css'
 
 const Locais = () => {
 
-    const { idLocal } = useParams();
-
-    const [apiData, setApiData] = useState([]);
+       const [apiData, setApiData] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const fetchApiData = useCallback(async () => {

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import DetalhesLocal2 from '../../components/Contrato/DetalhesLocal2';
-import Loading from '../../components/Loading/Loading';
 import { useParams } from 'react-router-dom';
 import { api } from './../../api';
 import Swal from 'sweetalert2';
 import './ContratoDetalhes.css';
 import { jwtDecode } from 'jwt-decode';
+import LoadingTela from '../../components/Loading/LoadingTela';
 
 const ContratoDetalhes = () => {
 
@@ -13,20 +13,25 @@ const ContratoDetalhes = () => {
 
     const [loading, setLoading] = useState(false);
     const [localData, setLocalData] = useState();
+    const [typeUser, setTypeUser] = useState(false)
 
     const token = localStorage.getItem('token');
     const decodedToken = jwtDecode(token);
-    const idUser = decodedToken.Id;
+    const Usertype = decodedToken.Id
 
     useEffect(() => {
         fetchContrato();
     }, []);
+
 
     const fetchContrato = async () => {
         setLoading(true);
         try {
             const { data } = await api.get(`/contrato/${idContrato}`);
             setLocalData(data)
+            if(data.locatarioId === Usertype){
+                setTypeUser(true);
+            }
         } catch (error) {
             console.error(error);
         } finally {
@@ -51,7 +56,7 @@ const ContratoDetalhes = () => {
                     if (value !== '') {
                         resolve();
                     } else {
-                        resolve('Você precisa selecionar um role.');
+                        resolve('Você precisa selecionar um status.');
                     }
                 });
             }
@@ -63,19 +68,6 @@ const ContratoDetalhes = () => {
         }
     };
 
-    const handleEditstatus = async () => {
-        const typeUser = localData.locatarioId;
-            if (typeUser === idUser) { 
-                handleEditStatus();
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro',
-                    text: 'Você precisa ser o locatario do local para acessar esta funcionalidade.'
-                });
-            }
-    };
-    
 
     const saveData = async () => {
         try {
@@ -105,29 +97,38 @@ const ContratoDetalhes = () => {
         }
     };
 
-
-    return (
-        <div>
-            <div className='container1'>
-                <div className='container2'>
-                    <div className='container3'>
-                        <DetalhesLocal2
-                            localData={localData}
-                        />
+    const renderData = () => {
+        if (loading === true) {
+            return <LoadingTela />;
+        }
+        return (
+            <div>
+                <div className='container1'>
+                    <div className='container2'>
+                        <div className='container3'>
+                            <DetalhesLocal2
+                                localData={localData}
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    {typeUser && <div className='container4'>
+                        <button onClick={saveData} className='buttonVoltar'> Salvar </button>
+                        <button onClick={handleEditStatus} className='buttonSalvar'> Editar status </button>
+                    </div>}
+                    <div style={{ marginTop: '20px' }}>
+                        <a href="/contratolist" className='exitPassword'>Voltar aos Contratos</a>
                     </div>
                 </div>
             </div>
-            <div>
-                <div className='container4'>
-                    <button onClick={handleEditstatus} className='buttonVoltar'>Editar Status</button>
-                    <button onClick={saveData} disabled={loading} className='buttonSalvar'>
-                        {loading ? <Loading /> : 'Salvar'}
-                    </button>
-                </div>
-                <div style={{ marginTop: '20px' }}>
-                    <a href="/contratolist" className='exitPassword'>Voltar aos Contratos</a>
-                </div>
-            </div>
+        );
+    }
+
+    
+    return (
+        <div>F
+            {renderData()}
         </div>
     );
 }
