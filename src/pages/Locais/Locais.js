@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { api } from '../../api';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LoadingTela from '../../components/Loading/LoadingTela';
 import './Locais.css'
 
 const Locais = () => {
 
-       const [apiData, setApiData] = useState([]);
+    const [apiData, setApiData] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const fetchApiData = useCallback(async () => {
@@ -45,7 +45,7 @@ const Locais = () => {
                             <h5>Cidade: {api.cidade}</h5>
                         </div>
                         <div className='button-container'>
-                            <Link to={{ pathname: `/contrato/${api.id}`}}>
+                            <Link to={{ pathname: `/localdetalhe/${api.id}`}}>
                                 <button >
                                     Detalhes
                                 </button>

@@ -33,7 +33,6 @@ const Usuarios = () => {
                 setApiData2(data)
                 setEditData(data)
                 setLoading(false);
-                console.log(data)
             } catch (error) {
                 console.error(error);
                 setLoading(false);

@@ -1,7 +1,6 @@
 import React from 'react';
 import './LoginForm.css'
 import Loading from '../Loading/Loading';
-import Input from '../Input/Input';
 
 const LoginForm = ({ login, password, onChangeLogin, onChangePassword, onSubmit, loading }) => {
   return (
