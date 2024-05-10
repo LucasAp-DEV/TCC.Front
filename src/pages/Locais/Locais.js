@@ -36,7 +36,9 @@ const Locais = () => {
                 {apiData.map(api => (
                     <div className="api-info1" key={api.id}>
                         {api.images.length > 0 &&
-                         <img src={`data:image/png;base64,${api.images[0]}`} alt="Imagem do Local" />
+                         <img src={`data:image/png;base64,${api.images[0]}`} alt="Imagem do Local"
+                         style={{ width: '100%', height: '250px' }}
+                         />
                         } 
                         <div className="info-column">
                             <h5>Preço: R$ {api.price}</h5>

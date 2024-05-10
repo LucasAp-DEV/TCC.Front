@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { api } from '../../api';
 import LoadingTela from '../../components/Loading/LoadingTela';
 import LocalDetalhesForm from '../../components/LocalDetalhes/LocalDetalhesForm';
 
 function LocalDetalhe() {
-
     const { idLocal } = useParams();
 
     const [localData, setLocalData] = useState();
@@ -39,7 +38,7 @@ function LocalDetalhe() {
                 </div>
                 <div>
                     <Link to={{ pathname: `/contrato/${localData?.id}` }}>
-                        <button >
+                        <button className="button-contratar">
                             Contratar
                         </button>
                     </Link>
@@ -55,5 +54,4 @@ function LocalDetalhe() {
     )
 }
 
-export default LocalDetalhe
-
+export default LocalDetalhe;

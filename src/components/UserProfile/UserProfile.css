@@ -34,7 +34,7 @@
 
 
 .api-info {
-    background-color: #e2dede;
+    background-color: #b8b3b3;
     border-radius: 5px;
     padding: 5px;
     margin-bottom: 10px;
@@ -54,7 +54,7 @@
     height: 25px;
     border: none;
     cursor: pointer;
-    background-color: #e2dede;
+    background-color: #b8b3b3;
     transition: transform 0.3s;
 }
 

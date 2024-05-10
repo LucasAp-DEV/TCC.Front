@@ -22,7 +22,7 @@
   color: black;
 }
 
-.formContainer1 button {
+.formContainer1 button[type="submit"] {
   font-size: 30px;
   background-color: rgb(47, 47, 49);
   color: #ffffff;
@@ -36,8 +36,7 @@
   height: 55px;
 }
 
-.formContainer1 button:hover {
-  /* transform: scale(1.1); */
+.formContainer1 button[type="submit"]:hover {
   background-color: #1a1919;
 }
 
@@ -48,6 +47,30 @@
     color: rgb(22, 22, 22);
     padding-left: 65%;
 }
+
+.passwordContainer {
+  position: relative;
+}
+
+.passwordContainer input[type="password"] {
+  padding-right: 30px;
+}
+
+.passwordVisibilityButton {
+  position: absolute;
+  right: 16%;
+  top: 60%;
+  transform: translateY(-40%);
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.passwordVisibilityButton:focus {
+  outline: none;
+}
+
 
 
 

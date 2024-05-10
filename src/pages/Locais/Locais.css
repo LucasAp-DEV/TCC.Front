@@ -40,11 +40,11 @@
     background-color: rgb(74, 74, 85);
     color: #ffffff;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     font-family: Arial, sans-serif;
     text-decoration: none;
-    margin-top: 65px;
+    margin-top: 60px;
     width: 100%;
     height: 55px;
     transition: transform 0.3s, background-color 0.3s;

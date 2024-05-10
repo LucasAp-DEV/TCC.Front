@@ -1,10 +1,8 @@
 .api-data-container {
-    background-color: #dd2020;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 120px;
     width: 80%;
     margin-left: 10%;
-    /* teste */
 }

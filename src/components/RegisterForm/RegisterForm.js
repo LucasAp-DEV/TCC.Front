@@ -1,9 +1,21 @@
 import './Registerform.css'
 import Loading from '../Loading/Loading';
+import { useState } from 'react';
 
 const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, onChangeName,
     email, onChangeEmail, telefone, onChangeTelefone, passwordValid, onChangePasswordValid,
     role, onchangeRole, onSubmit, loading }) => {
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showPasswordValid, setShowPasswordValid] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const togglePasswordValidVisibility = () => {
+        setShowPasswordValid(!showPasswordValid);
+    };
 
     return (
         <form className='register' onSubmit={onSubmit}>
@@ -27,24 +39,30 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                     <p>Senha:</p>
                     <input
                         placeholder={"Digite sua senha"}
-                        type='password'
+                        type={showPassword ? 'text' : 'password'}
                         name='passwordInput'
                         value={password}
                         onChange={onChangePassword}
                         required
                     />
+                    <button type="button" className="passwordVisibilityButton1" onClick={togglePasswordVisibility}>
+                        {showPassword ? '--' : '👁️'}
+                    </button>
                 </div>
 
                 <div className='cidadeBox'>
                     <p>Confirme sua Senha:</p>
                     <input
                         placeholder={"Digite sua cidade"}
-                        type='password'
+                        type={showPasswordValid ? 'text' : 'password'}
                         name='passwordValid'
                         value={passwordValid}
                         onChange={onChangePasswordValid}
                         required
                     />
+                    <button type="button" className="passwordVisibilityButton1" onClick={togglePasswordValidVisibility}>
+                        {showPasswordValid ? '--' : '👁️'}
+                    </button>
                 </div>
 
                 <div className='nomeBox'>

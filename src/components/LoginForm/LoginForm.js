@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './LoginForm.css'
 import Loading from '../Loading/Loading';
 
 const LoginForm = ({ login, password, onChangeLogin, onChangePassword, onSubmit, loading }) => {
+  
+  const [showPassword, setShowPassword] = useState(false);
+
+  const PasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <form className='formContainer1' onSubmit={onSubmit}>
       <div style={{ marginTop: '50px' }}>
@@ -14,14 +20,19 @@ const LoginForm = ({ login, password, onChangeLogin, onChangePassword, onSubmit,
           onChange={onChangeLogin}
           required
         />
+      </div>
+      <div className="passwordContainer">
         <input
           placeholder='Senha:'
-          type='password'
+          type={showPassword ? 'text' : 'password'}
           name='passwordInput'
           value={password}
           onChange={onChangePassword}
           required
         />
+        <button type="button" className="passwordVisibilityButton" onClick={PasswordVisibility}>
+          {showPassword ? '--' : '👁️'}
+        </button>
       </div>
       <div>
         <p>

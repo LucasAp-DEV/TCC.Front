@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom'
 import './Menu.css'
-import Button from './../../components/Button/Button';
 
 const Menu = () => {
 
@@ -8,19 +7,23 @@ const Menu = () => {
 
     return (
         <div className="menu-container">
-            <Button onClick={() => { navigate('/usuarios') }}
-                text='Usuario' alt='Usuario' title='Usuario'
-            />
-
-            <Button onClick={() => { navigate('/locais') }}
-                text='Locais' alt='Locais' title='Locais'
-            />
-
-            <Button onClick={() => { navigate('/contratoList') }}
-                text='Contratos' alt='Contratos' title='Contratos'
-            />
+            <button onClick={() => { navigate('/usuarios') }}
+                alt='Usuario' title='Usuario'>
+                Usuario
+            </button>
+    
+            <button onClick={() => { navigate('/locais') }}
+                alt='Locais' title='Locais'>
+                Locais
+            </button>
+    
+            <button onClick={() => { navigate('/contratoList') }}
+                alt='Contratos' title='Contratos'>
+                Contratos
+            </button>
         </div>
     );
+    
 }
 
 
