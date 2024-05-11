@@ -132,7 +132,7 @@ const RegisterLocais = () => {
         });
         console.log(response2);
         showSucessAlert("Cadastro realizado");
-        navigate("/usuario")
+        navigate("/usuarios")
     } catch (error) {
       console.error(error);
       showErrorAlert("Erro ao Registrar");
