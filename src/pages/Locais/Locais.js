@@ -6,7 +6,7 @@ import './Locais.css'
 
 const Locais = () => {
 
-       const [apiData, setApiData] = useState([]);
+    const [apiData, setApiData] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const fetchApiData = useCallback(async () => {

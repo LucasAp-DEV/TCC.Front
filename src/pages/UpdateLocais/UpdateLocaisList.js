@@ -52,7 +52,7 @@ const UpdateLocaisList = () => {
                                 <p>Cidade: {api.cidade}</p>
                             </div>
                             <div className="api-item-button">
-                                <Link to={{ pathname: `/updateLocais/${api.id}` }}>
+                                <Link to={{ pathname: `/updatelocais/${api.id}` }}>
                                     <button >
                                         Detalhes
                                     </button>

@@ -6,6 +6,7 @@ import LocalDetalhesForm from '../../components/LocalDetalhes/LocalDetalhesForm'
 import './LocalDetalhe.css'
 
 function LocalDetalhe() {
+  
   const { idLocal } = useParams();
 
   const navigate = useNavigate();
