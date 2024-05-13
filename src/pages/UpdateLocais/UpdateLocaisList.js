@@ -1,12 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import LoadingTela from '../../components/Loading/LoadingTela';
-import { api } from '../../api';
-import { jwtDecode } from 'jwt-decode';
-import { Link } from 'react-router-dom';
-import './ContratoList.css'
+import React, { useCallback, useEffect, useState } from 'react';
 import { useLocal } from '../../LocalContext';
+import { jwtDecode } from 'jwt-decode';
+import { api } from '../../api';
+import LoadingTela from '../../components/Loading/LoadingTela';
+import { Link } from 'react-router-dom';
 
-function ContratoList() {
+const UpdateLocaisList = () => {
 
     const { setLocalData } = useLocal();
 
@@ -21,10 +20,10 @@ function ContratoList() {
     const decodedToken = jwtDecode(token);
     const idUser = decodedToken.Id;
 
-    const fetchApiData = useCallback(async () => {
+    const fetchApiData = async () => {
         setLoading(true);
         try {
-            const { data } = await api.get(`/contrato/user/${idUser}`);
+            const { data } = await api.get(`/local/list/${idUser}`);
             setApiData(data);
             setLoading(false);
             setLocalData(data);
@@ -33,7 +32,7 @@ function ContratoList() {
         } finally {
             setLoading(false);
         }
-    }, [setLocalData]);
+    };
 
     const renderApiData = () => {
         if (loading || !apiData?.length) {
@@ -42,26 +41,18 @@ function ContratoList() {
         return (
             <div className="api-item1">
                 {apiData.map(api => {
-                    let statusColorClass = '';
-                    if (api.status === 'ABERTO') {
-                        statusColorClass = 'orange-background';
-                    } else if (api.status === 'ENCERRADO') {
-                        statusColorClass = 'green-background';
-                    }
                     return (
-                        <div className="api-item2" key={api.id}>
+                        <div className="api-item2">
                             <div className="api-item3">
-                                <p>DATA: {api.data}</p>
+                                <p>ID: {api.id}</p>
                                 <p>VALOR: R$ {api.price},00</p>
                             </div>
                             <div className={"api-item3"}>
-                                <p>LOCATARIO: {api.locatario}</p>
-                                <div className={`api-item3 ${statusColorClass}`}>
-                                    <p>STATUS: {api.status}</p>
-                                </div>
+                                <p>Endereço: {api.endereco}</p>
+                                <p>Cidade: {api.cidade}</p>
                             </div>
                             <div className="api-item-button">
-                                <Link to={{ pathname: `/contratoDetalhes/${api.id}`}}>
+                                <Link to={{ pathname: `/updateLocais/${api.id}` }}>
                                     <button >
                                         Detalhes
                                     </button>
@@ -78,7 +69,7 @@ function ContratoList() {
         <div>
             {renderApiData()}
         </div>
-    )
+    );
 }
 
-export default ContratoList
+export default UpdateLocaisList;

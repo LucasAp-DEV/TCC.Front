@@ -1,5 +1,5 @@
 .container {
-    background-color: #ced112;
+    background-color: #bebebe;
     font-family: Arial;
     display: block;
     width: 90%;
@@ -9,7 +9,7 @@
 .slider {
     max-width: 50%;
     height: 300px;
-    background-color: #0000FF;
+    background-color: #bebebe;
     display: block;
     margin: 0 auto;
 }
@@ -23,9 +23,10 @@
 
 .info {
     font-weight: bold;
-    border: 1px solid black;
+    border: 2px solid black;
     padding: 1em;
     display: block;
+    border-radius: 5px;
 }
 
 .info.descricao {
@@ -35,7 +36,8 @@
 
 .feedback {
     margin-top: 1em;
-    border: 1px solid black;
+    border: 2px solid black;
     padding: 1em;
     display: block;
+    border-radius: 5px;
 }

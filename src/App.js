@@ -12,6 +12,7 @@ import RegisterLocais from './pages/RegisterLocais/RegisterLocais';
 import ContratoList from "./pages/ContratoList/ContratoList";
 import ContratoDetalhes from "./pages/ContratoDetail/ContratoDetalhes";
 import LocalDetalhe from './pages/LocalDetalhe/LocalDetalhe';
+import UpdateLocaisList from "./pages/UpdateLocais/UpdateLocaisList";
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
         <Route path="contratolist" element={<ContratoList />} />
         <Route path="contratoDetalhes/:idContrato" element={<ContratoDetalhes />} />
         <Route path="localDetalhes/:idLocal" element={<LocalDetalhe />} />
+        <Route path="updateLocaisList" element={<UpdateLocaisList />} />
       </Route>
     </Routes>
   );

@@ -98,6 +98,27 @@ const Usuarios = () => {
         }
     };
 
+    const handleUpdateLocais = async () => {
+        try {
+            if (typeUser === 0) { 
+                navigate("/updateLocaisList");
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    text: 'Você precisa ser um locatario para acessar esta funcionalidade.'
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao salvar alterações!',
+                text: 'Ocorreu um erro ao tentar realizar esta ação.'
+            });
+        }
+    };
+
     const handleSaveLocais = async () => {
         try {
             if (typeUser === 0) { 
@@ -183,6 +204,7 @@ const Usuarios = () => {
                     handleEditRole={handleEditRole}
                     handleSaveChanges={handleSaveChanges}
                     handleSaveLocais={handleSaveLocais}
+                    handleUpdateLocais={handleUpdateLocais}
                 />
             </div>
         )

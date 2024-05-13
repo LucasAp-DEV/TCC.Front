@@ -1,7 +1,7 @@
 import React from 'react';
 import './UserProfile.css'
 
-function UserProfile({ apiData2, apiData, userIcons, editIcon, handleEdit, handleEditRole, handleSaveChanges, handleSaveLocais }) {
+function UserProfile({ apiData2, apiData, userIcons, editIcon, handleEdit, handleEditRole, handleSaveChanges, handleSaveLocais, handleUpdateLocais }) {
 
       return (
         <div>
@@ -33,14 +33,15 @@ function UserProfile({ apiData2, apiData, userIcons, editIcon, handleEdit, handl
                 </button>
             </div>
             <div className="api-info">
-                <h3>Role: {apiData2.role}</h3>
+                <h3>Cadastro: {apiData2.role}</h3>
                 <button className="edit-button" onClick={() => handleEditRole('Role', apiData.role)}>
                     <img src={editIcon} alt="Editar" className="icon-edit" />
                 </button>
             </div>
             <div className='info2'>
                 <button onClick={handleSaveChanges}>Salvar Alterações</button>
-                <button onClick={handleSaveLocais}>Cadastrar um Local</button>
+                <button onClick={handleSaveLocais}>Cadastrar Local</button>
+                <button onClick={handleUpdateLocais}>Meus Locais</button>
             </div>
         </div>
     );

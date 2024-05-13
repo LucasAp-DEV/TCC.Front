@@ -4,7 +4,7 @@ import './Layout.css';
 
 const Layout = () => {
     return (
-        <div className="content">
+        <div>
             <div className="header">
                 <Header />
             </div>

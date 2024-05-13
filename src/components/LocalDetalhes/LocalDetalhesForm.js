@@ -31,7 +31,7 @@ function LocalDetalhesForm({ localData }) {
             </div>
             <h1>Detalhes Local</h1>
             <p className="info descricao">Descrição: {localData?.descricao}</p>
-            <p className="info">Valor: R$ {localData?.price}</p>
+            <p className="info">Valor: R$ {localData?.price},00</p>
             <p className="info">Cidade: {localData?.cidade}</p>
             <p className="info">Endereço: {localData?.endereco}</p>
             <p className="info">Locatario: {localData?.locatarioName}</p>

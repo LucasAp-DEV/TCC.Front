@@ -1,9 +1,9 @@
 .api-data-container {
-    background-color: #dd2020;
+    background-color: #9e9797;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 120px;
+    margin-top: 100px;
     width: 80%;
     margin-left: 10%;
 }
