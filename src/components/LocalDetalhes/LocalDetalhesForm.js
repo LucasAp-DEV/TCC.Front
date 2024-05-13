@@ -19,6 +19,7 @@ function LocalDetalhesForm({ localData }) {
 
     return (
         <div className="container">
+            <h1>Imagens</h1>
             <div className="slider">
                 <Slider {...settings} initialSlide={sliderIndex}>
                     {localData?.images.map((image) => (
@@ -28,6 +29,7 @@ function LocalDetalhesForm({ localData }) {
                     ))}
                 </Slider>
             </div>
+            <h1>Detalhes Local</h1>
             <p className="info descricao">Descrição: {localData?.descricao}</p>
             <p className="info">Valor: R$ {localData?.price}</p>
             <p className="info">Cidade: {localData?.cidade}</p>
@@ -35,9 +37,11 @@ function LocalDetalhesForm({ localData }) {
             <p className="info">Locatario: {localData?.locatarioName}</p>
             <p className="info">Telefone: {localData?.locatarioTell}</p>
             <div>
+                <h1>Feedback</h1>
                 {localData?.feedback.map((feedback, index) => (
                     <div key={index} className="feedback">
-                        <p style={{ fontWeight: "bold" }}>Feedback: {feedback.descricao}</p>
+                        <p style={{ fontWeight: "bold" }}>Locador: <span>{feedback.nome}</span></p>
+                        <p style={{ fontWeight: "bold" }}>{feedback.descricao}</p>
                         <p style={{ fontWeight: "bold" }}>Nota: <span>{feedback.nota}</span></p>
                     </div>
                 ))}

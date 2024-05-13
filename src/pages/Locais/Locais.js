@@ -45,7 +45,7 @@ const Locais = () => {
                             <h5>Cidade: {api.cidade}</h5>
                         </div>
                         <div className='button-container'>
-                            <Link to={{ pathname: `/contrato/${api.id}`}}>
+                            <Link to={{ pathname: `/localDetalhes/${api.id}`}}>
                                 <button >
                                     Detalhes
                                 </button>
