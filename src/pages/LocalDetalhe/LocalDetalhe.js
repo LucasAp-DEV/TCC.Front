@@ -5,6 +5,7 @@ import LoadingTela from '../../components/Loading/LoadingTela';
 import LocalDetalhesForm from '../../components/LocalDetalhes/LocalDetalhesForm';
 import './LocalDetalhe.css'
 
+
 function LocalDetalhe() {
   
   const { idLocal } = useParams();
