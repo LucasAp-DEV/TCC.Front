@@ -9,13 +9,14 @@ import Loading from '../../components/Loading/Loading';
 import './UpdateLocais.css';
 
 const UpdateLocais = () => {
-    
+
     const { idLocal } = useParams();
 
     const [localData, setLocalData] = useState();
     const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [editedDescription, setEditedDescription] = useState('');
+    const [telephone, setTelephone] = useState('');
     const [editedValue, setEditedValue] = useState(0);
 
     const [sliderIndex, setSliderIndex] = useState(0);
@@ -49,6 +50,7 @@ const UpdateLocais = () => {
         setShowModal(true);
         setEditedDescription(localData?.descricao);
         setEditedValue(localData?.price);
+        setTelephone(localData?.locatarioTell);
     };
 
     const closeModal = () => {
@@ -63,15 +65,18 @@ const UpdateLocais = () => {
         setEditedValue(event.target.value);
     };
 
+    const handleTelephoneChange = (event) => {
+        setTelephone(event.target.value);
+    };
+
     const handleSaveChanges = async () => {
         try {
-            // Aqui você faria a chamada para a API para atualizar os dados no servidor
-            // Por simplicidade, vamos apenas atualizar o estado localmente
             setLocalData(prevData => ({
                 ...prevData,
                 descricao: editedDescription,
                 price: editedValue
             }));
+            console.log(localData)
             closeModal();
         } catch (error) {
             console.error(error);
@@ -120,9 +125,12 @@ const UpdateLocais = () => {
                 <div className="modal">
                     <div className="modal-content">
                         <span className="close" onClick={closeModal}>&times;</span>
+
                         <h2>Editar Local</h2>
+
                         <label htmlFor="description">Descrição:</label>
                         <textarea
+                            required
                             type="text"
                             id="description"
                             value={editedDescription}
@@ -135,14 +143,35 @@ const UpdateLocais = () => {
                                 textAlign: 'left',
                                 resize: 'none',
                                 fontFamily: 'Arial, sans-serif',
-                                fontSize:'15px'
+                                fontSize: '15px'
                             }}
                             rows={5}
+                        />
+
+                        <label htmlFor="description">Telefone:</label>
+                        <textarea
+                            required
+                            type="text"
+                            id="telefone"
+                            value={telephone}
+                            onChange={handleTelephoneChange}
+                            style={{
+                                width: '100%',
+                                padding: '10px',
+                                marginBottom: '10px',
+                                boxSizing: 'border-box',
+                                textAlign: 'left',
+                                resize: 'none',
+                                fontFamily: 'Arial, sans-serif',
+                                fontSize: '15px'
+                            }}
+                            rows={1}
                         />
 
                         <p></p>
                         <label htmlFor="value">Valor:</label>
                         <input
+                            required
                             type="number"
                             id="value"
                             value={editedValue}
@@ -155,7 +184,7 @@ const UpdateLocais = () => {
                                 textAlign: 'left',
                                 resize: 'none',
                                 fontFamily: 'Arial, sans-serif',
-                                fontSize:'15px'
+                                fontSize: '15px'
                             }}
                         />
                         <div>

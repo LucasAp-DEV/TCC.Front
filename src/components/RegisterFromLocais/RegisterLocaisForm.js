@@ -19,7 +19,6 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
 
     return (
         <form onSubmit={onSubmit} className="form-container">
-
             <div>
                 <label>Descrição:</label>
                 <textarea
