@@ -7,18 +7,17 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Loading from '../../components/Loading/Loading';
 import './UpdateLocais.css';
+import Swal from 'sweetalert2';
+import { jwtDecode } from 'jwt-decode';
 
 const UpdateLocais = () => {
-
     const { idLocal } = useParams();
 
-    const [localData, setLocalData] = useState();
+    const [localData, setLocalData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [editedDescription, setEditedDescription] = useState('');
-    const [telephone, setTelephone] = useState('');
     const [editedValue, setEditedValue] = useState(0);
-
     const [sliderIndex, setSliderIndex] = useState(0);
 
     const settings = {
@@ -38,19 +37,18 @@ const UpdateLocais = () => {
         setLoading(true);
         try {
             const { data } = await api.get(`/local/${idLocal}`);
-            setLocalData(data)
+            setLocalData(data);
+            setEditedDescription(data.descricao);
+            setEditedValue(data.price);
         } catch (error) {
             console.error(error);
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     const openModal = () => {
         setShowModal(true);
-        setEditedDescription(localData?.descricao);
-        setEditedValue(localData?.price);
-        setTelephone(localData?.locatarioTell);
     };
 
     const closeModal = () => {
@@ -62,61 +60,75 @@ const UpdateLocais = () => {
     };
 
     const handleValueChange = (event) => {
-        setEditedValue(event.target.value);
-    };
-
-    const handleTelephoneChange = (event) => {
-        setTelephone(event.target.value);
+        setEditedValue(Number(event.target.value));
     };
 
     const handleSaveChanges = async () => {
         try {
+            const newEditData = {
+                descricao: editedDescription,
+                price: editedValue
+            };
+
+            await api.put(`/local/update/${idLocal}`, newEditData);
+
             setLocalData(prevData => ({
                 ...prevData,
                 descricao: editedDescription,
                 price: editedValue
             }));
-            console.log(localData)
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Alterações salvas com sucesso!',
+                text: 'O cadastro do local foi atualizado.'
+            });
+
             closeModal();
+            fetchContrato();
         } catch (error) {
             console.error(error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao salvar alterações!',
+                text: 'Ocorreu um erro ao tentar atualizar o local.'
+            });
         }
     };
 
     const renderApi = () => {
-        if (loading === true) {
+        if (loading) {
             return <LoadingTela />;
         }
         return (
             <div style={{ backgroundColor: "yellow" }}>
                 <h1>Imagens</h1>
-                <h1>Imagens</h1>
                 <div className="slider">
                     <Slider {...settings} initialSlide={sliderIndex}>
-                        {localData?.images.map((image) => (
-                            <div>
-                                <img src={`data:image/png;base64,${image}`} alt={"Imagem"} />
+                        {localData?.images.map((image, index) => (
+                            <div key={index}>
+                                <img src={`data:image/png;base64,${image}`} alt="Imagem" />
                             </div>
                         ))}
                     </Slider>
                 </div>
                 <div>
                     <h1>Detalhes Local</h1>
-                    <p >Descrição: {localData?.descricao}</p>
-                    <p >Valor: R$ {localData?.price},00</p>
-                    <p >Cidade: {localData?.cidade}</p>
+                    <p>Descrição: {localData?.descricao}</p>
+                    <p>Valor: R$ {localData?.price},00</p>
+                    <p>Cidade: {localData?.cidade}</p>
                     <p>Endereço: {localData?.endereco}</p>
-                    <p >Locatario: {localData?.locatarioName}</p>
-                    <p >Telefone: {localData?.locatarioTell}</p>
+                    <p>Locatario: {localData?.locatarioName}</p>
+                    <p>Telefone: {localData?.locatarioTell}</p>
                 </div>
                 <div>
-                    <button onClick={openModal} type='button' disabled={loading}>
+                    <button onClick={openModal} type="button" disabled={loading}>
                         {loading ? <Loading /> : 'Editar'}
                     </button>
                 </div>
             </div>
         );
-    }
+    };
 
     return (
         <div>
@@ -125,9 +137,7 @@ const UpdateLocais = () => {
                 <div className="modal">
                     <div className="modal-content">
                         <span className="close" onClick={closeModal}>&times;</span>
-
                         <h2>Editar Local</h2>
-
                         <label htmlFor="description">Descrição:</label>
                         <textarea
                             required
@@ -135,39 +145,9 @@ const UpdateLocais = () => {
                             id="description"
                             value={editedDescription}
                             onChange={handleDescriptionChange}
-                            style={{
-                                width: '100%',
-                                padding: '10px',
-                                marginBottom: '10px',
-                                boxSizing: 'border-box',
-                                textAlign: 'left',
-                                resize: 'none',
-                                fontFamily: 'Arial, sans-serif',
-                                fontSize: '15px'
-                            }}
+                            className="textarea"
                             rows={5}
                         />
-
-                        <label htmlFor="description">Telefone:</label>
-                        <textarea
-                            required
-                            type="text"
-                            id="telefone"
-                            value={telephone}
-                            onChange={handleTelephoneChange}
-                            style={{
-                                width: '100%',
-                                padding: '10px',
-                                marginBottom: '10px',
-                                boxSizing: 'border-box',
-                                textAlign: 'left',
-                                resize: 'none',
-                                fontFamily: 'Arial, sans-serif',
-                                fontSize: '15px'
-                            }}
-                            rows={1}
-                        />
-
                         <p></p>
                         <label htmlFor="value">Valor:</label>
                         <input
@@ -176,16 +156,7 @@ const UpdateLocais = () => {
                             id="value"
                             value={editedValue}
                             onChange={handleValueChange}
-                            style={{
-                                width: '100%',
-                                padding: '10px',
-                                marginBottom: '10px',
-                                boxSizing: 'border-box',
-                                textAlign: 'left',
-                                resize: 'none',
-                                fontFamily: 'Arial, sans-serif',
-                                fontSize: '15px'
-                            }}
+                            className="input"
                         />
                         <div>
                             <button onClick={handleSaveChanges}>Salvar Alterações</button>
@@ -194,8 +165,7 @@ const UpdateLocais = () => {
                 </div>
             )}
         </div>
-    )
-
-}
+    );
+};
 
 export default UpdateLocais;
