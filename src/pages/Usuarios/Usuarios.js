@@ -105,8 +105,8 @@ const Usuarios = () => {
             } else {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Erro',
-                    text: 'Você precisa ser um locatario para acessar esta funcionalidade.'
+                    title: 'Você precisa ser um locatario para acessar esta funcionalidade.',
+                    text: ''
                 });
             }
         } catch (error) {
@@ -114,7 +114,7 @@ const Usuarios = () => {
             Swal.fire({
                 icon: 'error',
                 title: 'Erro ao salvar alterações!',
-                text: 'Ocorreu um erro ao tentar realizar esta ação.'
+                text: ''
             });
         }
     };
@@ -126,8 +126,8 @@ const Usuarios = () => {
             } else {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Erro',
-                    text: 'Você precisa ser um locatario para acessar esta funcionalidade.'
+                    title: 'Você precisa ser um locatario para acessar esta funcionalidade',
+                    text: ''
                 });
             }
         } catch (error) {
@@ -135,7 +135,7 @@ const Usuarios = () => {
             Swal.fire({
                 icon: 'error',
                 title: 'Erro ao salvar alterações!',
-                text: 'Ocorreu um erro ao tentar realizar esta ação.'
+                text: ''
             });
         }
     };
@@ -169,7 +169,7 @@ const Usuarios = () => {
             Swal.fire({
                 icon: 'success',
                 title: 'Alterações salvas com sucesso!',
-                text: 'O cadastro do usuário foi atualizado.'
+                text: ''
             });
             setUserUpdated(prevState => !prevState);
             setEditData({});
@@ -182,7 +182,7 @@ const Usuarios = () => {
             Swal.fire({
                 icon: 'error',
                 title: 'Erro ao salvar alterações!',
-                text: 'Ocorreu um erro ao tentar atualizar o cadastro do usuário.'
+                text: ''
             });
         }
     };

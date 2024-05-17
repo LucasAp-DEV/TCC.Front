@@ -101,8 +101,10 @@ const RegisterLocais = () => {
   };
 
   const onSubmit = async (e) => {
-    e.preventDefault();
-
+    if (e) {
+      e.preventDefault();
+    }
+  
     const localData = {
       descricao: descricao,
       price: valor,
@@ -114,7 +116,7 @@ const RegisterLocais = () => {
         id: locatario
       }
     };
-
+  
     try {
       setRemoveLoading(true)
       const response = await api.post('/local/register', localData, {
@@ -123,23 +125,24 @@ const RegisterLocais = () => {
         },
       });
       const localId = response.data;
-
+  
       const imageData = { images: base64Images, localId: localId };
       const response2 = await api.post('/images/register', imageData, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        console.log(response2);
-        showSucessAlert("Cadastro realizado");
-        navigate("/usuarios")
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(response2);
+      showSucessAlert("Cadastro realizado");
+      navigate("/usuarios")
     } catch (error) {
       console.error(error);
       showErrorAlert("Erro ao Registrar");
-    }finally {
+    } finally {
       setRemoveLoading(false);
     }
   };
+  
 
   return (
     <div className='registerLocal'>

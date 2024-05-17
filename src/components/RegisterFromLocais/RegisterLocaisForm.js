@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import Loading from '../Loading/Loading';
 import './RegisterLocaisForm.css';
+import Swal from 'sweetalert2';
 
 const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDescricao, cidade, onChangeCidade,
     onChangeImage, valor, onChangeValor, onSubmit, loading, cidadesOptions }) => {
+
+    const [imagemSelecionada, setImagemSelecionada] = useState(false);
 
     const renderCityOptions = () => {
         return cidadesOptions.map((cidade) => ({
@@ -17,13 +20,35 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
         onChangeCidade(selectedOption.value);
     };
 
+    const onChangeImagem = (event) => {
+        const files = event.target.files;
+        setImagemSelecionada(files.length > 0);
+        onChangeImage(event);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (!imagemSelecionada) {
+            Swal.fire({
+                icon: "error",
+                title: "Favor insira uma imagem",
+                text: ""
+            });
+            return
+        }
+        onSubmit();
+    };
+
     return (
-        <form onSubmit={onSubmit} className="form-container">
+        <form onSubmit={handleSubmit} className="form-container">
             <div>
                 <label>Descrição:</label>
                 <textarea
-                    style={{resize: 'none',
-                    fontFamily: 'Arial, sans-serif'}}
+                    required
+                    style={{
+                        resize: 'none',
+                        fontFamily: 'Arial, sans-serif'
+                    }}
                     rows={9}
                     type='text'
                     id="descricao"
@@ -35,8 +60,11 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
             <div>
                 <label>Endereço:</label>
                 <textarea
-                    style={{resize: 'none',
-                    fontFamily: 'Arial, sans-serif'}}
+                    required
+                    style={{
+                        resize: 'none',
+                        fontFamily: 'Arial, sans-serif'
+                    }}
                     type='text'
                     rows={1}
                     id="endereco"
@@ -49,6 +77,7 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
             <div>
                 <label>Valor:</label>
                 <input
+                    required
                     type='number'
                     id="valor"
                     className="form-input"
@@ -60,6 +89,7 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
             <div>
                 <label>Cidade:</label>
                 <Select
+                    required
                     value={cidade}
                     onChange={handleCityChange}
                     options={renderCityOptions()}
@@ -78,7 +108,7 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
                     className="form-input"
                     multiple
                     name='ImagensInput'
-                    onChange={onChangeImage}
+                    onChange={onChangeImagem}
                 />
             </div>
             <div>

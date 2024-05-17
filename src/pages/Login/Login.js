@@ -41,10 +41,10 @@ const Login = () => {
         navigate('/menu');
       }
     } catch (error) {
-      errorText = "Credenciais Inválidas";
+      errorText = "";
       Swal.fire({
         icon: "error",
-        title: "Erro no Login",
+        title: "Credenciais Inválidas",
         text: errorText
       });
       console.error('Erro de rede:', error);

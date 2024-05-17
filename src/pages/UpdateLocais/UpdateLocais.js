@@ -8,13 +8,13 @@ import 'slick-carousel/slick/slick-theme.css';
 import Loading from '../../components/Loading/Loading';
 import './UpdateLocais.css';
 import Swal from 'sweetalert2';
-import { jwtDecode } from 'jwt-decode';
 
 const UpdateLocais = () => {
     const { idLocal } = useParams();
 
     const [localData, setLocalData] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [saving, setSaving] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [editedDescription, setEditedDescription] = useState('');
     const [editedValue, setEditedValue] = useState(0);
@@ -64,6 +64,8 @@ const UpdateLocais = () => {
     };
 
     const handleSaveChanges = async () => {
+        setSaving(true);
+        closeModal(); // Close modal before starting the save process
         try {
             const newEditData = {
                 descricao: editedDescription,
@@ -84,7 +86,6 @@ const UpdateLocais = () => {
                 text: 'O cadastro do local foi atualizado.'
             });
 
-            closeModal();
             fetchContrato();
         } catch (error) {
             console.error(error);
@@ -93,38 +94,47 @@ const UpdateLocais = () => {
                 title: 'Erro ao salvar alterações!',
                 text: 'Ocorreu um erro ao tentar atualizar o local.'
             });
+        } finally {
+            setSaving(false);
         }
     };
 
     const renderApi = () => {
-        if (loading) {
+        if (loading || saving) {
             return <LoadingTela />;
         }
         return (
-            <div style={{ backgroundColor: "yellow" }}>
-                <h1>Imagens</h1>
-                <div className="slider">
-                    <Slider {...settings} initialSlide={sliderIndex}>
-                        {localData?.images.map((image, index) => (
-                            <div key={index}>
-                                <img src={`data:image/png;base64,${image}`} alt="Imagem" />
-                            </div>
-                        ))}
-                    </Slider>
-                </div>
-                <div>
-                    <h1>Detalhes Local</h1>
-                    <p>Descrição: {localData?.descricao}</p>
-                    <p>Valor: R$ {localData?.price},00</p>
-                    <p>Cidade: {localData?.cidade}</p>
-                    <p>Endereço: {localData?.endereco}</p>
-                    <p>Locatario: {localData?.locatarioName}</p>
-                    <p>Telefone: {localData?.locatarioTell}</p>
-                </div>
-                <div>
-                    <button onClick={openModal} type="button" disabled={loading}>
-                        {loading ? <Loading /> : 'Editar'}
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                minHeight: '100vh'
+            }}>
+                <div className="container">
+                    <h1>Imagens</h1>
+                    <div className="slider">
+                        <Slider {...settings} initialSlide={sliderIndex}>
+                            {localData?.images.map((image, index) => (
+                                <div key={index}>
+                                    <img src={`data:image/png;base64,${image}`} alt="Imagem" />
+                                </div>
+                            ))}
+                        </Slider>
+                    </div>
+                    <div>
+                        <h1>Detalhes Local</h1>
+                        <p className="info descricao">Descrição: {localData?.descricao}</p>
+                        <p className="info">Valor: R$ {localData?.price},00</p>
+                        <p className="info">Cidade: {localData?.cidade}</p>
+                        <p className="info">Endereço: {localData?.endereco}</p>
+                        <p className="info">Locatário: {localData?.locatarioName}</p>
+                        <p className="info">Telefone: {localData?.locatarioTell}</p>
+                    </div>
+                    <div>
+                    <button onClick={openModal} type="button" disabled={loading || saving}>
+                        Editar
                     </button>
+                    </div>
                 </div>
             </div>
         );
@@ -133,11 +143,11 @@ const UpdateLocais = () => {
     return (
         <div>
             {renderApi()}
-            {showModal && (
+            {showModal && !saving && (
                 <div className="modal">
                     <div className="modal-content">
                         <span className="close" onClick={closeModal}>&times;</span>
-                        <h2>Editar Local</h2>
+                        <h1>Editar Local</h1>
                         <label htmlFor="description">Descrição:</label>
                         <textarea
                             required
@@ -159,7 +169,9 @@ const UpdateLocais = () => {
                             className="input"
                         />
                         <div>
-                            <button onClick={handleSaveChanges}>Salvar Alterações</button>
+                            <button onClick={handleSaveChanges} disabled={saving}>
+                                {saving ? <Loading /> : 'Salvar Alterações'}
+                            </button>
                         </div>
                     </div>
                 </div>
