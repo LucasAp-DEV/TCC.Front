@@ -37,7 +37,6 @@ function LocalDetalhe() {
       return <LoadingTela />;
     }
     return (
-      <div className="centralizado">
         <div className="centralizado1">
           <LocalDetalhesForm
             localData={localData}
@@ -52,7 +51,6 @@ function LocalDetalhe() {
             </button>
           </div>
         </div>
-      </div>
     );
   }
 

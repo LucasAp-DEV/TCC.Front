@@ -131,9 +131,12 @@ const UpdateLocais = () => {
                         <p className="info">Telefone: {localData?.locatarioTell}</p>
                     </div>
                     <div>
-                    <button onClick={openModal} type="button" disabled={loading || saving}>
-                        Editar
-                    </button>
+                        <button onClick={openModal} type="button">
+                            Editar
+                        </button>
+                        <button onClick={openModal} type="button">
+                            Destacar Local
+                        </button>
                     </div>
                 </div>
             </div>

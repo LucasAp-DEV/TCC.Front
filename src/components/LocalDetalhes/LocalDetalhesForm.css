@@ -1,9 +1,9 @@
 .container {
-    background-color: #bebebe;
     font-family: Arial;
     display: block;
     width: 90%;
     height: 100%;
+    background-color: yellow;
 }
 
 .slider {
@@ -27,6 +27,7 @@
     padding: 1em;
     display: block;
     border-radius: 5px;
+    background-color: #bebebe;
 }
 
 .info.descricao {
@@ -40,4 +41,5 @@
     padding: 1em;
     display: block;
     border-radius: 5px;
+    background-color: #bebebe;
 }
