@@ -8,7 +8,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Loading from '../../components/Loading/Loading';
 import './UpdateLocais.css';
 import Swal from 'sweetalert2';
-import axios from 'axios'; // Para chamadas à API do Mercado Pago
+import axios from 'axios';
 
 const UpdateLocais = () => {
     const { idLocal } = useParams();
@@ -18,12 +18,9 @@ const UpdateLocais = () => {
     const [saving, setSaving] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showHighlightModal, setShowHighlightModal] = useState(false);
-    const [showPaymentModal, setShowPaymentModal] = useState(false);
     const [editedDescription, setEditedDescription] = useState('');
     const [editedValue, setEditedValue] = useState(0);
     const [sliderIndex, setSliderIndex] = useState(0);
-    const [cpf, setCpf] = useState('');
-    const [qrCode, setQrCode] = useState('');
 
     const settings = {
         dots: false,
@@ -68,24 +65,12 @@ const UpdateLocais = () => {
         setShowHighlightModal(false);
     };
 
-    const openPaymentModal = () => {
-        setShowPaymentModal(true);
-    };
-
-    const closePaymentModal = () => {
-        setShowPaymentModal(false);
-    };
-
     const handleDescriptionChange = (event) => {
         setEditedDescription(event.target.value);
     };
 
     const handleValueChange = (event) => {
         setEditedValue(Number(event.target.value));
-    };
-
-    const handleCpfChange = (event) => {
-        setCpf(event.target.value);
     };
 
     const handleSaveChanges = async () => {
@@ -124,39 +109,54 @@ const UpdateLocais = () => {
         }
     };
 
-    const handleHighlight = async () => {
+    const handlePayment = async () => {
         setSaving(true);
         closeHighlightModal();
         try {
-            // Chamar a API do Mercado Pago para gerar um pagamento PIX
-            const response = await axios.post('/mercado-pago/pix', {
-                transaction_amount: 10,
-                description: 'Pagamento para destacar local',
-                payment_method_id: 'pix',
-                payer: {
-                    email: 'email@example.com',
-                    identification: {
-                        type: 'CPF',
-                        number: cpf,
+            const response = await axios.post('https://api.mercadopago.com/checkout/preferences',{
+                    back_urls: {
+                        success: 'http://test.com/success',
+                        pending: 'http://test.com/pending',
+                        failure: 'http://test.com/failure',
+                    },
+                    external_reference: '1643827245',
+                    notification_url: 'http://notificationurl.com',
+                    auto_return: 'approved',
+                    items: [
+                        {
+                            id: '1',
+                            title: 'Propaganda',
+                            description: 'Propaganda de Local',
+                            quantity: 1,
+                            currency_id: 'BRL',
+                            unit_price: 30,
+                        },
+                    ],
+                    payment_methods: {
+                        excluded_payment_methods: [{ id: 'master' }],
+                        excluded_payment_types: [{ id: 'ticket' }],
                     },
                 },
-            });
-
-            const { qr_code_base64 } = response.data.point_of_interaction.transaction_data;
-            setQrCode(qr_code_base64);
-            openPaymentModal();
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer TEST-4930437431978443-051908-bf6527a261c3e663085429a75815f67b-256585597',
+                    },
+                }
+            );
+            console.log(response.data);
         } catch (error) {
             console.error(error);
             Swal.fire({
                 icon: 'error',
                 title: 'Erro ao gerar pagamento PIX!',
-                text: 'Ocorreu um erro ao tentar gerar o pagamento via PIX.'
+                text: 'Ocorreu um erro ao tentar gerar o pagamento via PIX.',
             });
         } finally {
             setSaving(false);
         }
     };
-
+    
     const renderApi = () => {
         if (loading || saving) {
             return <LoadingTela />;
@@ -208,7 +208,7 @@ const UpdateLocais = () => {
                 <div className="modal">
                     <div className="modal-content">
                         <span className="close" onClick={closeEditModal}>&times;</span>
-                        <h1>Editar Local</h1>
+                            <h1>Editar Local</h1>
                         <label htmlFor="description">Descrição:</label>
                         <textarea
                             required
@@ -220,7 +220,7 @@ const UpdateLocais = () => {
                             rows={5}
                         />
                         <p></p>
-                        <label htmlFor="value">Valor:</label>
+                            <label htmlFor="value">Valor:</label>
                         <input
                             required
                             type="number"
@@ -241,37 +241,17 @@ const UpdateLocais = () => {
                 <div className="modal">
                     <div className="modal-content">
                         <span className="close" onClick={closeHighlightModal}>&times;</span>
-                        <h1>Destacar Local</h1>
-                        <label htmlFor="cpf">CPF:</label>
-                        <input
-                            required
-                            type="text"
-                            id="cpf"
-                            value={cpf}
-                            onChange={handleCpfChange}
-                            className="input"
-                        />
+                            <h1>Termos de Destaque de Local</h1>
+                        <p>Por favor, leia atentamente os seguintes termos antes de destacar um local:</p>
+                        <p>- Ao destacar um local, você concorda em pagar a taxa correspondente.</p>
+                        <p>- O destaque do local está sujeito à disponibilidade e aceitação.</p>
+                        <p>- Uma vez destacado, o local será promovido com destaque em nossa plataforma.</p>
+                        <p>- Ao clicar em "Destacar", você concorda com os termos acima.</p>
                         <div>
-                            <button onClick={handleHighlight}>
+                            <button onClick={handlePayment}>
                                 Destacar
                             </button>
                         </div>
-                    </div>
-                </div>
-            )}
-            {showPaymentModal && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <span className="close" onClick={closePaymentModal}>&times;</span>
-                        <h1>Pagamento via PIX</h1>
-                        {qrCode ? (
-                            <div>
-                                <img src={`data:image/png;base64,${qrCode}`} alt="QR Code PIX" />
-                                <p>Escaneie o QR Code acima para realizar o pagamento.</p>
-                            </div>
-                        ) : (
-                            <p>Gerando QR Code...</p>
-                        )}
                     </div>
                 </div>
             )}
