@@ -114,46 +114,7 @@ const UpdateLocais = () => {
         closeHighlightModal();
         try {
             const response = await axios.post(
-                'https://api.mercadopago.com/checkout/preferences',
-                {
-                    back_urls: {
-                        success: 'http://test.com/success',
-                        pending: 'http://test.com/pending',
-                        failure: 'http://test.com/failure',
-                    },
-                    external_reference: idLocal,
-                    notification_url: 'http://notificationurl.com',
-                    auto_return: 'approved',
-                    items: [
-                        {
-                            id: '1',
-                            title: 'Propaganda',
-                            description: 'Propaganda de Local',
-                            picture_url: 'http://www.myapp.com/myimage.jpg',
-                            category_id: 'car_electronics',
-                            quantity: 1,
-                            currency_id: 'BRL',
-                            unit_price: 30,
-                        },
-                    ],
-                    payment_methods: {
-                        excluded_payment_methods: [{ id: 'master' }],
-                        excluded_payment_types: [
-                            { id: 'ticket' },
-                            { id: 'debit_card' },
-                            { id: 'prepaid_card' },
-                        ],
-                    },
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: 'Bearer TEST-4930437431978443-051908-bf6527a261c3e663085429a75815f67b-256585597',
-                    },
-                }
-            );
-
-            window.location.href = response.data.init_point;
+             
         } catch (error) {
             console.error(error);
             Swal.fire({
