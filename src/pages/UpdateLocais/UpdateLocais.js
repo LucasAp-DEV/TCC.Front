@@ -5,10 +5,9 @@ import { api } from '../../api';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Loading from '../../components/Loading/Loading';
-import './UpdateLocais.css';
 import Swal from 'sweetalert2';
-import axios from 'axios';
+import './UpdateLocais.css';
+import { FaCopy } from 'react-icons/fa';
 
 const UpdateLocais = () => {
     const { idLocal } = useParams();
@@ -18,9 +17,11 @@ const UpdateLocais = () => {
     const [saving, setSaving] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showHighlightModal, setShowHighlightModal] = useState(false);
+    const [showQRCodeModal, setShowQRCodeModal] = useState(false);
     const [editedDescription, setEditedDescription] = useState('');
     const [editedValue, setEditedValue] = useState(0);
     const [sliderIndex, setSliderIndex] = useState(0);
+    const [qrCodeData, setQRCodeData] = useState(null);
 
     const settings = {
         dots: false,
@@ -33,7 +34,7 @@ const UpdateLocais = () => {
 
     useEffect(() => {
         fetchContrato();
-    }, []);
+    }, [idLocal]);
 
     const fetchContrato = async () => {
         setLoading(true);
@@ -44,42 +45,23 @@ const UpdateLocais = () => {
             setEditedValue(data.price);
         } catch (error) {
             console.error(error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao carregar dados!',
+                text: 'Ocorreu um erro ao carregar os dados do local.',
+            });
         } finally {
             setLoading(false);
         }
     };
 
-    const openEditModal = () => {
-        setShowEditModal(true);
-    };
-
-    const closeEditModal = () => {
-        setShowEditModal(false);
-    };
-
-    const openHighlightModal = () => {
-        setShowHighlightModal(true);
-    };
-
-    const closeHighlightModal = () => {
-        setShowHighlightModal(false);
-    };
-
-    const handleDescriptionChange = (event) => {
-        setEditedDescription(event.target.value);
-    };
-
-    const handleValueChange = (event) => {
-        setEditedValue(Number(event.target.value));
-    };
-
     const handleSaveChanges = async () => {
         setSaving(true);
-        closeEditModal();
+        setShowEditModal(false);
         try {
             const newEditData = {
                 descricao: editedDescription,
-                price: editedValue
+                price: editedValue,
             };
 
             await api.put(`/local/update/${idLocal}`, newEditData);
@@ -87,13 +69,13 @@ const UpdateLocais = () => {
             setLocalData(prevData => ({
                 ...prevData,
                 descricao: editedDescription,
-                price: editedValue
+                price: editedValue,
             }));
 
             Swal.fire({
                 icon: 'success',
                 title: 'Alterações salvas com sucesso!',
-                text: 'O cadastro do local foi atualizado.'
+                text: 'O cadastro do local foi atualizado.',
             });
 
             fetchContrato();
@@ -102,7 +84,7 @@ const UpdateLocais = () => {
             Swal.fire({
                 icon: 'error',
                 title: 'Erro ao salvar alterações!',
-                text: 'Ocorreu um erro ao tentar atualizar o local.'
+                text: 'Ocorreu um erro ao tentar atualizar o local.',
             });
         } finally {
             setSaving(false);
@@ -111,10 +93,19 @@ const UpdateLocais = () => {
 
     const handlePayment = async () => {
         setSaving(true);
-        closeHighlightModal();
+        setShowHighlightModal(false);
+        const DataPix = {
+            email: "Lucas@gmail.com",
+        };
         try {
-            const response = await axios.post(
-             
+            const response = await api.post('/api/payments/create', DataPix);
+            setQRCodeData(response.data.transaction_data);
+            Swal.fire({
+                icon: 'success',
+                title: 'Pagamento gerado!',
+                text: 'O pagamento via PIX foi gerado com sucesso.',
+            });
+            setShowQRCodeModal(true);
         } catch (error) {
             console.error(error);
             Swal.fire({
@@ -126,20 +117,13 @@ const UpdateLocais = () => {
             setSaving(false);
         }
     };
-    
-    
-    
+
     const renderApi = () => {
         if (loading || saving) {
             return <LoadingTela />;
         }
         return (
-            <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                minHeight: '100vh'
-            }}>
+            <div className="content-wrapper">
                 <div className="container">
                     <h1>Imagens</h1>
                     <div className="slider">
@@ -160,11 +144,11 @@ const UpdateLocais = () => {
                         <p className="info">Locatário: {localData?.locatarioName}</p>
                         <p className="info">Telefone: {localData?.locatarioTell}</p>
                     </div>
-                    <div>
-                        <button onClick={openEditModal} type="button">
+                    <div className="button-group">
+                        <button onClick={() => setShowEditModal(true)} type="button">
                             Editar
                         </button>
-                        <button onClick={openHighlightModal} type="button">
+                        <button onClick={() => setShowHighlightModal(true)} type="button">
                             Destacar Local
                         </button>
                     </div>
@@ -173,60 +157,79 @@ const UpdateLocais = () => {
         );
     };
 
+    const EditModal = () => (
+        <div className="modal">
+            <div className="modal-content">
+                <span className="close" onClick={() => setShowEditModal(false)}>&times;</span>
+                <h1>Editar Local</h1>
+                <label htmlFor="description">Descrição:</label>
+                <textarea
+                    required
+                    id="description"
+                    value={editedDescription}
+                    onChange={(e) => setEditedDescription(e.target.value)}
+                    className="textarea"
+                    rows={5}
+                />
+                <label htmlFor="value">Valor:</label>
+                <input
+                    required
+                    type="number"
+                    id="value"
+                    value={editedValue}
+                    onChange={(e) => setEditedValue(Number(e.target.value))}
+                    className="input"
+                />
+                <button onClick={handleSaveChanges} disabled={saving}>
+                    {saving ? <LoadingTela /> : 'Salvar Alterações'}
+                </button>
+            </div>
+        </div>
+    );
+
+    const HighlightModal = () => (
+        <div className="modal">
+            <div className="modal-content">
+                <span className="close" onClick={() => setShowHighlightModal(false)}>&times;</span>
+                <h1>Termos de Destaque de Local</h1>
+                <p>Por favor, leia atentamente os seguintes termos antes de destacar um local:</p>
+                <p>- Ao destacar um local, você concorda em pagar a taxa correspondente.</p>
+                <p>- O destaque do local está sujeito à disponibilidade e aceitação.</p>
+                <p>- Uma vez destacado, o local será promovido com destaque em nossa plataforma.</p>
+                <p>- Ao clicar em "Destacar", você concorda com os termos acima.</p>
+                <button onClick={handlePayment}>Destacar</button>
+            </div>
+        </div>
+    );
+
+    const QRCodeModal = () => (
+        <div className="modal">
+            <div className="modal-content">
+                <span className="close" onClick={() => setShowQRCodeModal(false)}>&times;</span>
+                <h1>QR Code para Pagamento</h1>
+                {qrCodeData && (
+                    <>
+                        <img src={`data:image/png;base64,${qrCodeData.qr_code_base64}`} alt="QR Code" />
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <p style={{ marginRight: '10px' }}>Código QR: {qrCodeData.qr_code}</p>
+                            <FaCopy
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => navigator.clipboard.writeText(qrCodeData.qr_code)} 
+                            />
+                        </div>
+                    </>
+                )}
+            </div>
+        </div>
+    );
+    
+
     return (
         <div>
             {renderApi()}
-            {showEditModal && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <span className="close" onClick={closeEditModal}>&times;</span>
-                            <h1>Editar Local</h1>
-                        <label htmlFor="description">Descrição:</label>
-                        <textarea
-                            required
-                            type="text"
-                            id="description"
-                            value={editedDescription}
-                            onChange={handleDescriptionChange}
-                            className="textarea"
-                            rows={5}
-                        />
-                        <p></p>
-                            <label htmlFor="value">Valor:</label>
-                        <input
-                            required
-                            type="number"
-                            id="value"
-                            value={editedValue}
-                            onChange={handleValueChange}
-                            className="input"
-                        />
-                        <div>
-                            <button onClick={handleSaveChanges} disabled={saving}>
-                                {saving ? <Loading /> : 'Salvar Alterações'}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
-            {showHighlightModal && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <span className="close" onClick={closeHighlightModal}>&times;</span>
-                            <h1>Termos de Destaque de Local</h1>
-                        <p>Por favor, leia atentamente os seguintes termos antes de destacar um local:</p>
-                        <p>- Ao destacar um local, você concorda em pagar a taxa correspondente.</p>
-                        <p>- O destaque do local está sujeito à disponibilidade e aceitação.</p>
-                        <p>- Uma vez destacado, o local será promovido com destaque em nossa plataforma.</p>
-                        <p>- Ao clicar em "Destacar", você concorda com os termos acima.</p>
-                        <div>
-                            <button onClick={handlePayment}>
-                                Destacar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {showEditModal && <EditModal />}
+            {showHighlightModal && <HighlightModal />}
+            {showQRCodeModal && <QRCodeModal />}
         </div>
     );
 };
