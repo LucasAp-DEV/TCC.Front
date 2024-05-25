@@ -48,13 +48,9 @@
     background-color: rgb(219, 30, 30);
 }
 
-.buttonSalvar {
-    margin-left: 1%;
-}
-
 .buttonAlterar:hover,
 .buttonSalvar:hover {
-    background-color: #1a1919;
+    background-color: rgb(204, 3, 3);
 }
 
 .exitPassword {

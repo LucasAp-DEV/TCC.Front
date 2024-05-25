@@ -44,9 +44,11 @@ function ContratoList() {
                 {apiData.map(api => {
                     let statusColorClass = '';
                     if (api.status === 'ABERTO') {
-                        statusColorClass = 'orange-background';
+                        statusColorClass = 'yellow-background';
                     } else if (api.status === 'ENCERRADO') {
                         statusColorClass = 'green-background';
+                    }else if (api.status === 'AGENDADO') {
+                        statusColorClass = 'orange-background';
                     }
                     return (
                         <div className="api-item2" key={api.id}>

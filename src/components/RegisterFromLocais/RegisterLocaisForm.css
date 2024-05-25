@@ -10,7 +10,7 @@
   border: 1px solid #030303;
   font-size: 16px;
   margin-bottom: 20px;
-  background-color: #ffffff;
+  background-color: #e2dede;
   border-radius: 8px;
 }
 
@@ -19,9 +19,11 @@
   margin-bottom: 20px;
   border: 1px solid #030303;
   border-radius: 5px;
+  background-color: #e2dede;
 }
 
 .form-submit {
+  font-size: 16px;
   padding: 10px 20px;
   background-color: rgb(219, 31, 31);
   color: #fff;
@@ -30,13 +32,13 @@
   font-size: 16px;
   cursor: pointer;
   margin-bottom: 20px;
+  width: 200px;
+  height: 40px;
 }
 
 .form-link a {
-  color: #0d0d0e;
   text-decoration: none;
-}
-
-.form-link a:hover {
-  text-decoration: underline;
+  font-size: 16px;
+  text-decoration: none;
+  color: rgb(8, 8, 8);
 }

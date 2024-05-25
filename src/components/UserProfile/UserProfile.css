@@ -92,13 +92,14 @@
 }
 
 .info2 button:hover {
-    background-color: rgb(22, 22, 22);
+    background-color: rgb(204, 3, 3);
   }
 
   .api-info button:hover {
     transform: scale(1.2);
+    background-color: #e2dede;
   }
 
   .api-infoNome button:hover {
-    background-color: rgb(22, 22, 22);
+    background-color: rgb(204, 3, 3);
   }

@@ -7,6 +7,8 @@ const DetalhesLocal2 = ({ localData }) => {
             return 'ABERTO';
         } else if (status === 'ENCERRADO') {
             return 'ENCERRADO';
+        } else if (status === 'AGENDADO') {
+            return 'AGENDADO';
         } else {
             return 'INDEFINIDO';
         }

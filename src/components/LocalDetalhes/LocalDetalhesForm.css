@@ -3,13 +3,12 @@
     display: block;
     width: 90%;
     height: 100%;
-    background-color: yellow;
 }
 
 .slider {
     max-width: 50%;
     height: 300px;
-    background-color: #bebebe;
+    background-color: #e2dede;
     display: block;
     margin: 0 auto;
 }
@@ -23,11 +22,11 @@
 
 .info {
     font-weight: bold;
-    border: 2px solid black;
+
     padding: 1em;
     display: block;
     border-radius: 5px;
-    background-color: #bebebe;
+    background-color: #e2dede;
 }
 
 .info.descricao {
@@ -37,9 +36,8 @@
 
 .feedback {
     margin-top: 1em;
-    border: 2px solid black;
     padding: 1em;
     display: block;
     border-radius: 5px;
-    background-color: #bebebe;
+    background-color: #e2dede;
 }

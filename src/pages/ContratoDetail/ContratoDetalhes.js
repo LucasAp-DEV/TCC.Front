@@ -47,6 +47,7 @@ const ContratoDetalhes = () => {
     const handleEditStatus = async () => {
         const roleOptions = {
             ABERTO: 'ABERTO',
+            AGENDADO: 'AGENDADO',
             ENCERRADO: 'ENCERRADO'
         };
 
@@ -152,13 +153,13 @@ const ContratoDetalhes = () => {
                 <div>
                     {typeUser && (
                         <div className='container4'>
-                            <button onClick={saveData} className='buttonVoltar'>Salvar</button>
-                            <button onClick={handleEditStatus} className='buttonSalvar'>Editar status</button>
+                            <button onClick={saveData} className='buttonSalvar'>Salvar</button>
+                            <button onClick={handleEditStatus} className='buttonAlterar'>Editar status</button>
                         </div>
                     )}
                     {!typeUser && localData?.status === 'ENCERRADO' && (
                         <div className='container4'>
-                            <button onClick={openModal} className='buttonVoltar'>Feedback</button>
+                            <button onClick={openModal} className='buttonSalvar'>Feedback</button>
                         </div>
                     )}
 
