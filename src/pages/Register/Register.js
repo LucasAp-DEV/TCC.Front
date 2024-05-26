@@ -15,7 +15,7 @@ const Register = () => {
   const [nome, setName] = useState();
   const [email, setemail] = useState();
   const [telefone, setTelefone] = useState();
-  const [role, setRole] = useState('LOCADOR');
+  const [role, setRole] = useState('USER');
   const [loading, setRemoveLoading] = useState();
   const [passwordValid, setPasswordValid] = useState();
 
@@ -45,7 +45,7 @@ const Register = () => {
   }
 
   const onChangeRole = () => {
-    setRole((currentRole) => (currentRole === 'LOCADOR' ? 'LOCATARIO' : 'USER'))
+    setRole((currentRole) => (currentRole === 'USER' ? 'ADMIN' : 'USER'))
   }
 
   function showErrorAlert(message) {
