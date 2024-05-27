@@ -132,12 +132,10 @@ const Contrato = () => {
                     </div>
                 </div>
             </div>
-            <div>
                 <div className='container4'>
-                    <button onClick={() => {navigate("/locais")}} className='buttonAlterar'>Voltar</button>
-                    <button onClick={saveData} className='buttonSalvar'> Contratar </button>
+                    <button onClick={() => {navigate("/locais")}} className='buttonAlterar' title='Voltar'>Voltar</button>
+                    <button onClick={saveData} className='buttonSalvar' title='Salvar'> Contratar </button>
                 </div>
-            </div>
         </div>
     );
     }

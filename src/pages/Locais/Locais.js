@@ -80,7 +80,7 @@ const Locais = () => {
                         </div>
                         <div className='button-container'>
                             <Link to={{ pathname: `/localDetalhes/${api.id}` }}>
-                                <button>
+                                <button title='Detalhes'>
                                     Detalhes
                                 </button>
                             </Link>

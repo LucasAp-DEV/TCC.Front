@@ -24,7 +24,7 @@
 
 .formContainer1 button {
   font-size: 30px;
-  background-color: rgb(219, 31, 31);
+  background-color: #006494;
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -37,8 +37,7 @@
 }
 
 .formContainer1 button:hover {
-  /* transform: scale(1.1); */
-  background-color: #1a1919;
+  background-color: #023d58;
 }
 
 .forgotPassword {

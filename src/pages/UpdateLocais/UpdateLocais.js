@@ -7,7 +7,9 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Swal from 'sweetalert2';
 import './UpdateLocais.css';
-import { FaCopy } from 'react-icons/fa';
+import HighlightModal from '../../components/Modais/HighlightModal';
+import QRCodeModal from '../../components/Modais/QRCodeModal';
+import EditModal from '../../components/Modais/EditModal';
 
 const UpdateLocais = () => {
     const { idLocal } = useParams();
@@ -154,88 +156,24 @@ const UpdateLocais = () => {
         );
     };
 
-    const EditModal = () => (
-        <div className="modal">
-            <div className="modal-content">
-                <span className="close" onClick={() => setShowEditModal(false)}>&times;</span>
-                <h1>Editar Local</h1>
-                <label htmlFor="description">Descrição:</label>
-                <textarea
-                    required
-                    id="description"
-                    value={editedDescription}
-                    onChange={(e) => setEditedDescription(e.target.value)}
-                    className="textarea"
-                    rows={5}
+    return (
+        <div>
+            {renderApi()}
+            {showEditModal && (
+                <EditModal 
+                    setShowEditModal={setShowEditModal} 
+                    editedDescription={editedDescription}
+                    setEditedDescription={setEditedDescription}
+                    editedValue={editedValue}
+                    setEditedValue={setEditedValue}
+                    handleSaveChanges={handleSaveChanges}
+                    saving={saving}
                 />
-                <label htmlFor="value">Valor:</label>
-                <input
-                    required
-                    type="number"
-                    id="value"
-                    value={editedValue}
-                    onChange={(e) => setEditedValue(Number(e.target.value))}
-                    className="input"
-                />
-                <button onClick={handleSaveChanges} disabled={saving}>
-                    {saving ? <LoadingTela /> : 'Salvar Alterações'}
-                </button>
-            </div>
+            )}
+            {showHighlightModal && <HighlightModal setShowHighlightModal={setShowHighlightModal} handlePayment={handlePayment} />}
+            {showQRCodeModal && <QRCodeModal qrCodeData={qrCodeData} setShowQRCodeModal={setShowQRCodeModal} />}
         </div>
     );
-
-    const HighlightModal = () => (
-        <div className="modal">
-            <div className="modal-content">
-                <span className="close" onClick={() => setShowHighlightModal(false)}>&times;</span>
-                <h1>Termos de Destaque de Local</h1>
-                <p>Por favor, leia atentamente os seguintes termos antes de destacar um local:</p>
-                <p>- Ao destacar um local, você concorda em pagar a taxa correspondente.</p>
-                <p>- O destaque do local está sujeito à disponibilidade e aceitação.</p>
-                <p>- Uma vez destacado, o local será promovido com destaque em nossa plataforma.</p>
-                <p>- Ao clicar em "Destacar", você concorda com os termos acima.</p>
-                <button onClick={handlePayment}>Destacar</button>
-            </div>
-        </div>
-    );
-
-    const QRCodeModal = () => (
-        <div style={{display: 'block',position: 'fixed',zIndex: 1,left: 0,top: 0,width: '100%',height: '100%',overflow: 'auto',backgroundColor: 'rgba(0, 0, 0, 0.4)'
-          }}>
-            <div style={{backgroundColor: '#fefefe',margin: '10% auto',padding: '20px',border: '1px solid #888',maxWidth: '50%',borderRadius: '10px',fontWeight: 'bold'
-            }}>
-              <span style={{color: '#000000',float: 'right',fontSize: '30px',fontWeight: 'bold'
-              }} onClick={() => setShowQRCodeModal(false)}>&times;</span>
-              <h1 style={{textAlign: 'center',marginBottom: '20px',fontFamily: 'Arial, Helvetica, sans-serif'
-              }}>QR Code para Pagamento</h1>
-              {qrCodeData && (
-                <div style={{display: 'flex',flexDirection: 'column',alignItems: 'center',justifyContent: 'center'
-                }}>
-                  <img style={{maxWidth: '30%',height: 'auto',marginBottom: '10px'
-                  }} src={`data:image/png;base64,${qrCodeData.data.pointOfInteraction.transactionData.qrCodeBase64}`} alt="QR Code" />
-                  <div style={{display: 'flex',alignItems: 'center',marginTop: '10px'
-                  }}>
-                    {/* <p style={{ marginRight: '10px' }}>Código QR: {qrCodeData.data.pointOfInteraction.transactionData.qrCode}</p> */}
-                    <FaCopy
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => navigator.clipboard.writeText(qrCodeData.data.pointOfInteraction.transactionData.qrCode)}
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        );
-
-
-                return (
-                <div>
-                    {renderApi()}
-                    {showEditModal && <EditModal />}
-                    {showHighlightModal && <HighlightModal />}
-                    {showQRCodeModal && <QRCodeModal />}
-                </div>
-                );
 };
 
-                export default UpdateLocais;
+export default UpdateLocais;

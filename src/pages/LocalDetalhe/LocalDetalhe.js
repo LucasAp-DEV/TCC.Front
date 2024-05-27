@@ -43,10 +43,10 @@ function LocalDetalhe() {
           />
           <div className="botoes">
             <Link to={{ pathname: `/contrato/${localData?.id}` }}>
-              <button>Contratar</button>
+              <button title='Contratar'>Contratar</button>
             </Link>
             <button onClick={() => { navigate('/locais') }}
-              alt='Locais' title='Locais'>
+              alt='Locais' title='Voltar'>
               Voltar
             </button>
           </div>

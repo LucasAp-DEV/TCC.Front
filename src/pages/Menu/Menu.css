@@ -15,12 +15,12 @@
     text-decoration: none;
     width: 250px;
     height: 150px;
-    background-color: rgb(74, 74, 85);
+    background-color: #006494;
     margin: 30px;
     transition: transform 0.3s, background-color 0.3s;
 }
 
 .menu-container button:hover {
     transform: scale(1.2);
-    background-color: #1a1919;
+    background-color: #023d58;
 }

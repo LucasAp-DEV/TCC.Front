@@ -45,12 +45,12 @@
   margin-top: 9px;
   width: 250px;
   height: 55px;
-  background-color: rgb(219, 31, 31);
+  background-color: #006494;
 }
 
 .register button:hover {
   /* transform: scale(1.1); */
-  background-color: #1a1919;
+  background-color: #023d58;
 }
 
 

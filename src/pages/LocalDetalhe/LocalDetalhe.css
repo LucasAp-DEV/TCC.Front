@@ -1,10 +1,13 @@
 .centralizado1 {
-  margin-left: 10%;
   margin-top: 6%;
 }
 
+.botoes {
+  margin-left: 5%;
+}
+
 button {
-  background-color: rgb(219, 31, 31);
+  background-color: #006494;
   color: white;
   padding: 15px 32px;
   text-align: center;
@@ -19,5 +22,5 @@ button {
 }
 
 button:hover {
-  background-color: rgb(204, 3, 3);
+  background-color: #023d58;
 }

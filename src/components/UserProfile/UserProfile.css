@@ -23,7 +23,7 @@
     padding: 2px;
     cursor: pointer;
     font-size: 14px;
-    background-color: rgb(219, 31, 31);
+    background-color: #006494;
     color: #ffffff;
     border: none;
     border-radius: 5px;
@@ -35,7 +35,7 @@
 
 
 .api-info {
-    background-color: #e2dede;
+    background-color: #ffffff;
     border-radius: 5px;
     padding: 5px;
     margin-bottom: 10px;
@@ -55,7 +55,7 @@
     height: 25px;
     border: none;
     cursor: pointer;
-    background-color: #e2dede;
+    background-color: #ffffff;
     transition: transform 0.3s;
 }
 
@@ -87,19 +87,19 @@
     margin-top: 10px;
     width: 200px;
     height: 40px;
-    background-color: rgb(235, 25, 25);
+    background-color: #006494;
     transition: transform 0.3s;
 }
 
 .info2 button:hover {
-    background-color: rgb(204, 3, 3);
+    background-color: #023d58;
   }
 
   .api-info button:hover {
     transform: scale(1.2);
-    background-color: #e2dede;
+    background-color: #ffffff;
   }
 
   .api-infoNome button:hover {
-    background-color: rgb(204, 3, 3);
+    background-color: #023d58;
   }

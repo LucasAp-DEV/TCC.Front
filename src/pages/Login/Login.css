@@ -1,7 +1,7 @@
 .container {
-  background-color: #c1b8c9;
-  height: 100vh;
-  width: 100vw;
+  background-color: #000000;
+  height: 100%;
+  width: 100%;
   display: flex;
 }
 
@@ -17,7 +17,7 @@
   align-items: center;
   justify-content: center;
   display: flex;
-  box-shadow: 1px 3px 50px 1px rgb(102, 105, 105);
+  box-shadow: 1px 3px 50px 1px #43555e;
 }
 
 .swal2-container {

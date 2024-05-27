@@ -153,18 +153,18 @@ const ContratoDetalhes = () => {
                 <div>
                     {typeUser && (
                         <div className='container4'>
-                            <button onClick={saveData} className='buttonSalvar'>Salvar</button>
-                            <button onClick={handleEditStatus} className='buttonAlterar'>Editar status</button>
+                            <button onClick={saveData} className='buttonSalvar' title='Salvar'>Salvar</button>
+                            <button onClick={handleEditStatus} className='buttonAlterar' title='Editar'>Editar status</button>
                         </div>
                     )}
                     {!typeUser && localData?.status === 'ENCERRADO' && (
                         <div className='container4'>
-                            <button onClick={openModal} className='buttonSalvar'>Feedback</button>
+                            <button onClick={openModal} className='buttonSalvar' title='Adicionar Feednack'>Feedback</button>
                         </div>
                     )}
 
                     <div style={{ marginTop: '20px' }}>
-                        <a href="/contratolist" className='exitPassword'>Voltar aos Contratos</a>
+                        <a href="/contratolist" className='exitPassword' title='Voltar' >Voltar aos Contratos</a>
                     </div>
                 </div>
             </div>

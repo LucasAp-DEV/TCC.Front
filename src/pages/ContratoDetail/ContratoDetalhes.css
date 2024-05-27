@@ -13,6 +13,7 @@
     border-radius: 10px;
     font-family: Arial, sans-serif;
     margin-left: 15%;
+    background-color: #ffffff;
 }
 
 .container3 {
@@ -29,8 +30,8 @@
 
 .container4 {
     justify-content: space-between;
-    margin-top: 10px;
-    margin-left: 15%;
+    margin-top: 5px;
+    margin-left: 14%;
 }
 
 .buttonAlterar,
@@ -45,12 +46,12 @@
     text-decoration: none;
     width: 10%;
     height: 40px;
-    background-color: rgb(219, 30, 30);
+    background-color: #006494;
 }
 
 .buttonAlterar:hover,
 .buttonSalvar:hover {
-    background-color: rgb(204, 3, 3);
+    background-color: #023d58;
 }
 
 .exitPassword {
