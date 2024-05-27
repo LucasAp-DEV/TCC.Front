@@ -9,10 +9,8 @@ import './Locais.css';
 const Locais = () => {
     const [apiData, setApiData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [showFilterModal, setShowFilterModal] = useState(false);
     const [cityFilter, setCityFilter] = useState(null);
     const [dateFilter, setDateFilter] = useState('');
-
 
     const fetchApiData = useCallback(async () => {
         setLoading(true);
@@ -31,10 +29,11 @@ const Locais = () => {
         }
     }, []);
 
-    const fetchFilteredApiData = async (city = '', date = '') => {
+    const fetchFilteredApiData = async (filterData) => {
+        const { city, date } = filterData;
         setLoading(true);
         try {
-            const { data } = await api.get('/local/list', {
+            const { data } = await api.get('/local/filter', {
                 params: { city, date }
             });
             setApiData(data);
@@ -49,28 +48,13 @@ const Locais = () => {
             setLoading(false);
         }
     };
-
-    const handleFilterSubmit = async () => {
-        const city = cityFilter ? cityFilter.value : '';
-        try {
-            await fetchFilteredApiData(city, dateFilter);
-        } catch (error) {
-            console.error(error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro ao filtrar dados!',
-                text: 'Ocorreu um erro ao filtrar os dados dos locais.',
-            });
-        }
-        setShowFilterModal(false);
-    };
     
 
     useEffect(() => {
         fetchApiData();
     }, [fetchApiData]);
 
-   const handleCityChange = (selectedOption) => {
+    const handleCityChange = (selectedOption) => {
         setCityFilter(selectedOption);
     };
 
@@ -79,35 +63,42 @@ const Locais = () => {
         return uniqueCities.map(city => ({ value: city, label: city }));
     };
 
-    const renderFilteredApiData = () => {
-        if (loading && !apiData.length) {
-            return <LoadingTela />;
+    const handleFilterSubmit = async () => {
+        if (!cityFilter) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Selecione uma cidade!',
+                text: 'É necessário escolher uma cidade antes de aplicar o filtro.',
+            });
+            return;
         }
-        return (
-            <div className="api-data">
-                {apiData.map(api => (
-                    <div className="api-info1" key={api.id}>
-                        {api.images.length > 0 &&
-                            <img src={`data:image/png;base64,${api.images[0]}`} alt="Imagem do Local" />
-                        }
-                        <div className="info-column">
-                            <h5>Preço: R$ {api.price}</h5>
-                            <h5>Proprietario: {api.locatarioName}</h5>
-                            <h5>Endereço: {truncateEdereco(api.endereco)}</h5>
-                            <h5>Cidade: {api.cidade}</h5>
-                        </div>
-                        <div className='button-container'>
-                            <Link to={{ pathname: `/localDetalhes/${api.id}` }}>
-                                <button>
-                                    Detalhes
-                                </button>
-                            </Link>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        );
+    
+        if (!dateFilter) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Escolha uma data!',
+                text: 'É necessário escolher uma data antes de aplicar o filtro.',
+            });
+            return;
+        }
+    
+        const city = cityFilter.value;
+        const date = dateFilter;
+        const filterData = { city, date };
+        try {
+            await fetchFilteredApiData(filterData);
+            console.log(filterData)
+        } catch (error) {
+            console.error(error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao filtrar dados!',
+                text: 'Ocorreu um erro ao filtrar os dados dos locais.',
+            });
+        }
     };
+    
+    
 
     const renderApiData = () => {
         if (loading && !apiData.length) {
@@ -115,7 +106,31 @@ const Locais = () => {
         }
         return (
             <div className="api-data">
-                <button className="filter-button" onClick={() => setShowFilterModal(true)}>Filtros</button>
+                <div className="filter-container">
+                    <div className="form-group">
+                        <Select
+                            value={cityFilter}
+                            onChange={handleCityChange}
+                            options={renderCityOptions()}
+                            placeholder="Selecione a cidade.."
+                            maxMenuHeight={100}
+                            className="form-select"
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <input
+                            required
+                            type="date"
+                            value={dateFilter}
+                            onChange={(e) => setDateFilter(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <button className="filter-button" onClick={handleFilterSubmit}>Pesquisar</button>
+                    </div>
+                </div>
+
                 {apiData.map(api => (
                     <div className="api-info1" key={api.id}>
                         {api.images.length > 0 &&
@@ -140,50 +155,16 @@ const Locais = () => {
         );
     };
 
-    const FilterModal = () => (
-        <div className="modal">
-            <div className="modal-content">
-                <span className="close" onClick={() => setShowFilterModal(false)}>&times;</span>
-                <h1>Filtros de Pesquisa</h1>
-                    <div className="form-group">
-                        <label>Cidade:</label>
-                        <Select
-                            value={cityFilter}
-                            onChange={handleCityChange}
-                            options={renderCityOptions()}
-                            placeholder="Selecione a cidade.."
-                            maxMenuHeight={100}
-                            className="form-select"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Data:</label>
-                        <input
-                            type="date"
-                            value={dateFilter}
-                            onChange={(e) => setDateFilter(e.target.value)}
-                        />
-                    </div>
-                    <div className="modal-buttons">
-                    <button type="button" onClick={handleFilterSubmit}>Aplicar Filtros</button>
-                    </div>
-            </div>
-        </div>
-    );
-
     function truncateEdereco(description, maxLength = 20) {
         if (description.length > maxLength) {
             return `${description.substring(0, maxLength)}...`;
         }
         return description;
     }
-    
-    
+
     return (
         <div>
-            {showFilterModal && <FilterModal />}
             {renderApiData()}
-            {renderFilteredApiData()}
         </div>
     );
 }
