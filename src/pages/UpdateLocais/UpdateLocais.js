@@ -96,15 +96,12 @@ const UpdateLocais = () => {
         setShowHighlightModal(false);
         const DataPix = {
             email: "Lucas@gmail.com",
+            id: idLocal
         };
         try {
             const response = await api.post('/api/payments/create', DataPix);
-            setQRCodeData(response.data.transaction_data);
-            Swal.fire({
-                icon: 'success',
-                title: 'Pagamento gerado!',
-                text: 'O pagamento via PIX foi gerado com sucesso.',
-            });
+            setQRCodeData(response);
+            console.log(response)
             setShowQRCodeModal(true);
         } catch (error) {
             console.error(error);
@@ -203,35 +200,42 @@ const UpdateLocais = () => {
     );
 
     const QRCodeModal = () => (
-        <div className="modal">
-            <div className="modal-content">
-                <span className="close" onClick={() => setShowQRCodeModal(false)}>&times;</span>
-                <h1>QR Code para Pagamento</h1>
-                {qrCodeData && (
-                    <>
-                        <img src={`data:image/png;base64,${qrCodeData.qr_code_base64}`} alt="QR Code" />
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <p style={{ marginRight: '10px' }}>Código QR: {qrCodeData.qr_code}</p>
-                            <FaCopy
-                                style={{ cursor: 'pointer' }}
-                                onClick={() => navigator.clipboard.writeText(qrCodeData.qr_code)} 
-                            />
-                        </div>
-                    </>
-                )}
+        <div style={{display: 'block',position: 'fixed',zIndex: 1,left: 0,top: 0,width: '100%',height: '100%',overflow: 'auto',backgroundColor: 'rgba(0, 0, 0, 0.4)'
+          }}>
+            <div style={{backgroundColor: '#fefefe',margin: '10% auto',padding: '20px',border: '1px solid #888',maxWidth: '50%',borderRadius: '10px',fontWeight: 'bold'
+            }}>
+              <span style={{color: '#000000',float: 'right',fontSize: '30px',fontWeight: 'bold'
+              }} onClick={() => setShowQRCodeModal(false)}>&times;</span>
+              <h1 style={{textAlign: 'center',marginBottom: '20px',fontFamily: 'Arial, Helvetica, sans-serif'
+              }}>QR Code para Pagamento</h1>
+              {qrCodeData && (
+                <div style={{display: 'flex',flexDirection: 'column',alignItems: 'center',justifyContent: 'center'
+                }}>
+                  <img style={{maxWidth: '30%',height: 'auto',marginBottom: '10px'
+                  }} src={`data:image/png;base64,${qrCodeData.data.pointOfInteraction.transactionData.qrCodeBase64}`} alt="QR Code" />
+                  <div style={{display: 'flex',alignItems: 'center',marginTop: '10px'
+                  }}>
+                    {/* <p style={{ marginRight: '10px' }}>Código QR: {qrCodeData.data.pointOfInteraction.transactionData.qrCode}</p> */}
+                    <FaCopy
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => navigator.clipboard.writeText(qrCodeData.data.pointOfInteraction.transactionData.qrCode)}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
-        </div>
-    );
-    
+          </div>
+        );
 
-    return (
-        <div>
-            {renderApi()}
-            {showEditModal && <EditModal />}
-            {showHighlightModal && <HighlightModal />}
-            {showQRCodeModal && <QRCodeModal />}
-        </div>
-    );
+
+                return (
+                <div>
+                    {renderApi()}
+                    {showEditModal && <EditModal />}
+                    {showHighlightModal && <HighlightModal />}
+                    {showQRCodeModal && <QRCodeModal />}
+                </div>
+                );
 };
 
-export default UpdateLocais;
+                export default UpdateLocais;

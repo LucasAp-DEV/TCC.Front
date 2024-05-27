@@ -5,7 +5,6 @@ import './Contrato.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import DetalhesContrato from '../../components/Contrato/DetalhesContrato';
 import { api } from '../../api';
-import Loading from '../../components/Loading/Loading';
 import LoadingTela from '../../components/Loading/LoadingTela';
 
 const Contrato = () => {
@@ -105,7 +104,7 @@ const Contrato = () => {
 
         } catch (error) {
             console.error(error);
-            const errorText = "Ocorreu um erro ao salvar os dados do contrato.";
+            const errorText = "Ja existe um contrato nesta data.";
             Swal.fire({
                 icon: "error",
                 title: "Erro ao salvar contrato",

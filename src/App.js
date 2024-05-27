@@ -24,6 +24,7 @@ function App() {
     const isProtectedRoute = !['/register', '/login'].includes(path);
 
     if (!isAuthentication() && isProtectedRoute) {
+      localStorage.removeItem('token')
       navigate('/login');
     }
   }, [navigate]);
