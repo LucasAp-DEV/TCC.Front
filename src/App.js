@@ -1,10 +1,8 @@
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from './pages/Layout/Layout';
 import Menu from './pages/Menu/Menu';
 import Login from './pages/Login/Login';
 import Locais from './pages/Locais/Locais';
-// import { isAuthentication } from "./auth";
-// import { useEffect } from "react";
 import Usuarios from "./pages/Usuarios/Usuarios";
 import Register from "./pages/Register/Register";
 import Contrato from "./pages/Contrato/Contrato";
@@ -14,17 +12,22 @@ import ContratoDetalhes from "./pages/ContratoDetail/ContratoDetalhes";
 import LocalDetalhe from './pages/LocalDetalhe/LocalDetalhe';
 import UpdateLocaisList from "./pages/UpdateLocais/UpdateLocaisList";
 import UpdateLocais from "./pages/UpdateLocais/UpdateLocais";
+import { useEffect } from "react";
+import { isAuthentication } from "./auth";
+import { useNavigate } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
 
-  // const navigate = useNavigate()
+  useEffect(() => {
+    const path = window.location.pathname;
+    const isProtectedRoute = !['/register', '/login'].includes(path);
 
-  // useEffect(() => {
-  //   if (!isAuthentication()) {
-  //     navigate("/login")
-  //   }
+    if (!isAuthentication() && isProtectedRoute) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
-  // }, [navigate])
 
 
   return (
