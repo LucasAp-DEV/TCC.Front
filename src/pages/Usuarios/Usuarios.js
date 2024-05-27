@@ -42,6 +42,16 @@ const Usuarios = () => {
         fetchUserData();
     }, [idUser, userUpdated]);
 
+    const isEmailValid = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+    
+    const isPhoneValid = (phone) => {
+        const phoneRegex = /^\d{10}$/;
+        return phoneRegex.test(phone);
+    };
+
     const handleEdit = (field, value) => {
         Swal.fire({
             title: `Editar ${field}`,
@@ -54,6 +64,14 @@ const Usuarios = () => {
             confirmButtonText: "Confirmar",
             showLoaderOnConfirm: true,
             preConfirm: (newValue) => {
+                if (field === "Email" && !isEmailValid(newValue)) {
+                    Swal.showValidationMessage("Insira um email valido.");
+                    return false;
+                }
+                if (field === "Telefone" && !isPhoneValid(newValue)) {
+                    Swal.showValidationMessage("Insira um numero de telefone válido.");
+                    return false;
+                }
                 const newEditData = { ...editData, [field.toLowerCase()]: newValue };
                 setEditData(newEditData);
                 setApiData2(newEditData)
