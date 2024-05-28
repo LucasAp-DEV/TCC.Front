@@ -109,6 +109,7 @@ const RegisterLocais = () => {
       descricao: descricao,
       price: valor,
       endereco: endereco,
+      status: 'NORMAL',
       cidade: {
         id: cidade
       },

@@ -13,6 +13,14 @@
     margin-top: 20px;
 }
 
+.borda-dourada {
+    border: 3px solid gold;
+}
+
+.borda-preta {
+    border: 3px solid black;
+}
+
 .info-column {
     flex: 1;
     display: flex;

@@ -16,9 +16,18 @@ const Locais = () => {
         setLoading(true);
         try {
             const { data } = await api.get('/local/list');
-            setApiData(data);
-            setOriginalApiData(data);
-            if (data.length === 0) {
+            
+            // Ordenar os dados: "PATROCINADO" primeiro, "NORMAL" depois
+            const sortedData = data.sort((a, b) => {
+                if (a.status === 'PATROCINADO' && b.status !== 'PATROCINADO') return -1;
+                if (a.status !== 'PATROCINADO' && b.status === 'PATROCINADO') return 1;
+                return 0;
+            });
+
+            setApiData(sortedData);
+            setOriginalApiData(sortedData);
+            console.log(sortedData);
+            if (sortedData.length === 0) {
                 Swal.fire({
                     title: 'Não possui locais cadastrados.',
                     icon: 'info',
@@ -73,7 +82,10 @@ const Locais = () => {
                     />
                 </div>
                 {apiData.map(api => (
-                    <div className="api-info1" key={api.id}>
+                    <div 
+                        className={`api-info1 ${api.status === 'PATROCINADO' ? 'borda-dourada' : 'borda-preta'}`} 
+                        key={api.id}
+                    >
                         <div>
                             {api.images.length > 0 &&
                                 <img src={`data:image/png;base64,${api.images[0]}`} 
