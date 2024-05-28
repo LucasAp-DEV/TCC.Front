@@ -8,9 +8,9 @@ const Login = () => {
 
   const Swal = require('sweetalert2')
 
-  const [login, setLogin] = useState()
-  const [password, setPassword] = useState()
-  const [loading, setRemoveLoading] = useState(false)
+  const [login, setLogin] = useState("")
+  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
 
@@ -26,7 +26,7 @@ const Login = () => {
     e.preventDefault()
     let errorText = "";
     try {
-      setRemoveLoading(true)
+      setLoading(true)
       const response = await api.post('/user/login', {
         login,
         password,
@@ -41,15 +41,21 @@ const Login = () => {
         navigate('/menu');
       }
     } catch (error) {
-      errorText = "";
+      if (error.response) {
+        errorText = "Credenciais invalidas";
+      } else if (error.request) {
+        errorText = "Servidor não disponível.";
+      } else {
+        errorText = "Ocorreu um erro inesperado. Por favor, tente mais tarde.";
+      }
       Swal.fire({
         icon: "error",
-        title: "Credenciais Inválidas",
-        text: errorText
+        title: errorText,
+        text: ''
       });
-      console.error('Erro de rede:', error);
+      console.error('Erro:', error);
     } finally {
-      setRemoveLoading(false);
+      setLoading(false);
     }
   }
 
