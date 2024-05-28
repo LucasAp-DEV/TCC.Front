@@ -1,17 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react';
 import LoadingTela from '../../components/Loading/LoadingTela';
 import { api } from '../../api';
 import { jwtDecode } from 'jwt-decode';
 import { Link } from 'react-router-dom';
-import './ContratoList.css'
+import './ContratoList.css';
 import { useLocal } from '../../LocalContext';
+import Swal from 'sweetalert2';
 
 function ContratoList() {
-
     const { setLocalData } = useLocal();
 
     const [apiData, setApiData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetchApiData();
@@ -26,18 +27,28 @@ function ContratoList() {
         try {
             const { data } = await api.get(`/contrato/user/${idUser}`);
             setApiData(data);
-            setLoading(false);
             setLocalData(data);
+            console.log(data);
+            if (data.length === 0) {
+                Swal.fire({
+                    title: 'Você não possui contratos.',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+            }
         } catch (error) {
-            console.error(error);
+            setError(error.response ? error.response.data : 'Erro ao buscar contratos');
         } finally {
             setLoading(false);
         }
-    }, [setLocalData]);
+    }, [setLocalData, idUser]);
 
     const renderApiData = () => {
-        if (loading || !apiData?.length) {
+        if (loading) {
             return <LoadingTela />;
+        }
+        if (error) {
+            return <div>{error}</div>;
         }
         return (
             <div className="api-item1">
@@ -47,7 +58,7 @@ function ContratoList() {
                         statusColorClass = 'yellow-background';
                     } else if (api.status === 'ENCERRADO') {
                         statusColorClass = 'green-background';
-                    }else if (api.status === 'AGENDADO') {
+                    } else if (api.status === 'AGENDADO') {
                         statusColorClass = 'orange-background';
                     }
                     return (
@@ -56,17 +67,15 @@ function ContratoList() {
                                 <p>DATA: {api.data}</p>
                                 <p>VALOR: R$ {api.price},00</p>
                             </div>
-                            <div className={"api-item3"}>
+                            <div className="api-item3">
                                 <p>LOCATARIO: {api.locatario}</p>
                                 <div className={`api-item3 ${statusColorClass}`}>
                                     <p>STATUS: {api.status}</p>
                                 </div>
                             </div>
                             <div className="api-item-button">
-                                <Link to={{ pathname: `/contratoDetalhes/${api.id}`}}>
-                                    <button title='Detalhes'>
-                                        Detalhes
-                                    </button>
+                                <Link to={{ pathname: `/contratoDetalhes/${api.id}` }}>
+                                    <button title="Detalhes">Detalhes</button>
                                 </Link>
                             </div>
                         </div>
@@ -74,13 +83,9 @@ function ContratoList() {
                 })}
             </div>
         );
-    }
+    };
 
-    return (
-        <div>
-            {renderApiData()}
-        </div>
-    )
+    return <div>{renderApiData()}</div>;
 }
 
-export default ContratoList
+export default ContratoList;

@@ -1,5 +1,8 @@
 html, body {
     height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #dfeaee;
 }
 
 #root {
@@ -20,6 +23,7 @@ html, body {
 }
 
 .content {
+    padding-top: 60px;
     flex: 1;
     padding-bottom: 5%;
     display: flex;

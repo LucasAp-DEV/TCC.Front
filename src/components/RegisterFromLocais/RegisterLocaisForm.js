@@ -8,6 +8,7 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
     onChangeImage, valor, onChangeValor, onSubmit, loading, cidadesOptions }) => {
 
     const [imagemSelecionada, setImagemSelecionada] = useState(false);
+    const [arrayImagens, setArrayImagens] = useState([])
 
     const renderCityOptions = () => {
         return cidadesOptions.map((cidade) => ({
@@ -22,19 +23,21 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
 
     const onChangeImagem = (event) => {
         const files = event.target.files;
+        const imagensArray = Array.from(files);
         setImagemSelecionada(files.length > 0);
+        setArrayImagens(imagensArray);
         onChangeImage(event);
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (!imagemSelecionada) {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!imagemSelecionada || arrayImagens.length < 2) {
             Swal.fire({
                 icon: "error",
-                title: "Favor insira uma imagem",
+                title: "Favor insira pelo menos duas imagens",
                 text: ""
             });
-            return
+            return;
         }
         onSubmit();
     };

@@ -2,7 +2,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 80px;
+    margin-top: 20px;
     width: 80%;
     margin-left: 10%;
+}
+
+.swal-popup {
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.swal-close-button {
+    /* Adicione estilos específicos aqui se necessário */
 }

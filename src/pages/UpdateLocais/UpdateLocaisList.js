@@ -3,14 +3,15 @@ import { useLocal } from '../../LocalContext';
 import { jwtDecode } from 'jwt-decode';
 import { api } from '../../api';
 import LoadingTela from '../../components/Loading/LoadingTela';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const UpdateLocaisList = () => {
-
     const { setLocalData } = useLocal();
 
     const [apiData, setApiData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetchApiData();
@@ -27,22 +28,31 @@ const UpdateLocaisList = () => {
             setApiData(data);
             setLoading(false);
             setLocalData(data);
+            if (!data.length) {
+                Swal.fire({
+                    title: 'Você não possui locais.',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                })
+            }
         } catch (error) {
-            console.error(error);
-        } finally {
+            setError(error.response ? error.response.data : 'Erro ao buscar locais');
             setLoading(false);
         }
     };
 
     const renderApiData = () => {
-        if (loading || !apiData?.length) {
+        if (loading) {
             return <LoadingTela />;
+        }
+        if (error) {
+            return <div>{error}</div>;
         }
         return (
             <div className="api-item1">
                 {apiData.map(api => {
                     return (
-                        <div className="api-item2">
+                        <div className="api-item2" key={api.id}>
                             <div className="api-item3">
                                 <p>ID: {api.id}</p>
                                 <p>VALOR: R$ {api.price},00</p>

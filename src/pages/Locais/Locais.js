@@ -69,7 +69,14 @@ const Locais = () => {
                     <div className="api-info1" key={api.id}>
                         <div>
                             {api.images.length > 0 &&
-                                <img src={`data:image/png;base64,${api.images[0]}`} alt="Imagem do Local" />
+                                <img src={`data:image/png;base64,${api.images[0]}`} 
+                                alt="Imagem do Local"
+                                style={{
+                                maxWidth: '400px',
+                                height: '300px', 
+                                objectFit: 'cover',
+                                }}
+                                />
                             }
                         </div>
                         <div className="info-column">

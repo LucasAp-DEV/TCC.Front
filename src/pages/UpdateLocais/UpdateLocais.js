@@ -28,7 +28,7 @@ const UpdateLocais = () => {
     const settings = {
         dots: false,
         infinite: true,
-        speed: 500,
+        speed: 900,
         slidesToShow: 1,
         slidesToScroll: 1,
         afterChange: index => setSliderIndex(index),
@@ -124,12 +124,18 @@ const UpdateLocais = () => {
         return (
             <div className="content-wrapper">
                 <div className="container">
-                    <h1>Imagens</h1>
                     <div className="slider">
                         <Slider {...settings} initialSlide={sliderIndex}>
                             {localData?.images.map((image, index) => (
                                 <div key={index}>
-                                    <img src={`data:image/png;base64,${image}`} alt="Imagem" />
+                                    <img src={`data:image/png;base64,${image}`} 
+                                    alt="Imagem"
+                                    style={{
+                                        objectFit: 'cover',
+                                        height: '350px', 
+                                        maxWidth: '850px'
+                                        }}
+                                    />
                                 </div>
                             ))}
                         </Slider>

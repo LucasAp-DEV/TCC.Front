@@ -1,20 +1,22 @@
-import './Usuarios.css'
+import './Usuarios.css';
 import { useEffect, useState } from 'react';
 import { api } from '../../api';
 import LoadingTela from '../../components/Loading/LoadingTela';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import Swal from 'sweetalert2';
-import userIcons from '../../components/Icons e Imgs/user1.png'
-import editIcon from '../../components/Icons e Imgs/pencil.png'
+import withReactContent from 'sweetalert2-react-content';
+import userIcons from '../../components/Icons e Imgs/user1.png';
+import editIcon from '../../components/Icons e Imgs/pencil.png';
 import UserProfile from '../../components/UserProfile/UserProfile';
 import { useNavigate } from 'react-router-dom';
 
+const MySwal = withReactContent(Swal);
+
 const Usuarios = () => {
+    const navigate = useNavigate();
 
-    const navigate = useNavigate()
-
-    const [apiData, setApiData] = useState();
-    const [apiData2, setApiData2] = useState();
+    const [apiData, setApiData] = useState(null);
+    const [apiData2, setApiData2] = useState(null);
     const [loading, setLoading] = useState(true);
     const [editData, setEditData] = useState({});
     const [userUpdated, setUserUpdated] = useState(false);
@@ -30,10 +32,10 @@ const Usuarios = () => {
             try {
                 const { data } = await api.get(`/user/${idUser}`);
                 setApiData(data);
-                setApiData2(data)
-                setEditData(data)
+                setApiData2(data);
+                setEditData(data);
                 setLoading(false);
-                console.log(data)
+                console.log(data);
             } catch (error) {
                 console.error(error);
                 setLoading(false);
@@ -46,14 +48,14 @@ const Usuarios = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     };
-    
+
     const isPhoneValid = (phone) => {
         const phoneRegex = /^\d{10}$/;
         return phoneRegex.test(phone);
     };
 
     const handleEdit = (field, value) => {
-        Swal.fire({
+        MySwal.fire({
             title: `Editar ${field}`,
             input: "text",
             inputValue: value,
@@ -65,19 +67,32 @@ const Usuarios = () => {
             showLoaderOnConfirm: true,
             preConfirm: (newValue) => {
                 if (field === "Email" && !isEmailValid(newValue)) {
-                    Swal.showValidationMessage("Insira um email valido.");
+                    MySwal.showValidationMessage("Insira um email valido.");
                     return false;
                 }
                 if (field === "Telefone" && !isPhoneValid(newValue)) {
-                    Swal.showValidationMessage("Insira um numero de telefone válido.");
+                    MySwal.showValidationMessage("Insira um numero de telefone válido.");
                     return false;
                 }
                 const newEditData = { ...editData, [field.toLowerCase()]: newValue };
                 setEditData(newEditData);
-                setApiData2(newEditData)
-                console.log(newEditData)
+                setApiData2(newEditData);
+                console.log(newEditData);
             },
-            allowOutsideClick: () => !Swal.isLoading()
+            allowOutsideClick: () => !MySwal.isLoading(),
+            customClass: {
+                popup: 'swal-popup',
+                header: 'swal-header',
+                title: 'swal-title',
+                closeButton: 'swal-close-button',
+                icon: 'swal-icon',
+                image: 'swal-image',
+                input: 'swal-input',
+                actions: 'swal-actions',
+                confirmButton: 'swal-confirm-button',
+                cancelButton: 'swal-cancel-button',
+                footer: 'swal-footer'
+            },
         }).then((result) => {
             if (result.isConfirmed) {
                 const newEditData = { ...editData, [field.toLowerCase()]: result.value };
@@ -92,7 +107,7 @@ const Usuarios = () => {
             USER: 'USER'
         };
 
-        const { value: selectedRole } = await Swal.fire({
+        const { value: selectedRole } = await MySwal.fire({
             title: 'Editar Role',
             input: 'select',
             inputOptions: roleOptions,
@@ -118,10 +133,10 @@ const Usuarios = () => {
 
     const handleUpdateLocais = async () => {
         try {
-            if (typeUser === 0) { 
+            if (typeUser === 0) {
                 navigate("/updateLocaisList");
             } else {
-                Swal.fire({
+                MySwal.fire({
                     icon: 'error',
                     title: 'Você precisa ser um locatario para acessar esta funcionalidade.',
                     text: ''
@@ -129,7 +144,7 @@ const Usuarios = () => {
             }
         } catch (error) {
             console.error(error);
-            Swal.fire({
+            MySwal.fire({
                 icon: 'error',
                 title: 'Erro ao salvar alterações!',
                 text: ''
@@ -139,10 +154,10 @@ const Usuarios = () => {
 
     const handleSaveLocais = async () => {
         try {
-            if (typeUser === 0) { 
+            if (typeUser === 0) {
                 navigate("/registerLocais");
             } else {
-                Swal.fire({
+                MySwal.fire({
                     icon: 'error',
                     title: 'Você precisa ser um locatario para acessar esta funcionalidade',
                     text: ''
@@ -150,7 +165,7 @@ const Usuarios = () => {
             }
         } catch (error) {
             console.error(error);
-            Swal.fire({
+            MySwal.fire({
                 icon: 'error',
                 title: 'Erro ao salvar alterações!',
                 text: ''
@@ -158,10 +173,9 @@ const Usuarios = () => {
         }
     };
 
-
     const handleSaveChanges = async () => {
         try {
-            const { value: password } = await Swal.fire({
+            const { value: password } = await MySwal.fire({
                 title: 'Confirme sua senha',
                 input: 'password',
                 inputPlaceholder: 'Digite sua senha',
@@ -173,7 +187,7 @@ const Usuarios = () => {
                 confirmButtonText: 'Confirmar',
                 cancelButtonText: 'Cancelar',
                 showLoaderOnConfirm: true,
-                allowOutsideClick: () => !Swal.isLoading(),
+                allowOutsideClick: () => !MySwal.isLoading(),
                 preConfirm: async (enteredPassword) => {
                     try {
                         return enteredPassword;
@@ -184,7 +198,7 @@ const Usuarios = () => {
             });
             const newEditData = { ...apiData, ...editData, password };
             const response = await api.put(`/user/update/${idUser}`, newEditData);
-            Swal.fire({
+            MySwal.fire({
                 icon: 'success',
                 title: 'Alterações salvas com sucesso!',
                 text: ''
@@ -194,18 +208,16 @@ const Usuarios = () => {
             if (response.status === 200) {
                 const authToken = response.data.token;
                 localStorage.setItem("token", authToken);
-              }
+            }
         } catch (error) {
             console.error(error);
-            Swal.fire({
+            MySwal.fire({
                 icon: 'error',
                 title: 'Erro ao salvar alterações!',
                 text: ''
             });
         }
     };
-    
-
 
     const renderApiData = () => {
         if (loading || !apiData) {
@@ -225,14 +237,14 @@ const Usuarios = () => {
                     handleUpdateLocais={handleUpdateLocais}
                 />
             </div>
-        )
-    }
+        );
+    };
 
     return (
         <div>
             {renderApiData()}
         </div>
     );
-}
+};
 
 export default Usuarios;
