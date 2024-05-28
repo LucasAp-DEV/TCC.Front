@@ -55,7 +55,7 @@ const UpdateLocaisList = () => {
                         <div className="api-item2" key={api.id}>
                             <div className="api-item3">
                                 <p>ID: {api.id}</p>
-                                <p>VALOR: R$ {api.price},00</p>
+                                <p style={{color: 'rgb(6, 206, 6)'}}>VALOR: R$ {api.price},00</p>
                             </div>
                             <div className={"api-item3"}>
                                 <p>Endereço: {api.endereco}</p>

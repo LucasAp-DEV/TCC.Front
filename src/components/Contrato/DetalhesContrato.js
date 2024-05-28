@@ -10,7 +10,7 @@ const DetalhesContrato = ({ localData, nomeLocador, dataAluguel, handleDataAlugu
                 <p><strong>ID do Local:</strong> {localData?.id}</p>
                 <p><strong>Descrição:</strong> {localData?.descricao}</p>
                 <p><strong>Endereço:</strong> {localData?.endereco}, {localData?.cidade}</p>
-                <p><strong>Preço:</strong> R$ {localData?.price}</p>
+                <p style={{color: 'green'}}><strong>Preço:</strong> R$ {localData?.price}</p>
                 <p><strong>Telefone:</strong> {localData?.locatarioTell}</p>
             </div>
             <p>O LOCATÁRIO declara estar ciente e de acordo com os termos deste contrato e se compromete a respeitá-los integralmente.</p>

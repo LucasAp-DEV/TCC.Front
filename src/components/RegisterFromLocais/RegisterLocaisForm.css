@@ -4,6 +4,11 @@
   padding: 10px;
 }
 
+.form-container label {
+  font-weight: bold;
+}
+
+
 .form-input {
   width: 100%;
   padding: 10px;
@@ -37,6 +42,7 @@
 }
 
 .form-link a {
+  font-weight: bold;
   text-decoration: none;
   font-size: 16px;
   text-decoration: none;

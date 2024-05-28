@@ -22,7 +22,7 @@ const DetalhesLocal2 = ({ localData }) => {
                 <h2>Detalhes do Local:</h2>
                 <p><strong>Endereço:</strong> {localData?.endereco}</p>
                 <p><strong>Cidade:</strong> {localData?.cidade}</p>
-                <p><strong>Preço:</strong> R$ {localData?.price},00</p>
+                <p><strong>Preço: R$ {localData?.price},00 </strong></p>
                 <p><strong>Telefone:</strong> (44) {localData?.telephone}</p>
                 <p><strong>Status:</strong> {getStatusLabel(localData?.status)}</p>
             </div>

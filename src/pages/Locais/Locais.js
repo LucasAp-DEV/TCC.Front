@@ -18,6 +18,13 @@ const Locais = () => {
             const { data } = await api.get('/local/list');
             setApiData(data);
             setOriginalApiData(data);
+            if (data.length === 0) {
+                Swal.fire({
+                    title: 'Não possui locais cadastrados.',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+            }
         } catch (error) {
             console.error(error);
             Swal.fire({
