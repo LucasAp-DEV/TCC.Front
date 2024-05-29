@@ -17,7 +17,6 @@ const Locais = () => {
         try {
             const { data } = await api.get('/local/list');
             
-            // Ordenar os dados: "PATROCINADO" primeiro, "NORMAL" depois
             const sortedData = data.sort((a, b) => {
                 if (a.status === 'PATROCINADO' && b.status !== 'PATROCINADO') return -1;
                 if (a.status !== 'PATROCINADO' && b.status === 'PATROCINADO') return 1;
@@ -82,17 +81,14 @@ const Locais = () => {
                     />
                 </div>
                 {apiData.map(api => (
-                    <div 
-                        className={`api-info1 ${api.status === 'PATROCINADO' ? 'borda-dourada' : 'borda-preta'}`} 
-                        key={api.id}
-                    >
+                    <div className='api-info1'>
                         <div>
                             {api.images.length > 0 &&
                                 <img src={`data:image/png;base64,${api.images[0]}`} 
                                 alt="Imagem do Local"
                                 style={{
-                                maxWidth: '400px',
-                                height: '300px', 
+                                width: '300px',
+                                height: '200px', 
                                 objectFit: 'cover',
                                 }}
                                 />
@@ -110,6 +106,19 @@ const Locais = () => {
                                     Detalhes
                                 </button>
                             </Link>
+                            {api.status === 'PATROCINADO' && (
+                            <p style={{ 
+                                backgroundColor: '#ffd700', 
+                                fontWeight: 'bold', 
+                                textAlign: 'center', 
+                                marginTop: '20px', 
+                                padding: '5px',
+                                borderRadius: '15px',
+                                fontFamily: 'Arial'
+                            }}>
+                                {api.status}
+                            </p>
+                        )}
                         </div>
                     </div>
                 ))}

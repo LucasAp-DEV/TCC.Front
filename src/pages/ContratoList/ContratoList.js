@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import './ContratoList.css';
 import { useLocal } from '../../LocalContext';
 import Swal from 'sweetalert2';
+import dayjs from 'dayjs';
 
 function ContratoList() {
     const { setLocalData } = useLocal();
@@ -64,13 +65,13 @@ function ContratoList() {
                     return (
                         <div className="api-item2" key={api.id}>
                             <div className="api-item3">
-                                <p>DATA: {api.data}</p>
-                                <p style={{color: 'rgb(10, 196, 6)'}}>VALOR: R$ {api.price},00</p>
+                            <p>DATA: {dayjs(api.data).format('DD/MM/YYYY')}</p> {/*INSERIR NAS DEMAIS PAGINAS */}
+                                <p>VALOR: R$ {api.price},00</p>
                             </div>
                             <div className="api-item3">
                                 <p>LOCATARIO: {api.locatario}</p>
                                 <div className={`api-item3 ${statusColorClass}`}>
-                                    <p>STATUS: {api.status}</p>
+                                    <p style={{textAlign: 'center', padding: '2px'}}>STATUS: {api.status}</p>
                                 </div>
                             </div>
                             <div className="api-item-button">

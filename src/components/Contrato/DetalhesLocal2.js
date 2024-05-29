@@ -1,4 +1,5 @@
 import React from 'react';
+import dayjs from 'dayjs';
 
 const DetalhesLocal2 = ({ localData }) => {
 
@@ -28,7 +29,7 @@ const DetalhesLocal2 = ({ localData }) => {
             </div>
             <p>O LOCATÁRIO declara estar ciente e de acordo com os termos deste contrato e se compromete a respeitá-los integralmente.</p>
             <div>
-                <p><strong>Data:</strong> {localData?.data} </p>
+                <p><strong>Data:</strong> {dayjs(localData?.data).format('DD/MM/YYYY')} </p>
             </div>
         </div>
     );

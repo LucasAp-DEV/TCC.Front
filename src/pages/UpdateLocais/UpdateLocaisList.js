@@ -3,7 +3,7 @@ import { useLocal } from '../../LocalContext';
 import { jwtDecode } from 'jwt-decode';
 import { api } from '../../api';
 import LoadingTela from '../../components/Loading/LoadingTela';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const UpdateLocaisList = () => {
@@ -55,13 +55,25 @@ const UpdateLocaisList = () => {
                         <div className="api-item2" key={api.id}>
                             <div className="api-item3">
                                 <p>ID: {api.id}</p>
-                                <p style={{color: 'rgb(6, 206, 6)'}}>VALOR: R$ {api.price},00</p>
+                                <p>Cidade: {api.cidade}</p>
+                                <p>Endereço: {api.endereco}</p>
                             </div>
                             <div className={"api-item3"}>
-                                <p>Endereço: {api.endereco}</p>
-                                <p>Cidade: {api.cidade}</p>
+                                <p 
+                                style={{
+                                    backgroundColor: api.status === 'PATROCINADO' ? 'yellow' : 'orange',
+                                    padding: '5px',
+                                    borderRadius: '10px',
+                                    fontWeight: 'bold',
+                                    color:'black',
+                                    width: '50%',
+                                    textAlign: 'center'
+                                }}
+                            >
+                                STATUS: {api.status}
+                            </p>
                             </div>
-                            <div className="api-item-button">
+                            <div style={{marginTop: '1.5%'}}>
                                 <Link to={{ pathname: `/updatelocais/${api.id}` }}>
                                     <button >
                                         Detalhes

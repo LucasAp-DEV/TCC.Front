@@ -10,29 +10,29 @@ const LoginForm = ({ login, password, onChangeLogin, onChangePassword, onSubmit,
         <input
           placeholder='Login:'
           type='text'
-          name='LoginInput'
           value={login}
           onChange={onChangeLogin}
+          title='Login'
           required
         />
         <input
           placeholder='Senha:'
           type='password'
-          name='passwordInput'
           value={password}
           onChange={onChangePassword}
+          title='Senha'
           required
         />
       </div>
       <div>
         <p>
-          <button type='submit' disabled={loading}>
+          <button type='submit' disabled={loading} title='Entrar'>
             {loading ? <Loading /> : 'Entrar'}
           </button>
         </p>
       </div>
       <div style={{ marginTop: '80px' }}>
-        <a href="/register" className="forgotPassword">
+        <a href="/register" className="forgotPassword" title='Cadastrar-se'>
           Cadastrar-se
         </a>
       </div>

@@ -16,9 +16,9 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                     <input
                         placeholder={"Digite seu login"}
                         type='text'
-                        name='LoginInput'
                         value={login}
                         onChange={onChangeLogin}
+                        title='Login'
                         required
                     />
                 </div>
@@ -28,9 +28,9 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                     <input
                         placeholder={"Digite sua senha"}
                         type='password'
-                        name='passwordInput'
                         value={password}
                         onChange={onChangePassword}
+                        title='Senha'
                         required
                     />
                 </div>
@@ -40,9 +40,9 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                     <input
                         placeholder={"Digite sua cidade"}
                         type='password'
-                        name='passwordValid'
                         value={passwordValid}
                         onChange={onChangePasswordValid}
+                        title='Confirmar senha'
                         required
                     />
                 </div>
@@ -52,9 +52,9 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                     <input
                         placeholder={"Digite seu nome"}
                         type='text'
-                        nome='nameInput'
                         value={nome}
                         onChange={onChangeName}
+                        title='Nome'
                         required
                     />
                 </div>
@@ -64,9 +64,9 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                     <input
                         placeholder={"Digite seu email"}
                         type='email'
-                        name='emailInput'
                         value={email}
                         onChange={onChangeEmail}
+                        title='Email'
                         required
                     />
                 </div>
@@ -76,9 +76,9 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                     <input
                         placeholder={"Digite seu telefone"}
                         type='phone'
-                        name='telefoneInput'
                         value={telefone}
                         onChange={onChangeTelefone}
+                        title='Telefone'
                         required
                     />
                 </div>
@@ -95,12 +95,12 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                 />
             </div>
             <div>
-                <button type='submit' disabled={loading}>
+                <button type='submit' disabled={loading} title='Registrar'>
                     {loading ? <Loading /> : 'Registrar'}
                 </button>
             </div>
             <div style={{ marginTop: '20px' }}>
-                <a href="/login" className='exitPassword'>Voltar ao Login</a>
+                <a href="/login" className='exitPassword' title='Voltar'>Voltar ao Login</a>
             </div>
         </form>
     );
