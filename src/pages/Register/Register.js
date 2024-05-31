@@ -86,14 +86,24 @@ const Register = () => {
       setRemoveLoading(true);
       const response = await api.post('/user/register', formData, {
         headers: {
-            'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
         },
-    });
+      });
       console.log(response.data);
       showSucessAlert("Cadastro realizado");
       navigate("/login")
     } catch (error) {
-      showErrorAlert("Erro ao Registrar");
+      if (error.response && error.response.status === 404) {
+        if (error.response.data === "Nome de usuario em uso") {
+          showErrorAlert("Nome de usuario em uso");
+        } else if (error.response.data === "Email ja esta em uso") {
+          showErrorAlert("Email já está em uso");
+        } else {
+          showErrorAlert("Erro ao Registrar");
+        }
+      } else {
+        showErrorAlert("Erro ao Registrar");
+      }
     } finally {
       setRemoveLoading(false);
     }
