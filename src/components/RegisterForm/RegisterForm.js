@@ -76,6 +76,7 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                     <input
                         placeholder={"Digite seu telefone"}
                         type='phone'
+                        pattern="[0-9]*"
                         value={telefone}
                         onChange={onChangeTelefone}
                         title='Telefone'
