@@ -4,17 +4,18 @@ import './QRCodeModal.css';
 
 const QRCodeModal = ({ qrCodeData, setShowQRCodeModal }) => {
 
-  const getPartialQRCode = () => {
-    if (!qrCodeData) return '';
-    const qrCode = qrCodeData.data.pointOfInteraction.transactionData.qrCode;
-    return qrCode.slice(0,50);
-  };
+  // const getPartialQRCode = () => {
+  //   if (!qrCodeData) return '';
+  //   const qrCode = qrCodeData.data.pointOfInteraction.transactionData.qrCode;
+  //   return qrCode.slice(0,50);
+  // };
 
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <span className="close-button" title='Fechar' onClick={() => setShowQRCodeModal(false)}>&times;</span>
         <h1 className="modal-title">QR Code para Pagamento</h1>
+        <h2>Valor: R$ 30,00</h2>
         {qrCodeData && (
           <div className="qr-code-container">
             <img
@@ -24,8 +25,8 @@ const QRCodeModal = ({ qrCodeData, setShowQRCodeModal }) => {
             />
             <div className="copy-container">
               <div>
-                <h1>Valor: R$ 30,00</h1>
-                <p>{getPartialQRCode()}</p>
+                {/* <p>{getPartialQRCode()}</p> */}
+                <p>Copiar QrCode</p>
               </div>
               <div>
                 <FaCopy

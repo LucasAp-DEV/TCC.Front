@@ -16,9 +16,15 @@
 .modal-content {
   background-color: #fefefe;
   border: 1px solid #888;
-  max-width: 60%;
+  max-width: 40%;
   border-radius: 10px;
   font-weight: bold;
+  margin-top: 15%;
+}
+.modal-content h2 {
+  color: rgb(29, 168, 24);
+  justify-content: center;
+  display: flex;
 }
 
 .close-button {
