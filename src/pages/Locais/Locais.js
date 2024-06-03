@@ -11,12 +11,13 @@ const Locais = () => {
     const [originalApiData, setOriginalApiData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [cityFilter, setCityFilter] = useState(null);
+    const [dateFilter, setDateFilter] = useState('');
 
     const fetchApiData = useCallback(async () => {
         setLoading(true);
         try {
             const { data } = await api.get('/local/list');
-            
+
             const sortedData = data.sort((a, b) => {
                 if (a.status === 'PATROCINADO' && b.status !== 'PATROCINADO') return -1;
                 if (a.status !== 'PATROCINADO' && b.status === 'PATROCINADO') return 1;
@@ -45,6 +46,41 @@ const Locais = () => {
         }
     }, []);
 
+    const fetchApiDataFilter = useCallback(async () => {
+        setLoading(true);
+        try {
+            const { data } = await api.get(`/local/filter?data=${dateFilter}`);
+
+            const sortedData = data.sort((a, b) => {
+                if (a.status === 'PATROCINADO' && b.status !== 'PATROCINADO') return -1;
+                if (a.status !== 'PATROCINADO' && b.status === 'PATROCINADO') return 1;
+                return 0;
+            });
+
+            setApiData(sortedData);
+            setOriginalApiData(sortedData);
+            console.log(sortedData);
+            if (sortedData.length === 0) {
+                Swal.fire({
+                    title: 'Não possui locais cadastrados.',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao carregar dados!',
+                text: 'Ocorreu um erro ao carregar os dados dos locais.',
+            });
+        } finally {
+            setLoading(false);
+        }
+    }, [dateFilter]);
+
+
+
     useEffect(() => {
         fetchApiData();
     }, [fetchApiData]);
@@ -54,6 +90,10 @@ const Locais = () => {
 
         const filteredData = originalApiData.filter(local => local.cidade === selectedOption.label);
         setApiData(filteredData);
+    };
+
+    const handleDateChange = (e) => {
+        setDateFilter(e.target.value);
     };
 
     const renderCityOptions = () => {
@@ -79,18 +119,26 @@ const Locais = () => {
                         className="form-select"
                         required
                     />
+                    <input
+                        placeholder='Data disponivel'
+                        type='date'
+                        value={dateFilter}
+                        onChange={handleDateChange}
+                        className="form-date"
+                    />
+                    <button onClick={fetchApiDataFilter}>Filtrar</button>
                 </div>
                 {apiData.map(api => (
                     <div className='api-info1'>
                         <div>
                             {api.images.length > 0 &&
-                                <img src={`data:image/png;base64,${api.images[0]}`} 
-                                alt="Imagem do Local"
-                                style={{
-                                width: '300px',
-                                height: '200px', 
-                                objectFit: 'cover',
-                                }}
+                                <img src={`data:image/png;base64,${api.images[0]}`}
+                                    alt="Imagem do Local"
+                                    style={{
+                                        width: '300px',
+                                        height: '200px',
+                                        objectFit: 'cover',
+                                    }}
                                 />
                             }
                         </div>
@@ -107,18 +155,18 @@ const Locais = () => {
                                 </button>
                             </Link>
                             {api.status === 'PATROCINADO' && (
-                            <p style={{ 
-                                backgroundColor: '#ffd700', 
-                                fontWeight: 'bold', 
-                                textAlign: 'center', 
-                                marginTop: '20px', 
-                                padding: '5px',
-                                borderRadius: '15px',
-                                fontFamily: 'Arial'
-                            }}>
-                                {api.status}
-                            </p>
-                        )}
+                                <p style={{
+                                    backgroundColor: '#ffd700',
+                                    fontWeight: 'bold',
+                                    textAlign: 'center',
+                                    marginTop: '20px',
+                                    padding: '5px',
+                                    borderRadius: '15px',
+                                    fontFamily: 'Arial'
+                                }}>
+                                    {api.status}
+                                </p>
+                            )}
                         </div>
                     </div>
                 ))}

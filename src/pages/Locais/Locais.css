@@ -52,7 +52,38 @@
 }
 
 .form-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     width: 50%;
     font-family: Arial, sans-serif;
     cursor: pointer;
+}
+
+.form-select {
+    flex: 2;
+}
+
+.form-date {
+    margin-top: -19px;
+    flex: 1;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #020202;
+    border-radius: 4px;
+}
+
+.form-group button {
+    margin-top: -19px;
+    padding: 10px 20px;
+    background-color: #006494;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+}
+
+.form-group button:hover {
+    background-color: #023d58;
 }

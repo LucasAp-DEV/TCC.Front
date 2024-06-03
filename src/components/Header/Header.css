@@ -3,18 +3,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 3rem;
+    padding: 1rem 2rem;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
 }
 
-.dashboard a {
+.header-link {
     color: #ffffff;
     height: 35px;
     cursor: pointer;
     font-family: Arial, sans-serif;
     text-decoration: none;
     font-size: 30px;
+}
+
+.header-right {
+    display: flex;
+    gap: 5rem;
 }

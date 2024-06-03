@@ -75,14 +75,20 @@ const RegisterForm = ({ login, onChangeLogin, password, onChangePassword, nome, 
                     <p>Telefone:</p>
                     <input
                         placeholder={"Digite seu telefone"}
-                        type='phone'
-                        pattern="[0-9]*"
+                        type='text'
                         value={telefone}
                         onChange={onChangeTelefone}
+                        onKeyPress={(e) => {
+                            if (!/[0-9]/.test(e.key)) {
+                                e.preventDefault();
+                            }
+                        }}
                         title='Telefone'
                         required
                     />
                 </div>
+
+
             </div>
 
             <h3 style={{ fontFamily: 'Arial, sans-serif' }}>Você é um proprietário?</h3>

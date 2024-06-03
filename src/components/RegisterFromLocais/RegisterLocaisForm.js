@@ -47,6 +47,7 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
             <div>
                 <label>Descrição:</label>
                 <textarea
+                    placeholder='Exemplo: Local com amplo espaço'
                     required
                     style={{
                         resize: 'none',
@@ -63,6 +64,7 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
             <div>
                 <label>Endereço:</label>
                 <textarea
+                    placeholder='Exemplo: Rua Floresta 131'
                     required
                     style={{
                         resize: 'none',
@@ -80,12 +82,15 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
             <div>
                 <label>Valor:</label>
                 <input
+                    placeholder='Exemplo: 400'
                     required
                     type='number'
                     id="valor"
                     className="form-input"
                     value={valor}
                     onChange={onChangeValor}
+                    min={1}
+                    max={10000}
                 />
             </div>
 

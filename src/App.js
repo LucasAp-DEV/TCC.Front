@@ -1,6 +1,5 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Layout from './pages/Layout/Layout';
-import Menu from './pages/Menu/Menu';
 import Login from './pages/Login/Login';
 import Locais from './pages/Locais/Locais';
 import Usuarios from "./pages/Usuarios/Usuarios";
@@ -36,7 +35,6 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Layout />}>
-        <Route path="menu" element={<Menu />} />
         <Route path="usuarios" element={<Usuarios />} />
         <Route path="locais" element={<Locais />} />
         <Route path="contrato/:idLocal" element={<Contrato />} />

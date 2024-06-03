@@ -38,7 +38,7 @@ const Login = () => {
       if (response.status === 200) {
         const authToken = response.data.token;
         localStorage.setItem("token", authToken);
-        navigate('/menu');
+        navigate('/locais');
       }
     } catch (error) {
       if (error.response) {
