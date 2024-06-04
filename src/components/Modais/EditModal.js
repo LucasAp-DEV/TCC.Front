@@ -2,7 +2,8 @@ import React from 'react';
 import './EditModal.css';
 import LoadingTela from '../Loading/LoadingTela';
 
-const EditModal = ({ setShowEditModal, editedDescription, setEditedDescription, editedValue, setEditedValue, handleSaveChanges, saving }) => (
+const EditModal = ({ 
+    setShowEditModal, editedDescription, setEditedDescription, editedValue, setEditedValue, handleSaveChanges, saving, setEditEdendereco,editEndereco, editDisponibilidade, setEditDisponibilidade}) => (
     <div className="modal">
         <div className="modal-content">
             <span className="close" onClick={() => setShowEditModal(false)}>&times;</span>
@@ -25,6 +26,23 @@ const EditModal = ({ setShowEditModal, editedDescription, setEditedDescription, 
                 onChange={(e) => setEditedValue(Number(e.target.value))}
                 className="input"
             />
+            <label htmlFor="value">Endereço:</label>
+            <input
+                required
+                type="text"
+                id="endereco"
+                value={editEndereco}
+                onChange={(e) => setEditEdendereco(e.target.value)}
+                className="input"
+            />
+            <label htmlFor="disponibilidade" style={{justifyContent: 'center', display:'flex'}}>Disponibilidade:</label>
+                <input
+                    type="checkbox"
+                    id="disponibilidade"
+                    checked={editDisponibilidade}
+                    onChange={(e) => setEditDisponibilidade(e.target.checked)}
+                    className="input"
+                />
             <button onClick={handleSaveChanges} disabled={saving}>
                 {saving ? <LoadingTela /> : 'Salvar Alterações'}
             </button>

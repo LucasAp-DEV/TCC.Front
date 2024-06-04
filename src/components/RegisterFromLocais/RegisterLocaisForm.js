@@ -124,7 +124,7 @@ const RegisterLocaisForm = ({ endereco, onChangeEndereco, descricao, onChangeDes
                     {loading ? <Loading /> : 'Registrar'}
                 </button>
                 <div className="form-link">
-                    <a href="/menu">Voltar aos Locais</a>
+                    <a href="/usuarios">Voltar ao Perfil</a>
                 </div>
             </div>
         </form>

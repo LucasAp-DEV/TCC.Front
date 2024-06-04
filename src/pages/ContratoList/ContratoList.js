@@ -69,7 +69,7 @@ function ContratoList() {
                                 <p>VALOR: R$ {api.price},00</p>
                             </div>
                             <div className="api-item3">
-                                <p>LOCATARIO: {api.locatario}</p>
+                                <p>LOCADOR: {api.locatario}</p>
                                 <div className={`api-item3 ${statusColorClass}`}>
                                     <p style={{textAlign: 'center', padding: '2px'}}>STATUS: {api.status}</p>
                                 </div>

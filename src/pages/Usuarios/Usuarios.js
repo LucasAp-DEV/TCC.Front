@@ -103,8 +103,8 @@ const Usuarios = () => {
 
     const handleEditRole = async () => {
         const roleOptions = {
-            ADMIN: 'ADMIN',
-            USER: 'USER'
+            LOCADOR: 'LOCADOR',
+            LOCATARIO: 'LOCATARIO'
         };
 
         const { value: selectedRole } = await MySwal.fire({
@@ -138,7 +138,7 @@ const Usuarios = () => {
             } else {
                 MySwal.fire({
                     icon: 'error',
-                    title: 'Você precisa ser um locatario para acessar esta funcionalidade.',
+                    title: 'Você precisa ser um locador para acessar esta funcionalidade.',
                     text: ''
                 });
             }
@@ -159,7 +159,7 @@ const Usuarios = () => {
             } else {
                 MySwal.fire({
                     icon: 'error',
-                    title: 'Você precisa ser um locatario para acessar esta funcionalidade',
+                    title: 'Você precisa ser um locador para acessar esta funcionalidade',
                     text: ''
                 });
             }

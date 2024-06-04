@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import LoadingTela from '../../components/Loading/LoadingTela';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../../api';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -13,6 +13,7 @@ import EditModal from '../../components/Modais/EditModal';
 
 const UpdateLocais = () => {
     const { idLocal } = useParams();
+    const navigate = useNavigate();
 
     const [localData, setLocalData] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -21,9 +22,11 @@ const UpdateLocais = () => {
     const [showHighlightModal, setShowHighlightModal] = useState(false);
     const [showQRCodeModal, setShowQRCodeModal] = useState(false);
     const [editedDescription, setEditedDescription] = useState('');
+    const [editEndereco, setEditEdendereco] = useState('');
     const [editedValue, setEditedValue] = useState(0);
     const [sliderIndex, setSliderIndex] = useState(0);
     const [qrCodeData, setQRCodeData] = useState(null);
+    const [editDisponibilidade, setEditDisponibilidade] = useState(false);
 
     const settings = {
         dots: false,
@@ -45,6 +48,8 @@ const UpdateLocais = () => {
             setLocalData(data);
             setEditedDescription(data.descricao);
             setEditedValue(data.price);
+            setEditEdendereco(data.endereco);
+            setEditDisponibilidade(data.disponibilidade);
         } catch (error) {
             console.error(error);
             Swal.fire({
@@ -64,6 +69,8 @@ const UpdateLocais = () => {
             const newEditData = {
                 descricao: editedDescription,
                 price: editedValue,
+                endereco: editEndereco,
+                disponibilidade: editDisponibilidade 
             };
 
             await api.put(`/local/update/${idLocal}`, newEditData);
@@ -72,6 +79,7 @@ const UpdateLocais = () => {
                 ...prevData,
                 descricao: editedDescription,
                 price: editedValue,
+                disponibilidade: editDisponibilidade
             }));
 
             Swal.fire({
@@ -146,10 +154,13 @@ const UpdateLocais = () => {
                         <p className="info">Valor: R$ {localData?.price},00</p>
                         <p className="info">Cidade: {localData?.cidade}</p>
                         <p className="info">Endereço: {localData?.endereco}</p>
-                        <p className="info">Locatário: {localData?.locatarioName}</p>
+                        <p className="info">Locador: {localData?.locatarioName}</p>
                         <p className="info">Telefone: {localData?.locatarioTell}</p>
                     </div>
                     <div className="button-group">
+                    <button onClick={() => navigate('/updateLocaisList')} type="button">
+                            Voltar
+                        </button>
                         <button onClick={() => setShowEditModal(true)} type="button">
                             Editar
                         </button>
@@ -171,6 +182,10 @@ const UpdateLocais = () => {
                     editedDescription={editedDescription}
                     setEditedDescription={setEditedDescription}
                     editedValue={editedValue}
+                    editEndereco={editEndereco}
+                    editDisponibilidade={editDisponibilidade}
+                    setEditDisponibilidade={setEditDisponibilidade} 
+                    setEditEdendereco={setEditEdendereco}
                     setEditedValue={setEditedValue}
                     handleSaveChanges={handleSaveChanges}
                     saving={saving}

@@ -28,6 +28,7 @@ const UpdateLocaisList = () => {
             setApiData(data);
             setLoading(false);
             setLocalData(data);
+            console.log(data)
             if (!data.length) {
                 Swal.fire({
                     title: 'Você não possui locais.',
@@ -59,21 +60,35 @@ const UpdateLocaisList = () => {
                                 <p>Endereço: {api.endereco}</p>
                             </div>
                             <div className={"api-item3"}>
-                                <p 
-                                style={{
-                                    backgroundColor: api.status === 'PATROCINADO' ? 'yellow' : 'orange',
-                                    padding: '5px',
-                                    borderRadius: '10px',
-                                    fontWeight: 'bold',
-                                    color:'black',
-                                    width: '50%',
-                                    textAlign: 'center'
-                                }}
-                            >
-                                STATUS: {api.status}
-                            </p>
+                                <p
+                                    style={{
+                                        backgroundColor: api.status === 'PATROCINADO' ? 'yellow' : 'orange',
+                                        padding: '5px',
+                                        borderRadius: '10px',
+                                        fontWeight: 'bold',
+                                        color: 'black',
+                                        width: '50%',
+                                        textAlign: 'center'
+                                    }}
+                                >
+                                    PATROCINIO: {api.status}
+                                </p>
+                                <p
+                                    style={{
+                                        backgroundColor: api.disponibilidade ? '#03ee49' : 'red',
+                                        padding: '5px',
+                                        borderRadius: '10px',
+                                        fontWeight: 'bold',
+                                        color: 'black',
+                                        width: '50%',
+                                        textAlign: 'center'
+                                    }}
+                                >
+                                    DISPONIVEL: {api.disponibilidade ? 'SIM' : 'NÃO'}
+                                </p>
+
                             </div>
-                            <div style={{marginTop: '1.5%'}}>
+                            <div style={{ marginTop: '1.5%' }}>
                                 <Link to={{ pathname: `/updatelocais/${api.id}` }}>
                                     <button >
                                         Detalhes
