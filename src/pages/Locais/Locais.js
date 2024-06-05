@@ -53,7 +53,9 @@ const Locais = () => {
         try {
             const { data } = await api.get(`/local/filter?data=${dateFilter}`);
 
-            const sortedData = data.sort((a, b) => {
+            const filteredData = data.filter(item => item.disponibilidade === true);
+
+            const sortedData = filteredData.sort((a, b) => {
                 if (a.status === 'PATROCINADO' && b.status !== 'PATROCINADO') return -1;
                 if (a.status !== 'PATROCINADO' && b.status === 'PATROCINADO') return 1;
                 return 0;
