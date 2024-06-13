@@ -43,7 +43,6 @@ const Login = () => {
     } catch (error) {
       if (error.response) {
         errorText = "Credenciais invalidas";
-        localStorage.removeItem('token')
       } else if (error.request) {
         errorText = "Servidor não disponível.";
       } else {
@@ -55,6 +54,7 @@ const Login = () => {
         text: ''
       });
       console.error('Erro:', error);
+      localStorage.removeItem('token')
     } finally {
       setLoading(false);
     }
